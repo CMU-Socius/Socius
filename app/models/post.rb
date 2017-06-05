@@ -2,7 +2,6 @@ class Post < ActiveRecord::Base
 
 	# get module to help with some functionality
   include SociusWebHomelessHelpers::Validations
-  require 'base64'
 	
 	#Relationships
   has_many :user_posts
