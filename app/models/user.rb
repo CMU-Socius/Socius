@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 	# get modules to help with some functionality
-  include SociusWebHomeless::Validations
+  #include SociusWebHomelessHelpers::Validations
 
 	# use has_secure_password
   has_secure_password
