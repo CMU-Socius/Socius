@@ -16,6 +16,9 @@ class PostNeed < ActiveRecord::Base
 		set_time_completed_to_now
 	end
 
+
+	private
+	
 	def set_time_completed_to_now
 		self.time_completed = DateTime.current
 		self.save!
