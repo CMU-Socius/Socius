@@ -18,11 +18,13 @@ ActiveRecord::Schema.define(version: 20170605140431) do
 
   create_table "needs", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "active", default: true
+    t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +63,7 @@ ActiveRecord::Schema.define(version: 20170605140431) do
     t.string   "password_digest"
     t.string   "role"
     t.integer  "organization_id"
-    t.boolean  "active", default: true
+    t.boolean  "active"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

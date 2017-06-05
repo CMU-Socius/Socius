@@ -11,8 +11,8 @@ one:
   zip: MyString
   city: MyString
   state: MyString
-  date_posted: 2017-06-05
-  date_completed: 2017-06-05
+  date_posted: 3.months.ago.to_datetime
+  date_completed: 2.days.ago.to_datetime
 
 two:
   poster_id: 1
@@ -25,5 +25,5 @@ two:
   zip: MyString
   city: MyString
   state: MyString
-  date_posted: 2017-06-05
-  date_completed: 2017-06-05
+  date_posted: 3.months.ago.to_datetime
+  date_completed: 2.days.ago.to_datetime

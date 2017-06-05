@@ -4,7 +4,13 @@ class Need < ActiveRecord::Base
 
 	#Scopes
 	scope :alphabetical,  -> { order(:name) }
+	scope :for_need,    ->(need) { where(name: need) }
 
 	#Validations
 	validates_presence_of :name
+
+	#Methods
+	#automatically capitalize first letter of need
+
+
 end

@@ -10,12 +10,14 @@ class Organization < ActiveRecord::Base
 	scope :alphabetical,  -> { order(:name) }
 	scope :active,        -> { where(active: true) }
   scope :inactive,      -> { where(active: false) }
-	
-	private
+
 	def already_exists?
   	Organization.where(name: self.name).size == 1
   end
 
+	
+	private
+	
 	def organization_is_not_a_duplicate
 		return true if self.name.nil? 
 		if self.already_exists?

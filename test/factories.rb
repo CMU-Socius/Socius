@@ -1,14 +1,14 @@
 FactoryGirl.define do
   factory :post do
     association :poster
-    latitude: 40.444832
-    longitude: -79.947758
-    number_people: 1
-    street_1: "4615 Forbes Ave"
-    zip: "15213"
-    city: "Pittsburgh"
-    state: "PA"
-    date_posted: DateTime.current
+    latitude 40.444832
+    longitude -79.947758
+    number_people 1
+    street_1 "4615 Forbes Ave"
+    zip "15213"
+    city "Pittsburgh"
+    state "PA"
+    date_posted DateTime.current
   end
 
   factory :user_post do
