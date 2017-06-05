@@ -19,13 +19,12 @@ class Post < ActiveRecord::Base
 
 
 	# Validations
-  validates_date :date  # not essential, but permittable
 	validates_presence_of :street_1, :number_people
 	validates_numericality_of :number_people, only_integer: true, greater_than: 0
 	validates_format_of :zip, with: /\A\d{5}\z/, message: "should be five digits long"
 	validates_inclusion_of :state, in: STATES_LIST.map{|key, value| value}, message: "is not an option"
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
-  validates_date :date_posted, on_or_before: lambda { Date.current }
+  validates_datetime :date_posted, on_or_before: lambda { DateTime.current }
   validates_date :date_completed, on_or_after: :date_posted, allow_blank: true
 	validate :user_is_active_in_system
 
