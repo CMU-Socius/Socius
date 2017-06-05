@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :item do
+  factory :post do
     name "Vinyl Chess Board - Green & White"
     description "These Vinyl Chess Boards are just what their name implies - a good basic chess board which meets all tournament standards. Board measures 20x20 inches with 2.25 inch square and all boards have clear and legible algebraic notation."
     # picture nil
@@ -14,10 +14,6 @@ FactoryGirl.define do
   factory :user_post do
     association :user
     association :post
-    price 1.00
-    category "wholesale"
-    start_date Date.current
-    end_date nil
   end
   
   factory :user do
@@ -30,7 +26,7 @@ FactoryGirl.define do
     end
     password "secret"
     password_confirmation "secret"
-    role "customer"
+    role "worker"
     active true
   end
 

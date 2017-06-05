@@ -4,8 +4,7 @@ class Post < ActiveRecord::Base
   include SociusWebHomelessHelpers::Validations
 	
 	#Relationships
-  has_many :user_posts
-  has_many :posts, through :user_posts
+	belongs_to :user
   has_many :post_needs
   has_many :needs, through :post_needs
 
