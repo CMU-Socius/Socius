@@ -23,8 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.11'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -32,9 +32,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Other Gems Used
+gem 'time_date_helpers'
+gem 'validates_timeliness'
+gem 'cancancan', '1.15.0'
+gem 'simple_form'
+gem "nested_form"
+gem 'will_paginate'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '9.0.6'
 end
 
 group :development do
@@ -43,5 +51,34 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'quiet_assets'
+  gem 'hirb'
+  gem 'wirble'
+  # gem 'thin'
+  gem 'better_errors'
+  gem 'binding_of_caller', '0.7.2'
+  gem 'meta_request'
+  gem 'letter_opener'
 end
+
+group :test do
+  gem 'shoulda'
+  gem 'shoulda-matchers'
+  gem 'minitest'
+  gem 'minitest-rails'
+  gem 'minitest-reporters'
+  gem 'factory_girl_rails'
+  gem 'mocha'
+  gem 'cucumber-rails', require: false
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'email_spec'
+  gem 'nokogiri'
+  gem 'simplecov'
+  gem 'single_test'
+end
+
+
 
