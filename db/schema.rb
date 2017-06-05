@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605133606) do
+ActiveRecord::Schema.define(version: 20170605140431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 20170605133606) do
   create_table "post_needs", force: :cascade do |t|
     t.integer  "need_id"
     t.integer  "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "completed"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.datetime "time_completed"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20170605133606) do
     t.string   "zip"
     t.string   "city"
     t.string   "state"
-    t.date     "date_posted"
-    t.date     "date_completed"
+    t.datetime "date_posted"
+    t.datetime "date_completed"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
