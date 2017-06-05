@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 
 	# get module to help with some functionality
-  #include SociusWebHomelessHelpers::Validations
+  include SociusWebHomelessHelpers::Validations
 	
 	#Relationships
 	belongs_to :poster, class_name: :User, foreign_key: :poster_id
@@ -27,7 +27,12 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
   validates_date :date_completed, on_or_after: :date_posted, allow_blank: true
-	#validate :user_is_active_in_system
+	validate :user_is_active_in_system
+
+	#Methods
+
+	#Methods for analytics
+	#all posts in the same location
 
 
 	private
