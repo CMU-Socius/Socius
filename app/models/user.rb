@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   
 	#Relationships
 	belongs_to :organization
-  has_many :posts, foreign_key: "poster_id"
+  has_many :posts, foreign_key: :poster_id
 
 	#Scopes
 	scope :alphabetical,  -> { order(:last_name).order(:first_name) }
@@ -42,6 +42,12 @@ class User < ActiveRecord::Base
 	 def role?(authorized_role)
     return false if role.nil?
     role.downcase.to_sym == authorized_role
+  end
+
+  def claim_post(post_id)
+    to_claim = Post.find(post_id)
+    to_claim.claimer_id = self.id
+    to_claim.save!
   end
   
 

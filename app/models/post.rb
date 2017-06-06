@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   include SociusWebHomelessHelpers::Validations
 	
 	#Relationships
-	belongs_to :poster, class_name: :User, foreign_key: :user_id
+	belongs_to :poster, class_name: :User, foreign_key: :poster_id
   has_many :post_needs
   has_many :needs, through: :post_needs
 
@@ -26,18 +26,25 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.map{|key, value| value}, message: "is not an option"
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
-  validates_date :date_completed, on_or_after: :date_posted, allow_blank: true
-	validate :user_is_active_in_system
+  validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
+	validate :poster_is_active_in_system
 
 	#Methods
 
 	#Methods for analytics
 	#all posts in the same location
 
+	#claim
+
 
 	private
-	def user_is_active_in_system
-    is_active_in_system(:user)
+	def poster_is_active_in_system
+		return true if self.poster.nil?
+		all_active = User.active.to_a.map{|u| u.id}
+		unless all_active.include?(self.poster.id)
+        self.errors.add("Poster is not active in the system")
+      end
+		true
   end
 
 	 def set_datetime_posted_if_not_given

@@ -1,4 +1,4 @@
-require 'test_helper'
+require './test/test_helper'
 
 class PostNeedTest < ActiveSupport::TestCase
   # test "the truth" do
