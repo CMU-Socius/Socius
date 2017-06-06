@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
     to_claim.claimer_id = self.id
     to_claim.save!
   end
+
+  def unclaim_post
   
 
 # Callbacks

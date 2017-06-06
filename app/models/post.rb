@@ -15,6 +15,9 @@ class Post < ActiveRecord::Base
 	scope :chronological, -> { order(date: :desc) }
 	scope :active,        -> { where(active: true) }
 	scope :inactive,      -> { where(active: false) }
+	scope :incomplete,    -> { where(date_completed: nil)}
+	scope :completed,     -> { where.not(date_completed: nil)}
+	scope :for_claimer,   -> (claimer_id) { where(claimer_id: claimer_id) }
 
 
 	# Validations
@@ -30,6 +33,11 @@ class Post < ActiveRecord::Base
 	validate :poster_is_active_in_system
 
 	#Methods
+
+	def complete
+		self.date_completed = DateTime.current
+		self.save!
+	end
 
 	#Methods for analytics
 	#all posts in the same location
