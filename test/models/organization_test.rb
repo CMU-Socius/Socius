@@ -20,7 +20,7 @@ class OrganizationTest < ActiveSupport::TestCase
     teardown do
       destroy_organizations
     end
-  end
+  
 
   #Test scopes
   should "show that there are two organizations in alphabetical order" do
@@ -31,5 +31,7 @@ class OrganizationTest < ActiveSupport::TestCase
   should "show that there are two active organizations" do
       assert_equal ["Pittsburgh Homeless Shelter", "Pittsburgh Social Workers"], Organization.active.all.map(&:name).sort
     end
+
+  end
 
 end

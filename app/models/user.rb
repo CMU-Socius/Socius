@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
 	# get modules to help with some functionality
-  #include SociusWebHomelessHelpers::Validations
+  include SociusWebHomelessHelpers::Validations
 
 	# use has_secure_password
   has_secure_password
   
 	#Relationships
-	belongs_to :organizations
+	belongs_to :organization
   has_many :posts
 
 	#Scopes
