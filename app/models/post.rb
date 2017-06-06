@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   include SociusWebHomelessHelpers::Validations
 	
 	#Relationships
-	belongs_to :poster, class_name: :User, foreign_key: :poster_id
+	belongs_to :poster, class_name: :User, foreign_key: :user_id
   has_many :post_needs
   has_many :needs, through: :post_needs
 

@@ -7,12 +7,15 @@ class User < ActiveRecord::Base
   
 	#Relationships
 	belongs_to :organization
-  has_many :posts
+  has_many :posts, foreign_key: "poster_id"
 
 	#Scopes
 	scope :alphabetical,  -> { order(:last_name).order(:first_name) }
   scope :active,        -> { where(active: true) }
   scope :inactive,      -> { where(active: false) }
+	scope :workers,     -> { where(role: 'worker') }
+	scope :managers, -> {where(role: 'manager')}
+	scope :admin, -> {where(role: 'admin')}
 
 	#Validations
 	validates :username, presence: true, uniqueness: { case_sensitive: false}
@@ -35,6 +38,12 @@ class User < ActiveRecord::Base
   def proper_name
     "#{first_name} #{last_name}"
   end
+
+	 def role?(authorized_role)
+    return false if role.nil?
+    role.downcase.to_sym == authorized_role
+  end
+  
 
 # Callbacks
   before_destroy :is_never_destroyable

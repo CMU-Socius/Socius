@@ -6,7 +6,6 @@ require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/reporters'
 require './test/contexts'
-require './test/sets/organizations'
 require './test/minitest_extensions'
 
 class ActiveSupport::TestCase

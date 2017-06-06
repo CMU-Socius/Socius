@@ -1,7 +1,7 @@
 class PostNeed < ActiveRecord::Base
 	#Relationships
-	belongs_to :needs
-	belongs_to :posts
+	belongs_to :need
+	belongs_to :post
 
 	#Validations
 	validates_datetime :time_completed, :on_or_before => lambda { DateTime.current }, allow_blank: true
