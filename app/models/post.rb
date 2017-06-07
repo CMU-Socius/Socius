@@ -42,7 +42,23 @@ class Post < ActiveRecord::Base
 	#Methods for analytics
 	#all posts in the same location
 
-	#claim
+	def claimed_by(user)
+		if self.claimer_id.nil?
+			self.claimer_id = (user.id)
+			self.save!
+		else
+			false
+		end
+  end
+
+	def unclaim
+		if !self.claimer_id.nil?
+			self.claimer_id = nil
+			self.save!
+		else
+			false
+		end
+	end
 
 
 	private

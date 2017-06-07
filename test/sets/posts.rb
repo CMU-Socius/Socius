@@ -4,7 +4,7 @@ module Contexts
     def create_worker_posts
       @worker2_p1 = FactoryGirl.create(:post, poster: @worker2, number_people: 2, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave",date_posted: DateTime.current)
       @worker2_p2 = FactoryGirl.create(:post, poster: @worker2,  date_posted: 4.weeks.ago.to_datetime)
-      @worker3_p1 = FactoryGirl.create(:post, poster: @worker3, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave", date_posted: 2.days.ago.to_datetime)
+      @worker3_p1 = FactoryGirl.create(:post, poster: @worker3, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave", date_posted: 2.days.ago.to_datetime, claimer_id: User.all.first.id)
     end
 
     def create_management_posts

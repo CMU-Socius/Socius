@@ -60,12 +60,6 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "Ann Doe", @ann.proper_name
     end
 
-    should "have a claim_post method" do
-      @worker2.claim_post(@worker3_p1.id)
-      @worker3_p1.reload
-      assert_equal @worker2.id, @worker3_p1.claimer_id
-    end
-    
     should "require users to have unique, case-insensitive usernames" do
       assert_equal "adoe", @ann.username
       # try to switch to Alex's username 'tank'

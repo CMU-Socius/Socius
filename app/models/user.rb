@@ -44,14 +44,7 @@ class User < ActiveRecord::Base
     role.downcase.to_sym == authorized_role
   end
 
-  def claim_post(post_id)
-    to_claim = Post.find(post_id)
-    to_claim.claimer_id = self.id
-    to_claim.save!
-  end
 
-  def unclaim_post
-  
 
 # Callbacks
   before_destroy :is_never_destroyable
