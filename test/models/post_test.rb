@@ -28,10 +28,40 @@ class PostTest < ActiveSupport::TestCase
     end
 
     teardown do
-      destroy_worker_posts
-      destroy_worker_users
       destroy_organizations
+      destroy_worker_users
+      destroy_worker_posts
     end
+
+    #Scope tests
+
+    should "have a working scope called chronological" do
+      assert_equal [3,1,2], Post.chronological.all.map(&:number_people)
+    end
+
+    should "have a working scope called incomplete" do
+      @worker2_p1.complete
+      assert_equal [1,3], Post.incomplete.all.map(&:number_people).sort
+    end
+
+    should "have a working scope called completed " do
+      @worker2_p1.complete
+      @worker2_p2.complete
+      assert_equal [1,2], Post.completed.all.map(&:number_people).sort
+    end
+
+    should "have a working scope called for_claimer" do
+      @worker2_p1.claimed_by(User.all.sort.first)
+      assert_equal [2,3], Post.for_claimer(User.all.sort.first).all.map(&:number_people).sort
+    end
+
+    should "verify that the date is set for today unless otherwise specified" do
+      assert_equal @worker3_p1.date_posted, 2.days.ago.to_datetime.in_time_zone # a specified date is unchanged
+      @worker3_p2 = FactoryGirl.create(:post, poster: @worker3, number_people: 3, date_posted: nil)
+      assert_equal @worker3_p2.date_posted, DateTime.current  # an order without any date is set to today by default
+   
+    end
+
 
     should "have claimed_by method" do
       #Test if not claimed

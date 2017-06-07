@@ -6,6 +6,6 @@ class ChangeDateFormatInPosts < ActiveRecord::Migration
 
   def down
     change_column :posts, :date_completed, :date
-    change_column :posts, :date_posted, :datetime
+    change_column :posts, :date_posted, :date
   end
 end

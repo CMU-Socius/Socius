@@ -46,10 +46,10 @@ class UserTest < ActiveSupport::TestCase
     end
     
     teardown do
-      destroy_worker_posts
-      destroy_worker_users
-      destroy_management_users
       destroy_organizations
+      destroy_management_users
+      destroy_worker_users
+      destroy_worker_posts
     end
     
     should "have a name method for last, first name listing" do

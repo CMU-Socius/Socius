@@ -12,12 +12,10 @@ class Post < ActiveRecord::Base
   STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
 
 	#Scope
-	scope :chronological, -> { order(date: :desc) }
-	scope :active,        -> { where(active: true) }
-	scope :inactive,      -> { where(active: false) }
+	scope :chronological, -> { order(date_posted: :desc) }
 	scope :incomplete,    -> { where(date_completed: nil)}
 	scope :completed,     -> { where.not(date_completed: nil)}
-	scope :for_claimer,   -> (claimer_id) { where(claimer_id: claimer_id) }
+	scope :for_claimer,   -> (claimer) { where(claimer_id: claimer.id) }
 
 
 	# Validations
@@ -32,8 +30,10 @@ class Post < ActiveRecord::Base
   validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
 	validate :poster_is_active_in_system
 
-	#Methods
+	#Callbacks
+	before_create :set_datetime_posted_if_not_given
 
+	#Methods
 	def complete
 		self.date_completed = DateTime.current
 		self.save!
@@ -72,7 +72,7 @@ class Post < ActiveRecord::Base
   end
 
 	 def set_datetime_posted_if_not_given
-    unless self.date_posted && self.date_posted.is_a?(DateTime)
+    unless self.date_posted && self.date_posted.is_a?(Date)
       self.date_posted = DateTime.current
     end
   end
