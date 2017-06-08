@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-06-07T13:05:55-04:00">2017-06-07T13:05:55-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-06-08T15:20:37-04:00">2017-06-08T15:20:37-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.26%</span></span>
+    (<span class="covered_percent"><span class="yellow">86.23%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         14.44
+         13.35
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>9</b> files in total.
-    <b>131</b> relevant lines. 
-    <span class="green"><b>113</b> lines covered</span> and
-    <span class="red"><b>18</b> lines missed </span>
+    <b>138</b> relevant lines. 
+    <span class="green"><b>119</b> lines covered</span> and
+    <span class="red"><b>19</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -73,11 +73,11 @@
       <tr>
         <td class="strong"><a href="#1f1a27b2a9e29bda5a58642c3be8adfa94a302d6" class="src_link" title="app/models/need.rb">app/models/need.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>16</td>
-        <td>5</td>
-        <td>5</td>
+        <td>26</td>
+        <td>12</td>
+        <td>12</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>1.8</td>
       </tr>
       
       <tr>
@@ -92,12 +92,12 @@
       
       <tr>
         <td class="strong"><a href="#529176b45cada65fdc45ec75b3250c99ede9be40" class="src_link" title="app/models/post.rb">app/models/post.rb</a></td>
-        <td class="green strong">95.45 %</td>
-        <td>85</td>
+        <td class="green strong">93.18 %</td>
+        <td>86</td>
         <td>44</td>
-        <td>42</td>
-        <td>2</td>
-        <td>22.7</td>
+        <td>41</td>
+        <td>3</td>
+        <td>21.2</td>
       </tr>
       
       <tr>
@@ -196,20 +196,20 @@
           <div class="file_list_container" id="Models">
   <h2>
     <span class="group_name">Models</span>
-    (<span class="covered_percent"><span class="green">95.41%</span></span>
+    (<span class="covered_percent"><span class="green">94.83%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         17.27
+         15.8
        </span>
     </span> hits/line)
   </h2>
   <a name="Models"></a>
   <div>
     <b>5</b> files in total.
-    <b>109</b> relevant lines. 
-    <span class="green"><b>104</b> lines covered</span> and
-    <span class="red"><b>5</b> lines missed </span>
+    <b>116</b> relevant lines. 
+    <span class="green"><b>110</b> lines covered</span> and
+    <span class="red"><b>6</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -228,11 +228,11 @@
       <tr>
         <td class="strong"><a href="#1f1a27b2a9e29bda5a58642c3be8adfa94a302d6" class="src_link" title="app/models/need.rb">app/models/need.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>16</td>
-        <td>5</td>
-        <td>5</td>
+        <td>26</td>
+        <td>12</td>
+        <td>12</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>1.8</td>
       </tr>
       
       <tr>
@@ -247,12 +247,12 @@
       
       <tr>
         <td class="strong"><a href="#529176b45cada65fdc45ec75b3250c99ede9be40" class="src_link" title="app/models/post.rb">app/models/post.rb</a></td>
-        <td class="green strong">95.45 %</td>
-        <td>85</td>
+        <td class="green strong">93.18 %</td>
+        <td>86</td>
         <td>44</td>
-        <td>42</td>
-        <td>2</td>
-        <td>22.7</td>
+        <td>41</td>
+        <td>3</td>
+        <td>21.2</td>
       </tr>
       
       <tr>
@@ -551,8 +551,8 @@
     <h3>app/models/need.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>5</b> relevant lines. 
-      <span class="green"><b>5</b> lines covered</span> and
+      <b>12</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -566,91 +566,151 @@
           <code class="ruby">class Need &lt; ActiveRecord::Base</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="2">
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">	include SociusWebHomelessHelpers::Validations</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
           
           
           <code class="ruby">	#Relationships</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="3">
+        <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
           <code class="ruby">	has_many :post_needs</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="never" data-hits="" data-linenumber="5">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="never" data-hits="" data-linenumber="6">
           
           
           <code class="ruby">	#Scopes</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="6">
+        <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
           <code class="ruby">	scope :alphabetical,  -&gt; { order(:name) }</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="7">
+        <li class="covered" data-hits="1" data-linenumber="8">
           <span class="hits">1</span>
           
           <code class="ruby">	scope :for_need,    -&gt;(need) { where(name: need) }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="8">
+        <li class="never" data-hits="" data-linenumber="9">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby">	#Validations</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="10">
+        <li class="covered" data-hits="1" data-linenumber="11">
           <span class="hits">1</span>
           
-          <code class="ruby">	validates_presence_of :name</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="11">
-          
-          
-          <code class="ruby"></code>
+          <code class="ruby">	validates :name, presence: true, uniqueness: { case_sensitive: false}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
           
           
-          <code class="ruby">	#Methods</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="13">
           
           
-          <code class="ruby">	#automatically capitalize first letter of need</code>
+          <code class="ruby">	#Callbacks</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="14">
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">	before_destroy :is_never_destroyable</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">	before_save :reformat_name</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">	</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
+          
+          <code class="ruby">	private</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">	def reformat_name</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="20">
+          <span class="hits">6</span>
+          
+          <code class="ruby">		name = self.name.to_s  #in case not string input</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="21">
+          <span class="hits">6</span>
+          
+          <code class="ruby">		self.name = name.capitalize    # reset self.name to new string</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">  	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
           
           
           <code class="ruby">end</code>
@@ -849,11 +909,11 @@
         <div class="source_table" id="529176b45cada65fdc45ec75b3250c99ede9be40">
   <div class="header">
     <h3>app/models/post.rb</h3>
-    <h4><span class="green">95.45 %</span> covered</h4>
+    <h4><span class="green">93.18 %</span> covered</h4>
     <div>
       <b>44</b> relevant lines. 
-      <span class="green"><b>42</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <span class="green"><b>41</b> lines covered</span> and
+      <span class="red"><b>3</b> lines missed.</span>
     </div>
   </div>
   
@@ -1304,34 +1364,34 @@
           <code class="ruby">	 def set_datetime_posted_if_not_given</code>
         </li>
       
-        <li class="covered" data-hits="66" data-linenumber="75">
-          <span class="hits">66</span>
+        <li class="never" data-hits="" data-linenumber="75">
           
-          <code class="ruby">    unless self.date_posted &amp;&amp; self.date_posted.is_a?(DateTime)</code>
+          
+          <code class="ruby">		 #TO DO: make this account for non date inputs as well</code>
         </li>
       
         <li class="covered" data-hits="66" data-linenumber="76">
           <span class="hits">66</span>
           
-          <code class="ruby">      self.date_posted = DateTime.current</code>
+          <code class="ruby">    unless !self.date_posted.nil?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
+        <li class="missed" data-hits="0" data-linenumber="77">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">      self.date_posted = DateTime.current</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="78">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="79">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="80">
@@ -1361,10 +1421,16 @@
         <li class="never" data-hits="" data-linenumber="84">
           
           
-          <code class="ruby">end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="85">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="86">
           
           
           <code class="ruby"></code>

@@ -3,8 +3,8 @@ module Contexts
     # Context for posts (assumes posters, organizations contexts)
     def create_worker_posts
       @worker2_p1 = FactoryGirl.create(:post, poster: @worker2, number_people: 2, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave")
-      @worker2_p2 = FactoryGirl.create(:post, poster: @worker2,  date_posted: 4.weeks.ago.to_datetime.in_time_zone)
-      @worker3_p1 = FactoryGirl.create(:post, poster: @worker3, number_people: 3, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave", date_posted: 2.days.ago.to_datetime.in_time_zone, claimer_id: User.all.sort.first.id)
+      @worker2_p2 = FactoryGirl.create(:post, poster: @worker2,  date_posted: 4.weeks.ago.to_datetime)
+      @worker3_p1 = FactoryGirl.create(:post, poster: @worker3, number_people: 3, latitude: 40.440078, longitude: -80.000761, street_1: "304 Forbes Ave", date_posted: 2.days.ago.to_datetime, claimer_id: User.all.sort.first.id)
     end
 
     def create_management_posts

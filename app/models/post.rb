@@ -72,7 +72,8 @@ class Post < ActiveRecord::Base
   end
 
 	 def set_datetime_posted_if_not_given
-    unless self.date_posted && self.date_posted.is_a?(Date)
+		 #TO DO: make this account for non date inputs as well
+    unless !self.date_posted.nil?
       self.date_posted = DateTime.current
     end
   end
