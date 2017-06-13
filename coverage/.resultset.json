@@ -1,11 +1,139 @@
 {
   "MiniTest": {
     "coverage": {
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/helpers/application_helper.rb": [
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/models/organization.rb": [
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/needs_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/organizations_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/post_needs_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/posts_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/models/need.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        6,
+        6,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/lib/socius_web_homeless_helpers.rb": [
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/lib/helpers/validations.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/models/post_need.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/models/organization.rb": [
         1,
         null,
         1,
@@ -35,7 +163,7 @@
         null,
         null
       ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/models/user.rb": [
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/models/user.rb": [
         1,
         null,
         1,
@@ -97,113 +225,7 @@
         null,
         null
       ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/lib/socius_web_homeless_helpers.rb": [
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null
-      ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/lib/helpers/validations.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        0,
-        null,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/models/need.rb": [
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        6,
-        6,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/models/post_need.rb": [
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/models/post.rb": [
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/models/post.rb": [
         1,
         null,
         null,
@@ -291,14 +313,40 @@
         null,
         null
       ],
-      "/Users/minniewu1128/Documents/Summer2017/SociusWebHomeless/app/controllers/application_controller.rb": [
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/application_controller.rb": [
         0,
         0,
         0,
         0,
         0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/needs_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/organization_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/post_need_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/posts_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/app/controllers/users_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/lib/tasks/helpers/organizations.rb": [
+
+      ],
+      "/Users/minniewu1128/Documents/Summer2017/socius_web_homeless/lib/tasks/populator.rb": [
+
       ]
     },
-    "timestamp": 1496949637
+    "timestamp": 1497311133
   }
 }

@@ -1,2 +1,0 @@
-class NeedController < ApplicationController
-end

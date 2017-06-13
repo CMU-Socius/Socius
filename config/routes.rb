@@ -53,4 +53,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  # Routes for main resources
+  resources :organizations
+  resources :users
+  resources :needs
+  resources :posts
 end
