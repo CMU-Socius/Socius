@@ -59,4 +59,7 @@ Rails.application.routes.draw do
   resources :users
   resources :needs
   resources :posts
+
+  #Set the root url
+  root :to => 'home#home'
 end

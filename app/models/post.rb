@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
   has_many :post_needs
   has_many :needs, through: :post_needs
 
+
+
 	# get an array of the states in U.S.
   STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
 
@@ -32,6 +34,9 @@ class Post < ActiveRecord::Base
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given
+	#Gecoding
+	geocoded_by :full_street_address
+	after_validation :geocode
 
 	#Methods
 	def complete
@@ -61,6 +66,9 @@ class Post < ActiveRecord::Base
 	end
 
 
+
+
+
 	private
 	def poster_is_active_in_system
 		return true if self.poster.nil?
@@ -77,6 +85,14 @@ class Post < ActiveRecord::Base
       self.date_posted = DateTime.current
     end
   end
+
+	def full_street_address
+		if self.street_2.nil?
+			"#{self.street_1}, #{self.city}, #{self.state} #{self.zip}"
+		else
+			"#{self.street_1}, #{self.street_2}, #{self.city}, #{self.state} #{self.zip}"
+		end
+	end
 
 
 
