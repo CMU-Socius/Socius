@@ -9,9 +9,28 @@
   </head>
 
   <body>
-    <div>
-      <%= yield %>
-    </div>
+    <header>
+      
+      <div id="title_area">
+        <%= render :partial => "partials/nav" %>
+     
+      </div>
+    </header>
+
+    <main>
+          
+          <div>
+            <%= yield %>
+          </div>
+    
+    </main>
+
+    <footer>
+      <div>
+        <%= render partial: 'partials/footer' %>
+      </div>
+    </footer>
+
     
   </body>
 
