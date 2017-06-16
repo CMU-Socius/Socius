@@ -1,0 +1,2 @@
+class PostNeedsController < ApplicationController
+end
