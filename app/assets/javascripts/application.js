@@ -18,3 +18,12 @@
 //= require underscore
 //= require gmaps/google
 //= require_tree .
+
+
+$(document).ready(function(){
+    $("#menu-toggle").click(function (e){
+        e.preventDefault();
+        $('#wrapper').toggleClass("menuDisplayed");
+    });
+});
+
