@@ -3,7 +3,12 @@ class PostsController < ApplicationController
 
 
 def index
-	@posts = Post.all.chronological.to_a
+	@posts = Post.all.chronological
+	@hash = Gmaps4rails.build_markers(@posts) do |post, marker|
+		marker.lat post.latitude
+		marker.lng post.longitude
+	end
+
 end
 
 def show
