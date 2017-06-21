@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
 
 def index
-	@posts = Post.all.chronological
+	@posts = Post.all.chronological.to_a
 end
 
 def show

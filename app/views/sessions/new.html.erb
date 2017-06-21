@@ -1,0 +1,46 @@
+
+
+ <div class = "row">
+  <div class="col-lg-8">
+
+ 
+
+  <h2 class = "teal-text text-darken-2">Log In</h2>
+  <div class="row">
+    <%= form_tag sessions_path do %>
+      <div class="control-group">
+        <%= label_tag :email %>
+        <div class="controls">
+          <%= text_field_tag :email, params[:email] %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= label_tag :password %>
+        <div class="controls">
+          <%= password_field_tag :password %>
+        </div>
+      </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+        </button>
+        
+      
+      
+    <% end %>
+  </div>
+</div>
+
+
+
+  <div class = "col s4">
+  <blockquote class = 'card-panel side'>
+    <h5 class = 'brown-text text-darken-2'> Don't have an account? Sign up now! </h5>
+    <br/>
+    <br/>
+  <%= link_to 'Sign Up', new_user_path, class: "btn waves-light waves-effect" %>
+  </blockquote>
+  </div>
+</div>
+
