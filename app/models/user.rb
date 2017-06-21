@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
 	scope :alphabetical,  -> { order(:last_name).order(:first_name) }
   scope :active,        -> { where(active: true) }
   scope :inactive,      -> { where(active: false) }
-	scope :workers,     -> { where(role: 'worker') }
-	scope :managers, -> {where(role: 'manager')}
-	scope :admin, -> {where(role: 'admin')}
+	scope :workers,       -> { where(role: 'worker') }
+	scope :managers,      -> {where(role: 'manager')}
+	scope :admin,         -> {where(role: 'admin')}
 
 	#Validations
 	validates :username, presence: true, uniqueness: { case_sensitive: false}
