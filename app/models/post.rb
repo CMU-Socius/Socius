@@ -66,6 +66,14 @@ class Post < ActiveRecord::Base
 	end
 
 
+	def full_street_address
+		if self.street_2.nil?
+			"#{self.street_1}, #{self.city}, #{self.state} #{self.zip}"
+		else
+			"#{self.street_1}, #{self.street_2}, #{self.city}, #{self.state} #{self.zip}"
+		end
+	end
+
 
 
 
@@ -86,13 +94,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-	def full_street_address
-		if self.street_2.nil?
-			"#{self.street_1}, #{self.city}, #{self.state} #{self.zip}"
-		else
-			"#{self.street_1}, #{self.street_2}, #{self.city}, #{self.state} #{self.zip}"
-		end
-	end
+
 
 
 
