@@ -1,20 +1,26 @@
 <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <%= link_to image_tag('logo-final.png'), home_path, class: 'Socius-logo'%>
-        <ul class="sidebar-nav">
+        
+        <ul id="sidebar-menu" class="sidebar-nav">
+           <li class="sidebar-brand">
+                <a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span>
+                </a>
+            </li>
+        </ul>
+
+        <ul id="sidebar" class="sidebar-nav">
+             <%= link_to image_tag('logo-final.png'), home_path, class: 'Socius-logo'%>
         
 				<% if logged_in? %>
-					<li><%=link_to "Welcome, #{current_user.first_name}", user_path(current_user)%> </li>
+					<li>
+                    <%=link_to "Welcome, #{current_user.first_name}", user_path(current_user)%>
+                    </li>
 					<li><%=link_to "Log Out", logout_path %> </li>
 				<%else%>
 					<li><%= link_to "Log In", login_path %> </li>
 				 	<li><%=link_to "Sign up", new_user_path%> </li>
 
 				<%end%>
-
-        
-          <li>This will be a link</li>
-          <li>This will be a link</li>
         </ul>
         
     </div>

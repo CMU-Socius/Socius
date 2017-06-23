@@ -1,6 +1,47 @@
 <div class='col-lg-12'>
-    Address: <%=object.full_street_address %>
-    Needs: <%= object.post_needs.to_a %>
-    <li><%=link_to "Home", home_path %> </li>
-    <%=object.poster.proper_name%>
+    <table class="table">
+        <thead>
+            <th>Request posted by <%= object.poster.proper_name %> </th>
+       
+        </thead>
+
+        <tr>
+            <th>Status:</th>
+            <td> 
+                <% if object.claimer_id.nil? %>
+                    Open
+                <% else %>
+                    Claimed
+                <%end%>
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>Address:</b></td>
+            <td><%=object.street_1 %>
+                </br>
+                <%if !object.street_2.nil?%>
+                    <%=object.street_2%>
+                    </br>
+                <%end%>
+                <%=object.city%>, <%=object.state%> <%=object.zip%>
+            </td>
+        </tr>
+
+        <tr>
+            <th> Number of People: </th>
+            <td> <%= object.number_people %> </td>
+        </tr>
+
+        <tr>
+            <td><b>Needs:</b></td>
+            <% needs = object.post_needs.map{|p| p.need.name} %>
+            <td>
+                <% needs.each do |n| %>
+                    <li><%= n %></li>
+                <%end %>
+            </td>
+  
+    </table>
+
 </div>

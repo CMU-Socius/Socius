@@ -5,35 +5,58 @@
 
 //Sidebar Styling
 #sidebar-wrapper{
-    z-index: 1;
-    position: absolute;
-    width: 0; //default not displaying
+    z-index: 10000;
+    position: fixed;
+    // width: 0; //default not displaying
     height: 100%;
     overflow-y: hidden;
-    background: #2C3E50;
-    opacity: 0.9;
+    background: #FFFFFF;
+    margin-left: -150px;
+    left: 50px;
+    width: 200px;
+    transition: all .4s ease 0s;
+}
 
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 //Main content (on the right)
 #page-content-wrapper{
+    padding-left: 0;
+    margin-left: 0;
     width: 100%;
-    position: absolute;
-    padding: 15px;
+    height: auto;
+    // padding: 15px;
 }
 
-
-//Change the width of the sidebar to display it
-#wrapper.menuDisplayed #sidebar-wrapper{
-    width: 250px;
+#wrapper.active #sidebar-wrapper {
+    left: 150px
 }
 
-#wrapper.menuDisplayed #page-content-wrapper{
-    padding-left: 250px;
+#sidebar-menu li a, .sidebar-nav li a {
+    color: #000;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 200px;
+    background: #FFFFFF;
+    border-top: 1px solid #373737;
+    border-bottom: 1px solid #1A1A1A;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
 }
 
 //Sidebar Styling
 .sidebar-nav{
+    display: block;
+    float: left;
+    width: 200px;
+    margin: 0;
     padding: 0;
     list-style: none;
 }
@@ -50,9 +73,79 @@
 .sidebar-nav li a{
     display: block;
     text-decoration: none;
-    color: #ddd;
+    color: #000;
 }
 
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
 .sidebar-nav li a:hover{
-    background: #16A0AA
+    background: #f9c050
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    line-height: 60px;
+    font-size: 18px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #000;
+    font-size: 25px;
+}
+
+.sidebar-nav > .sidebar-brand a > .glyphicon{
+    padding-left: 50px;
+}
+
+#main-icon{
+    float: right;
+    padding-right: 100px;
+    padding-left: 60px;
+    padding-top: 20px;
+}
+
+.sub-icon {
+    float: right;
+    padding-right: 65px;
+    padding-top: 10px;
+
+}
+
+.content-header {
+    height: 65px;
+    line-height: 65px;
+}
+
+.content-header h1 {
+    margin: 0;
+    margin-left: 20px;
+    line-height: 65px;
+    display: inline-block;
+}
+
+@media (max-width: 767px) {
+    #wrapper {
+        padding-left: 70px;
+        transition: all .4s ease 0s;
+    }
+
+    #sidebar-wrapper {
+        left: 70px;
+    }
+
+    #wrapper.active {
+        padding-left: 150px;
+    }
+
+    #wrapper.active #sidebar-wrapper {
+        left: 150px;
+        width: 200px;
+        transition: all .4s ease 0s;
+    }
+}
+.btn-submit {
+    background-color: #77b26e
+    
 }
