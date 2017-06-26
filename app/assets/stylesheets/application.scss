@@ -7,11 +7,10 @@
 #sidebar-wrapper{
     z-index: 10000;
     position: fixed;
-    // width: 0; //default not displaying
     height: 100%;
     overflow-y: hidden;
     background: #FFFFFF;
-    margin-left: -150px;
+    margin-left: -190px;
     left: 50px;
     width: 200px;
     transition: all .4s ease 0s;
@@ -24,15 +23,15 @@
 
 //Main content (on the right)
 #page-content-wrapper{
-    padding-left: 0;
-    margin-left: 0;
+    padding-left: 50px;
+    margin-left: 50px;
     width: 100%;
     height: auto;
     // padding: 15px;
 }
 
 #wrapper.active #sidebar-wrapper {
-    left: 150px
+    left: 190px
 }
 
 #sidebar-menu li a, .sidebar-nav li a {
