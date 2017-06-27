@@ -12,6 +12,7 @@ class Post < ActiveRecord::Base
 
 	#Virtual Attributes
 	attr_accessor :need_name
+	
 
 
 
