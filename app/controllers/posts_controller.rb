@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 	before_action :set_post, only: [:show, :edit, :update, :destroy]
+	before_action :check_login
+	authorize_resource
 
 
 def index
@@ -18,6 +20,10 @@ end
 
 def new
 	@post = Post.new
+
+	@all_needs = Need.all
+
+	@post_need = @post.post_needs.build
 end
 
 def edit
@@ -25,6 +31,14 @@ end
 
 def create
 	@post = Post.new(post_params)
+
+	params[:needs][:id].each do |need|
+		if !need.empty?
+			@post.post_needs.build(:need_id => need)
+	
+		end
+	end
+
 	if @post.save!
 		redirect_to home_path, notice: "Added post!"
 	else
@@ -39,6 +53,13 @@ def destroy
 end
 
 
+private
+	def set_post
+		@post = Post.find(params[:id])
+	end
 
+	def post_params
+		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :claimer_id, :date_posted, :date_completed )
+	end
 
 end

@@ -4,9 +4,14 @@ class Post < ActiveRecord::Base
   include SociusWebHomelessHelpers::Validations
 	
 	#Relationships
+
+	
 	belongs_to :poster, class_name: :User, foreign_key: :poster_id
   has_many :post_needs
   has_many :needs, through: :post_needs
+
+	#Virtual Attributes
+	attr_accessor :need_name
 
 
 

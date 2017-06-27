@@ -1,0 +1,54 @@
+<div class="col-lg-8">
+
+    <% if logged_in? && !current_user.nil?%>
+
+    <h1> Add a New Request </h1>
+    <%= simple_form_for @post, html: {class:'form-horizontal', multipart: true} do |f| %>
+        <div class="row">
+
+
+            <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
+
+            <%= f.input :street_1, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+        
+            <%= f.input :street_2, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :city, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.label :state, class: 'form-group' %>
+            <%= f.select :state, options_for_select(Post::STATES_LIST), {}, class: "form-control form-group" %>
+            
+            <%= f.input :zip, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control"}, wrapper_html: {class: "form-group"} %>
+
+      
+
+        </div>
+
+    
+    
+    
+    <div id="select-need">
+    
+        <%= fields_for(@post_need) do |pn| %>
+            <div class="field">
+                <%= pn.label "Needs"%> <br />
+                <%= collection_select(:needs, :id, @all_needs, :id, :name, {}, {:multiple => true }) %>
+            </div>
+
+        <% end %>
+    </div>
+
+    <div id="add-need">
+    </div>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+
+
+    <% end %>
+
+    <% end %>
+</div>

@@ -5,6 +5,11 @@ class Ability
 
     if user.role? :admin
       can :manage, :all
+
+    elsif user.role? :worker
+      can :index, Post
+      can :create, Post
+      can :update, Post
     else
       can :read, :all
     end
