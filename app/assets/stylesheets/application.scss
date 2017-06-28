@@ -4,6 +4,14 @@
 
 
 //Sidebar Styling
+
+
+
+.Socius-logo img{
+    width: 100%;
+    height: auto;
+}
+
 #sidebar-wrapper{
     z-index: 10000;
     position: fixed;
@@ -105,10 +113,12 @@
     padding-top: 20px;
 }
 
-.sub-icon {
-    float: right;
-    padding-right: 65px;
-    padding-top: 10px;
+.sub-icon{
+    height: 20px !important;
+    width: 20px !important;
+    margin-right: 10px;
+    vertical-align: text-bottom;
+
 
 }
 
@@ -145,6 +155,12 @@
     }
 }
 .btn-submit {
-    background-color: #77b26e
+    background-color: #77b26e;
+    border: 0px;
+    margin-bottom: 5px;
     
+}
+
+.form-heading {
+    text-align: center;
 }

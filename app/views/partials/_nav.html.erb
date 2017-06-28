@@ -1,5 +1,6 @@
 <!-- Sidebar -->
     <div id="sidebar-wrapper">
+                   <%= link_to image_tag('logo-horizontal.png'), home_path, class: 'Socius-logo'%>
         
         <ul id="sidebar-menu" class="sidebar-nav">
            <li class="sidebar-brand">
@@ -9,14 +10,33 @@
         </ul>
 
         <ul id="sidebar" class="sidebar-nav">
-             <%= link_to image_tag('logo-final.png'), home_path, class: 'Socius-logo'%>
+  
         
 				<% if logged_in? %>
 					<li>
-                    <%=link_to "Welcome, #{current_user.first_name}", user_path(current_user)%>
+                      <%=link_to "Welcome, #{current_user.first_name}", user_path(current_user)%>
                     </li>
-					<li><%=link_to "Log Out", logout_path %> </li>
-				<%else%>
+
+                    <li>
+                        <%= link_to(posts_path) do %>
+                            <%=image_tag('nav-sub-icons/all-requests.png', class: "sub-icon")%> Show all Requests
+                        <% end %>
+                    </li>
+
+                    <li>
+                        <%= link_to(new_post_path) do %>
+                            <%= image_tag('nav-sub-icons/new-request.png', class: 'sub-icon')%> Add a New Request
+                        <% end %>
+
+                    </li>
+
+					<li>
+                        <%=link_to(logout_path)  do%>
+                            <%= image_tag('nav-sub-icons/logout.png', class: 'sub-icon')%> Log Out
+                        <% end %>
+                    </li>
+				
+                <%else%>
 					<li><%= link_to "Log In", login_path %> </li>
 				 	<li><%=link_to "Sign up", new_user_path%> </li>
 

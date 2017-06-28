@@ -2,7 +2,7 @@
 
     <% if logged_in? && !current_user.nil?%>
 
-    <h1> Add a New Request </h1>
+    <h1 class="form-heading"> Add a New Request </h1>
     <%= simple_form_for @post, html: {class:'form-horizontal', multipart: true} do |f| %>
         <div class="row">
 
@@ -25,30 +25,38 @@
       
 
         </div>
-
     
     
     
-    <div id="select-need">
+    <div class= "row input form-group" id="select-need">
     
         <%= fields_for(@post_need) do |pn| %>
             <div class="field">
-                <%= pn.label "Needs"%> <br />
+                <%= pn.label "Select Needs"%> <br />
                 <%= collection_select(:needs, :id, @all_needs, :id, :name, {}, {:multiple => true }) %>
             </div>
 
         <% end %>
+    
     </div>
 
-    <div id="add-need">
-    </div>
+    <div id="create-need">
+        <%= link_to "Add a New Need", new_need_path, :class => "btn btn-info btn-submit" %>
+           
+    <div>
+
+  
+
+
 
     <div class="actions">
-        <%= f.submit %>
+        <input type="submit" class="btn btn-info btn-submit" value="Submit Request">
+   
     </div>
 
 
     <% end %>
+
 
     <% end %>
 </div>

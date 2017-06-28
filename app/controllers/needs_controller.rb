@@ -1,24 +1,25 @@
 class NeedsController < ApplicationController
 
     before_action :check_login, except: [:new, :create]
-    load_and_authorize_resource
+    #load_and_authorize_resource
 
     def index
         @needs = Need.all.to_a
     end
 
     def create
-        @need = Need.new
-    end
-
-    def new
-        @need = Need.new
-        if @need.save!
-		    redirect_to posts_path, notice: "Successfully added new user: #{@user.username}."
+        @need = Need.new(need_params)
+         if @need.save!
+		    redirect_to posts_path, notice: "Successfully added new need: #{@need.name}."
 	    
         else
 		    render action: 'new'
 	    end
+    end
+
+    def new
+        @need = Need.new
+       
     end
 
     def edit

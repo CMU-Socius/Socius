@@ -1,0 +1,26 @@
+<div class="col-lg-8">
+
+    <% if logged_in? && !current_user.nil?%>
+
+    <h1 class="form-heading"> Add a New Need </h1>
+    
+    <%= simple_form_for @need, html: {class:'form-horizontal', multipart: true} do |f| %>
+        <div class="row">
+
+            <%= f.input :name, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+        
+        </div>
+    
+    
+
+    <div class="actions">
+        <input type="submit" class="btn btn-info btn-submit" value="Add Need">
+   
+    </div>
+
+
+    <% end %>
+
+
+    <% end %>
+</div>
