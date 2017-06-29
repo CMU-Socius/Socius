@@ -2,61 +2,95 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+    padding-top: 51px;
+}
+
+.text-center {
+    padding-top: 20px;
+}
+
+.col-xs-12 {
+    background-color: #fff;
+}
+
 
 //Sidebar Styling
 
+#sidebar {
+    height: 100%;
+    padding-right: 0;
+    padding-top: 20px;
 
+}
+
+#sidebar .nav {
+    width: 95%;
+}
+
+#sidebar li {
+    border: 0 #f2f2f2 solid;
+    border-bottom-width: 1px;
+}
+
+/*collapsed sidebar styles */
+
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas {
+        right: -41.6%
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -41.6%
+    }
+
+    .row-offcanvas-right.active {
+        right: 41.6%
+    }
+
+    .row-offcanvas-left.active {
+        left: 41.6%
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 41.6%
+    }
+
+ 
+}
+
+.Socius-logo {
+    align-content: center;
+}
 
 .Socius-logo img{
-    width: 100%;
-    height: auto;
-}
-
-#sidebar-wrapper{
-    z-index: 10000;
-    position: fixed;
-    height: 100%;
-    overflow-y: hidden;
-    background: #FFFFFF;
-    margin-left: -190px;
-    left: 50px;
-    width: 200px;
-    transition: all .4s ease 0s;
-}
-
-.row{
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-//Main content (on the right)
-#page-content-wrapper{
-    padding-left: 50px;
-    margin-left: 50px;
-    width: 100%;
-    height: auto;
-    // padding: 15px;
-}
-
-#wrapper.active #sidebar-wrapper {
-    left: 190px
-}
-
-#sidebar-menu li a, .sidebar-nav li a {
-    color: #000;
-    display: block;
     float: left;
-    text-decoration: none;
-    width: 200px;
-    background: #FFFFFF;
-    border-top: 1px solid #373737;
-    border-bottom: 1px solid #1A1A1A;
-    -webkit-transition: background .5s;
-    -moz-transition: background .5s;
-    -o-transition: background .5s;
-    -ms-transition: background .5s;
-    transition: background .5s;
+    width: 90%;
+    height: 100%;
+    top: 0;
+
 }
+
+.navbar-brand{
+    align-content: center;
+    height: 100px;
+}
+
+.body-content {
+    padding-top: 50px !important;
+}
+
 
 //Sidebar Styling
 .sidebar-nav{
@@ -68,9 +102,7 @@
     list-style: none;
 }
 
-.Socius-logo{
-    max-height: 100px;
-}
+
 
 .sidebar-nav li{
     text-indent: 20px;
@@ -134,26 +166,6 @@
     display: inline-block;
 }
 
-@media (max-width: 767px) {
-    #wrapper {
-        padding-left: 70px;
-        transition: all .4s ease 0s;
-    }
-
-    #sidebar-wrapper {
-        left: 70px;
-    }
-
-    #wrapper.active {
-        padding-left: 150px;
-    }
-
-    #wrapper.active #sidebar-wrapper {
-        left: 150px;
-        width: 200px;
-        transition: all .4s ease 0s;
-    }
-}
 .btn-submit {
     background-color: #77b26e;
     border: 0px;

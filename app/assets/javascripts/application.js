@@ -21,10 +21,21 @@
 
 
 $(document).ready(function(){
+   
     $("#menu-toggle").click(function (e){
-        e.preventDefault();
-        $('#wrapper').toggleClass("active");
 
+        $('#wrapper').toggleClass("active");
+    
     });
+
+
+});
+
+$(document).ready(function() {
+  $('[data-toggle=offcanvas]').click(function() {
+      console.log('toggle')
+    $('.row').toggleClass('active');
+
+  });
 });
 

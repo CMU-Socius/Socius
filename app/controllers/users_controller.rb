@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	
 before_action :check_login, except: [:new, :create]
-load_and_authorize_resource
+authorize_resource
 
 def index
 	@active_users = User.active.alphabetical.to_a

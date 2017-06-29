@@ -20,24 +20,18 @@
   </head>
 
   <body>
-    <div id="wrapper" class="active">
-
-    <%= render :partial => "partials/nav" %>
-
-      <!-- Page Content -->
-      <div id="page-content-wrapper">
-
-          <div class="page-content inset">
-            <div class="row">
-              <div class="col-md-12">
-
-                <%= yield %>
-              </div>
-            </div>
-          </div>
-    
+    <div class="page-container">
+      <%= render :partial => "partials/nav" %>
+      <!-- main area-->
+      <div class="col-xs-12 col-sm-9 body-content">
+        <%= yield %>
         
       </div>
+    </div> 
+     
+    
+    </div>
+
     </div>
 
  
