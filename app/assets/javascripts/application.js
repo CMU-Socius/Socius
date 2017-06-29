@@ -13,29 +13,37 @@
 //= require jquery
 //= require jquery_ujs
 
-//= require turbolinks
+
 //= require bootstrap-sprockets
 //= require underscore
 //= require gmaps/google
 //= require_tree .
 
 
-$(document).ready(function(){
-   
-    $("#menu-toggle").click(function (e){
-
-        $('#wrapper').toggleClass("active");
-    
-    });
-
-
-});
-
-$(document).ready(function() {
+$(document).on('ready page:load', function() {
+    var toggled = false;
+    console.log('toggled = ', toggled)
   $('[data-toggle=offcanvas]').click(function() {
-      console.log('toggle')
-    $('.row').toggleClass('active');
+    if(toggled==true){
+        console.log('open')
+        $('.row').toggleClass('active');
+        toggled = false;
+    }
 
+    else {
+        console.log('close')
+        toggled = true
+        $('.row').toggleClass('active');
+    }
+ 
+   
   });
+
+  $('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
 });
+
 

@@ -2,6 +2,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.navbar-header {
+    height: 100%;
+}
+
+
 body {
     padding-top: 51px;
 }
@@ -14,18 +19,21 @@ body {
     background-color: #fff;
 }
 
-
+.row {
+        margin-top: 25px !important;
+    }
 //Sidebar Styling
 
 #sidebar {
     height: 100%;
     padding-right: 0;
-    padding-top: 20px;
+    padding-top: 50px;
+
 
 }
 
 #sidebar .nav {
-    width: 95%;
+    width: 100%;
 }
 
 #sidebar li {
@@ -33,37 +41,45 @@ body {
     border-bottom-width: 1px;
 }
 
+#sidebar li a:hover{
+    background: #f9c050
+}
+
+
 /*collapsed sidebar styles */
 
 @media screen and (max-width: 767px) {
+
     .row-offcanvas {
-        position: relative;
+        position: absolute;
         -webkit-transition: all 0.25s ease-out;
         -moz-transition: all 0.25s ease-out;
         transition: all 0.25s ease-out;
     }
 
+
     .row-offcanvas-right
     .sidebar-offcanvas {
-        right: -41.6%
+        right: -41.6%;
     }
 
     .row-offcanvas-left
     .sidebar-offcanvas {
-        left: -41.6%
+        left: -41.6%;
     }
+
 
     .row-offcanvas-right.active {
         right: 41.6%
     }
 
     .row-offcanvas-left.active {
-        left: 41.6%
+        left: 41.6%;
+        width: 100%;
     }
 
     .sidebar-offcanvas {
         position: absolute;
-        top: 0;
         width: 41.6%
     }
 
@@ -72,10 +88,10 @@ body {
 
 .Socius-logo {
     align-content: center;
+    height: 100%;
 }
 
 .Socius-logo img{
-    float: left;
     width: 90%;
     height: 100%;
     top: 0;
@@ -84,18 +100,20 @@ body {
 
 .navbar-brand{
     align-content: center;
-    height: 100px;
+    height: 100%;
+    padding-top: 0;
+    width: 90%;
 }
 
-.body-content {
-    padding-top: 50px !important;
+.navbar {
+    height: inherit;
 }
+
 
 
 //Sidebar Styling
 .sidebar-nav{
     display: block;
-    float: left;
     width: 200px;
     margin: 0;
     padding: 0;
@@ -115,28 +133,6 @@ body {
     color: #000;
 }
 
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-.sidebar-nav li a:hover{
-    background: #f9c050
-}
-
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    line-height: 60px;
-    font-size: 18px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    color: #000;
-    font-size: 25px;
-}
-
-.sidebar-nav > .sidebar-brand a > .glyphicon{
-    padding-left: 50px;
-}
 
 #main-icon{
     float: right;

@@ -1,4 +1,3 @@
-
       <!-- top navbar -->
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class = "container">
@@ -19,22 +18,44 @@
               <!-- sidebar -->
               <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">     
                 <ul class="nav">
+
+
                   <% if logged_in? %>
 					          <li>
                       <%=link_to "Welcome, #{current_user.first_name}", user_path(current_user)%>
                     </li>
+                  
+                  <% end %>
 
+                  <li>
+                    <%= link_to(home_path) do %>
+                      <%= image_tag('nav-sub-icons/home.png', class: "sub-icon")%> Home
+                    <% end %>
+                  </li>
+
+                  <% if logged_in? %>
+                  
                     <li>
                       <%= link_to(posts_path) do %>
                         <%=image_tag('nav-sub-icons/all-requests.png', class: "sub-icon")%> Show all Requests
                       <% end %>
                     </li>
+                  
+                  <% end %>
 
                     <li>
                       <%= link_to(new_post_path) do %>
                         <%= image_tag('nav-sub-icons/new-request.png', class: 'sub-icon')%> Add a New Request
                       <% end %>
                     </li>
+
+                    <li>
+                      <%= link_to(about_path) do %>
+                        <%= image_tag('nav-sub-icons/about.png', class: 'sub-icon')%> About    
+                      <% end %>
+                    </li>
+                  
+                <% if logged_in? %>
 
                     <li>
                       <%=link_to(logout_path)  do%>
