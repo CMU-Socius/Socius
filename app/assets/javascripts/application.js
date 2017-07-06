@@ -16,8 +16,13 @@
 
 //= require bootstrap-sprockets
 //= require underscore
+
 //= require gmaps/google
+
+
 //= require_tree .
+
+
 
 
 $(document).on('ready page:load', function() {
@@ -39,10 +44,7 @@ $(document).on('ready page:load', function() {
    
   });
 
-  $('#myTabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+
 
 });
 

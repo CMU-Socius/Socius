@@ -2,34 +2,27 @@
 <h1> Posts </h1>
 
 
+<div id="map2" style='width: 800px; height: 400px;'></div>
 
-
-<div id="map" style='width: 800px; height: 400px;'></div>
-
+<% content_for :scripts do %>
 <script type="text/javascript">
     handler = Gmaps.build('Google');
-    handler.buildMap({ 
-        provider: {
-
-        }, 
-        internal: {
-            id: 'map'}
-        },
-        
-        function(){
-            markers = handler.addMarkers([
+    handler.buildMap({ provider: {}, internal: {id: 'map2'}}, function(){
+        markers = handler.addMarkers([
             {
                 "lat": 0,
                 "lng": 0,
                 "picture": {
-                    "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-                    "width":  32,
-                    "height": 32
+                    "url": "https://addons.cdn.mozilla.net/img/uploads/addon_icons/13/13028-64.png",
+                    "width":  36,
+                    "height": 36
                 },
                 "infowindow": "hello!"
             }
         ]);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
     });
 </script>
+
+<% end %>
