@@ -11,23 +11,22 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
-//= require jquery.cookie
-//= require jquery.ui.all
 //= require jquery_ujs
 
 
 //= require bootstrap-sprockets
 //= require underscore
 
-
-
+//= require maps
 
 //= require_tree .
 
-
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
 
 $(document).on('ready page:load', function() {
+    console.log('toggle')
     var toggled = false;
     console.log('toggled = ', toggled)
   $('[data-toggle=offcanvas]').click(function() {
