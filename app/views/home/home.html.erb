@@ -9,28 +9,6 @@
 <h1> Posts </h1>
 
 
-
-<%= image_tag google_map(center: [ 40.440624, -79.995888].join(',')) %>
-
 <div id="map"></div>
-
-
-
-
-<script>
-    function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        console.log('running')
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru
-        });
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
-    }
-</script>
-
 
 
