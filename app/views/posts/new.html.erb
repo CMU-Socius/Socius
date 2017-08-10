@@ -11,21 +11,21 @@
 
 <script type="text/javascript">
     handler = Gmaps.build('Google', { builders: { Marker: RichMarkerBuilder} });
-        handler.buildMap({ 
-        provider: {
+    handler.buildMap({
+            provider: {
 
-        }, 
-        internal: {
-            id: 'map'}
+            },
+            internal: {
+                id: 'map'}
         },
-        
+
         function(){
             markers = handler.addMarkers([
-            {"lat": 0, "lng": 0, "marker": "<span>Here!</span>"}
-        ]);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
+                {"lat": 0, "lng": 0, "marker": "<span>Here!</span>"}
+            ]);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+        });
 
 </script>
 
