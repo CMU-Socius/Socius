@@ -6,12 +6,12 @@ class PostsController < ApplicationController
 
 def index
 	@posts = Post.all.chronological
-	@hash = Gmaps4rails.build_markers(@posts) do |post, marker|
-		marker.lat post.latitude
-		marker.lng post.longitude
-		marker.json({:id => post.id})
-		marker.infowindow render_to_string(:partial => 'partials/post_box', :locals => {:object => post})
-	end
+	# @hash = Gmaps4rails.build_markers(@posts) do |post, marker|
+	# 	marker.lat post.latitude
+	# 	marker.lng post.longitude
+	# 	marker.json({:id => post.id})
+	# 	marker.infowindow render_to_string(:partial => 'partials/post_box', :locals => {:object => post})
+	# end
 
 end
 

@@ -17,7 +17,6 @@
 //= require bootstrap-sprockets
 //= require underscore
 
-//= require maps
 
 //= require_tree .
 

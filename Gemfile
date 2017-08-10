@@ -40,7 +40,7 @@ gem 'autoprefixer-rails'
 
 #Google Map  Gems
 gem 'geocoder'
-gem 'gmaps4rails'
+
 
 #Other Gems Used
 gem 'time_date_helpers'
