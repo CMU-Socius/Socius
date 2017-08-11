@@ -18,6 +18,8 @@
 //= require underscore
 
 
+//= require maaps
+
 //= require_tree .
 
 $( document ).ready(function() {
