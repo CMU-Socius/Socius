@@ -18,7 +18,7 @@
 //= require underscore
 
 
-//= require maaps
+//= require maps
 
 //= require_tree .
 
