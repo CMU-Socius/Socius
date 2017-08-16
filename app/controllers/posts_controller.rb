@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
 
 def index
+	@users = User.all.alphabetical
 	@posts = Post.all.chronological
 	# @hash = Gmaps4rails.build_markers(@posts) do |post, marker|
 	# 	marker.lat post.latitude
