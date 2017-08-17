@@ -1,4 +1,11 @@
 // Called by google maps API when main script finishes loading
+var map;
+var marker;
+var markers = [];
+
+
+
+
 
 function initNewPostMap() {
     var pitt = {lat: 40.4415031, lng: -80.0096409};
@@ -29,47 +36,43 @@ function initNewPostMap() {
 
 }
 
-function loadJSON(callback) {
+// function loadJSON(callback) {
+//
+//     var url = "http://localhost:3000/posts.json";
+//
+//     var dataRequest = new XMLHttpRequest();
+//
+//
+//
+//     dataRequest.onreadystatechange = function() {
+//         if (dataRequest.readyState == 4 && dataRequest.status == "200") {
+//             callback(dataRequest.responseText);
+//         }
+//     };
+//
+//     dataRequest.open('GET', url, true);
+//
+//     dataRequest.send();
+// }
 
-    var url = "https://localhost:3000/posts.json";
-
-    var dataRequest = new XMLHttpRequest();
-
-    dataRequest.open('GET', url, true);
-
-    dataRequest.onreadystatechange = function() {
-        if (dataRequest.readyState == 4 & dataRequest.status == "200") {
-            callback(dataRequest.responseText);
-        }
-    };
-
-    dataRequest.send(null);
-};
 
 function initIndexPostsMap() {
 
     //how to get this json file when it's no longer localhost
-    var url = "https://localhost:3000/posts.json";
 
-
-    console.log(url)
-
-    loadJSON(function(response){
-        var actual_JSON = JSON.parse(response)
-        console.log("inner aj", actual_JSON)
-    });
-
-
+    // loadJSON(function(response){
+    //     var actual_JSON = JSON.parse(response)
+    //     console.log("inner aj", actual_JSON)
+    //     return actual_JSON
+    // });
 
 
     var pitt = {lat: 40.4415031, lng: -80.0096409};
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: pitt
     });
-
-    var markers = [];
 
     // $(postData.posts).each(function (i){
     //     var location = {lat: postData.posts[i].latitude, lng: postData.posts[i].longitude}
@@ -79,6 +82,29 @@ function initIndexPostsMap() {
 
 
 }
+
+
+$(function loadJSON(){
+    $.ajax({
+        type: 'GET',
+        url: "/posts.json",
+        success: updateMarkers
+    });
+});
+
+function updateMarkers(posts) {
+
+        var location;
+        $.each(posts, function(i, post){
+            $.each(post, function(j, indPost){
+                location = {lat: indPost.latitude, lng: indPost.longitude}
+                console.log(location)
+                addMarker(location)
+            });
+        });
+}
+
+
 
 // Add a marker to the map and push to the array
 function addMarker(location) {
