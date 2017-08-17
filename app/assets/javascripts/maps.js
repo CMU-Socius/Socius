@@ -36,52 +36,17 @@ function initNewPostMap() {
 
 }
 
-// function loadJSON(callback) {
-//
-//     var url = "http://localhost:3000/posts.json";
-//
-//     var dataRequest = new XMLHttpRequest();
-//
-//
-//
-//     dataRequest.onreadystatechange = function() {
-//         if (dataRequest.readyState == 4 && dataRequest.status == "200") {
-//             callback(dataRequest.responseText);
-//         }
-//     };
-//
-//     dataRequest.open('GET', url, true);
-//
-//     dataRequest.send();
-// }
-
 
 function initIndexPostsMap() {
-
-    //how to get this json file when it's no longer localhost
-
-    // loadJSON(function(response){
-    //     var actual_JSON = JSON.parse(response)
-    //     console.log("inner aj", actual_JSON)
-    //     return actual_JSON
-    // });
-
 
     var pitt = {lat: 40.4415031, lng: -80.0096409};
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 13,
         center: pitt
     });
-
-    // $(postData.posts).each(function (i){
-    //     var location = {lat: postData.posts[i].latitude, lng: postData.posts[i].longitude}
-    //     addMarker(location)
-    // })
-
-
-
 }
+
 
 
 $(function loadJSON(){
@@ -99,20 +64,83 @@ function updateMarkers(posts) {
             $.each(post, function(j, indPost){
                 location = {lat: indPost.latitude, lng: indPost.longitude}
                 console.log(location)
-                addMarker(location)
+                addMarker(indPost)
             });
         });
 }
 
-
-
 // Add a marker to the map and push to the array
-function addMarker(location) {
+function addMarker(post) {
+
+    var contentString = '<div class="col-lg-12">' +
+        '<table class="table">' +
+        '<thead>' +
+        '<th>Request posted by ' + post.poster + '</th>' +
+        '</thead>' +
+
+        '<tr>' +
+        '<th>Status:</th>' +
+    '<td>' + 'Open' +
+    // <% if object.claimer_id.nil? %>
+    // Open
+    // <% else %>
+    // Claimed
+    // <%end%>
+    '</td>' +
+    '</tr>' +
+
+    '<tr>' +
+    '<td><b>Address:</b></td>' +
+    '<td>'+ post.street_1 +
+        '</br>'
+//         <%if !object.street_2.nil?%>
+// <%=object.street_2%>
+        + post.street_2 +
+    '</br>' +
+    // <%end%>
+     post.city + ', ' + post.state + ' ' + post.zip +
+    // <%=object.state%> <%=object.zip%>
+        '</td>'
+        '</tr>' +
+
+//         <tr>
+//         <th> Number of People: </th>
+//     <td> <%= object.number_people %> </td>
+//         </tr>
+//
+//         <tr>
+//         <td><b>Needs:</b></td>
+//     <% needs = object.post_needs.map{|p| p.need.name} %>
+// <td>
+//     <% needs.each do |n| %>
+//     <li><%= n %></li>
+//         <%end %>
+//         </td>
+
+        '</table>' +
+
+        '</div>'
+
+
+
+    var location;
+    location = {lat: post.latitude, lng: post.longitude}
+
     var marker = new google.maps.Marker({
         position: location,
         map: map
     });
+
+    marker.addListener('click', function() {
+        infowindow.open(map,marker);
+    })
     markers.push(marker);
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+
 }
 
 //Sets the map on all markers in the array.

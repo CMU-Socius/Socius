@@ -10,6 +10,7 @@ json.posts @posts do |post|
   json.date_posted post.date_posted
   json.date_completed post.date_completed
   json.number_people post.number_people
+  json.poster post.poster.proper_name
 
   json.post_needs post.post_needs do |post_need|
     json.need post_need.need.name
