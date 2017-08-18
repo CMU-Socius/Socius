@@ -72,55 +72,46 @@ function updateMarkers(posts) {
 // Add a marker to the map and push to the array
 function addMarker(post) {
 
-    var contentString = '<div class="col-lg-12">' +
-        '<table class="table">' +
-        '<thead>' +
-        '<th>Request posted by ' + post.poster + '</th>' +
-        '</thead>' +
+    var needs = ''
 
-        '<tr>' +
-        '<th>Status:</th>' +
-    '<td>' + 'Open' +
-    // <% if object.claimer_id.nil? %>
-    // Open
-    // <% else %>
-    // Claimed
-    // <%end%>
-    '</td>' +
-    '</tr>' +
+    $.each(post.post_needs, function(i, post_need){
+        needs += '<li>' + post_need.need + '</li>'
+    })
 
-    '<tr>' +
-    '<td><b>Address:</b></td>' +
-    '<td>'+ post.street_1 +
-        '</br>'
-//         <%if !object.street_2.nil?%>
-// <%=object.street_2%>
-        + post.street_2 +
-    '</br>' +
-    // <%end%>
-     post.city + ', ' + post.state + ' ' + post.zip +
-    // <%=object.state%> <%=object.zip%>
-        '</td>'
-        '</tr>' +
 
-//         <tr>
-//         <th> Number of People: </th>
-//     <td> <%= object.number_people %> </td>
-//         </tr>
-//
-//         <tr>
-//         <td><b>Needs:</b></td>
-//     <% needs = object.post_needs.map{|p| p.need.name} %>
-// <td>
-//     <% needs.each do |n| %>
-//     <li><%= n %></li>
-//         <%end %>
-//         </td>
 
-        '</table>' +
+
+    var contentString =
+        '<div class="col-lg-12">' +
+            '<table class="table">' +
+                '<thead>' +
+                    '<th>Request posted by ' + post.poster + '</th>' +
+        '       </thead>' +
+
+                '<tr>' +
+                    '<th>Status:</th>' +
+                    '<td>' + `${post.claimer_id == null ? 'Open' : 'Claimed'}` + '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td><b>Address:</b></td>' +
+                    '<td>'+ post.street_1 + '</br>'+ post.street_2 + '</br>' + post.city + ', ' + post.state + ' ' + post.zip +
+                    '</td>' +
+                '</tr>' +
+                '<tr>' +
+                    '<th> Number of People: </th>' +
+                        '<td>' + post.number_people + '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td><b>Needs:</b></td>' +
+
+                    '<td>' + needs + '</td>' +
+                '</tr>' +
+
+            '</table>' +
 
         '</div>'
-
 
 
     var location;
