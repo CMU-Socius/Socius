@@ -9,14 +9,15 @@
 
             <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
 
-            <%= f.input :street_1, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+            <%= f.input :street_1, input_html: {class: "form-control", id: "street-1"}, wrapper_html: {class: 'form-group'} %>
         
-            <%= f.input :street_2, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+            <%= f.input :street_2, input_html: {class: "form-control", id: "street-2"}, wrapper_html: {class: 'form-group'} %>
 
-            <%= f.input :city, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+            <%= f.input :city, input_html: {class: "form-control", id: "city" }, wrapper_html: {class: 'form-group'} %>
 
-            <%= f.label :state, class: 'form-group' %>
-            <%= f.select :state, options_for_select(Post::STATES_LIST), {}, class: "form-control form-group" %>
+            <%= f.input :state, input_html: {class: "form-control", id: "state" }, wrapper_html: {class: 'form-group'} %>
+
+
             
             <%= f.input :zip, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
 
