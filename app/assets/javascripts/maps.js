@@ -47,8 +47,6 @@ function initNewPostMap() {
     map.setCenter(marker.position);
     marker.setMap(map);
     geocodeLatLng(geocoder, map, latLngInput)
-    console.log(address)
-    fillAddressField()
 
 
 
@@ -57,35 +55,72 @@ function initNewPostMap() {
 
 //Reverse geocode
 function geocodeLatLng(geocoder, map, latLngInput){
+    console.log('in geocodelatlng', latLngInput)
     var input = latLngInput
     geocoder.geocode({'location': input}, function(results, status){
         if (status === 'OK') {
             if(results[0]) {
-                address = results[0].formatted_address
-                addArray = address.split(',')
+                address = results[0]
+                console.log(address)
+                // addArray = address.split(',')
             }
+            fillAddressField(address)
         }
     })
-}
-
-function fillAddressField() {
-    console.log('filling address field', addArray.length, address)
-    if(addArray.length == 4) {
-        var street_1 = addArray[0];
-        var street_2 = addArray[1];
-        var city = addArray[2]
-        var state = addArray[3].split(' ')
-        console.log("state", state)
-    }
 
 }
 
+function fillAddressField(address) {
+    var street_1 = ""
+    var street_2 = ""
+    var city = ""
+    var state = ""
+    var zip = ""
 
-$(document).ready(function(){
-    console.log('ready!');
-    $('#street_1').val()
+    console.log('filling address field', address)
+    $.each(address.address_components, function(i, field) {
+        console.log('field', field)
+        $.each(field.types, function(j, type) {
 
-});
+            if(type == "street_number"){
+                street_1 = field.long_name
+            }
+            else if(type == "route"){
+                street_1 += " " + field.long_name
+
+            }
+            else if (type=="administrative_area_level_2"){
+                street_2 = field.long_name
+            }
+
+            else if (type == "administrative_area_level_1"){
+                state = field.short_name
+            }
+
+            else if (type == "locality") {
+                city = field.long_name
+            }
+
+            else if (type == "postal_code") {
+                zip = field.long_name
+            }
+        })
+    })
+    console.log(street_1, street_2, state, city, zip)
+
+    setAddressInputFields(street_1, street_2, state, city, zip)
+
+
+}
+
+
+function setAddressInputFields(s1, s2, state, city, zip){
+    $('#street-1').val(s1);
+    $('#street-2').val(s2);
+    $('#state').val(state);
+    $('#city').val(city);
+    $('#zip').val(zip);
+}
 
 // Initialize Google Map for looking at existing requests
 function initIndexPostsMap() {
