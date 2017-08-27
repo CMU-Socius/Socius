@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.7'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
+
+gem 'firebase'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
 # Use Uglifier as compressor for JavaScript assets
@@ -25,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 #Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
+
+
+
 
 
 #CSS Styling Gems

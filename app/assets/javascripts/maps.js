@@ -24,6 +24,11 @@ function initNewPostMap() {
         draggable: true
     });
 
+    marker.addListener('click', function() {
+        $('#new-post-form').show()
+    })
+
+
     latLngInput = marker.getPosition();
     console.log('initial latlng', latLngInput)
 
@@ -32,13 +37,11 @@ function initNewPostMap() {
 
 
     google.maps.event.addListener(marker, 'dragend', function(evt){
-        document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
         lat = evt.latLng.lat()
         latLngInput = {lat: lat, lng: lng}
     });
 
     google.maps.event.addListener(marker, 'dragstart', function(evt){
-        document.getElementById('current'),innerHTML = '<p>Currently dragging marker...</p>';
         lng = evt.latLng.lng()
         latLngInput = {lat: lat, lng: lng}
         geocodeLatLng(geocoder,map, latLngInput)

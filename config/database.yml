@@ -1,3 +1,7 @@
+
+
+
+
 # PostgreSQL. Versions 8.2 and up are supported.
 #
 # Install the pg driver:
@@ -14,6 +18,11 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
+
+
+
+
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -24,6 +33,8 @@ default: &default
 development:
   <<: *default
   database: SociusWebHomeless_development
+
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

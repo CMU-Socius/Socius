@@ -6,6 +6,10 @@ class HomeController < ApplicationController
 	end
 
   def about
+    puts 'ABOUT'
+
+    response = @@firebase.get("Staff")
+    puts response.body
   end
 
   def contact
