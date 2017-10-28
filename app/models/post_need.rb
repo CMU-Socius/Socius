@@ -13,7 +13,7 @@ class PostNeed < ActiveRecord::Base
 
 	#Methods
 	def completed
-		unless !self.time_completed.nil?
+		if self.time_completed.nil?
 			set_time_completed_to_now
 		end
 	end
