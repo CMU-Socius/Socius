@@ -1,174 +1,28 @@
-// Custom bootstrap variables must be set or imported *before* bootstrap.
-@import "bootstrap-sprockets";
-@import "bootstrap";
-
-.navbar-header {
-    height: 100%;
-}
-
-
-body {
-    padding-top: 51px;
-}
-
-.text-center {
-    padding-top: 20px;
-}
-
-.col-xs-12 {
-    background-color: #fff;
-}
-
-.row {
-        margin-top: 25px !important;
-    }
-//Sidebar Styling
-
-#sidebar {
-    height: 100%;
-    padding-right: 0;
-    padding-top: 50px;
-
-
-}
-
-#sidebar .nav {
+.nav {
+    display: block;
     width: 100%;
-}
 
-#sidebar li {
-    border: 0 #f2f2f2 solid;
-    border-bottom-width: 1px;
-}
-
-#sidebar li a:hover{
-    background: #f9c050
-}
-
-
-/*collapsed sidebar styles */
-
-@media screen and (max-width: 767px) {
-
-    .row-offcanvas {
-        position: absolute;
-        -webkit-transition: all 0.25s ease-out;
-        -moz-transition: all 0.25s ease-out;
-        transition: all 0.25s ease-out;
+    img {
+        width: 150px;
+        display: inline;
+        margin: 1em 0;
+        margin-left: 1em;
     }
 
+    ul {
 
-    .row-offcanvas-right
-    .sidebar-offcanvas {
-        right: -41.6%;
+        list-style: none;
+        display: inline-block;
+        float: right;
+        
+        li {
+            float: right;
+            display: inline-block;
+            margin: 0 3vw;
+        }
     }
-
-    .row-offcanvas-left
-    .sidebar-offcanvas {
-        left: -41.6%;
-    }
-
-
-    .row-offcanvas-right.active {
-        right: 41.6%
-    }
-
-    .row-offcanvas-left.active {
-        left: 41.6%;
-        width: 100%;
-    }
-
-    .sidebar-offcanvas {
-        position: absolute;
-        width: 41.6%
-    }
-
- 
 }
 
-.Socius-logo {
-    align-content: center;
-    height: 100%;
-}
-
-.Socius-logo img{
-    width: 90%;
-    height: 100%;
-    top: 0;
-
-}
-
-.navbar-brand{
-    align-content: center;
-    height: 100%;
-    padding-top: 0;
-    width: 90%;
-}
-
-.navbar {
-    height: inherit;
-}
-
-
-
-//Sidebar Styling
-.sidebar-nav{
-    display: block;
-    width: 200px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-
-
-.sidebar-nav li{
-    text-indent: 20px;
-    line-height: 40px;
-}
-
-.sidebar-nav li a{
-    display: block;
-    text-decoration: none;
-    color: #000;
-}
-
-
-#main-icon{
-    float: right;
-    padding-right: 100px;
-    padding-left: 60px;
-    padding-top: 20px;
-}
-
-.sub-icon{
-    height: 20px !important;
-    width: 20px !important;
-    margin-right: 10px;
-    vertical-align: text-bottom;
-
-
-}
-
-.content-header {
-    height: 65px;
-    line-height: 65px;
-}
-
-.content-header h1 {
-    margin: 0;
-    margin-left: 20px;
-    line-height: 65px;
-    display: inline-block;
-}
-
-.btn-submit {
-    background-color: #77b26e;
-    border: 0px;
-    margin-bottom: 5px;
-    
-}
-
-.form-heading {
-    text-align: center;
+main {
+    padding: 3%;
 }
