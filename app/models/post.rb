@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
 	scope :chronological, -> { order(date_posted: :desc) }
 	scope :incomplete,    -> { where(date_completed: nil)}
 	scope :completed,     -> { where.not(date_completed: nil)}
-	scope :for_claimer,   -> (claimer) { where(claimer_id: claimer.id) }
+	scope :claimed_by,   -> (claimer) { where(claimer_id: claimer.id) }
 
 
 	# Validations
