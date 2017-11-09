@@ -1,0 +1,24 @@
+
+<h1><%= @user.proper_name %></h1>
+<p>Job Title: <%= @user.job_title%></p>
+
+<p>Email: <%= @user.email %></p>
+<p>Phone: <%= @user.phone %></p>
+<p>Username: <%= @user.username %></p>
+
+<% if @alliance %>
+
+	<h1>My Alliance</h1>
+	<ul>
+		<% @alliance.each do |org| %>
+			<li><%= link_to org.name, org %></li>
+		<% end %>
+	</ul>
+
+<% elsif @organization %>
+	<h1>My Organization</h1>
+	<%= link_to @organization.name, organization_path(@organization) %>
+<% end %>
+
+<hr/>
+<%= link_to "Edit Profile", edit_user_path(@user) %>

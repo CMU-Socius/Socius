@@ -1,0 +1,49 @@
+<div id="new-post-form">
+
+    <% if logged_in? && !current_user.nil?%>
+
+        <%= simple_form_for @post, html: {class:'form-horizontal', multipart: true} do |f| %>
+
+
+            <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
+
+            <%= f.input :street_1, input_html: {class: "form-control", id: "street-1"}, wrapper_html: {class: 'form-group'} %>
+        
+            <%= f.input :street_2, input_html: {class: "form-control", id: "street-2"}, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :city, input_html: {class: "form-control", id: "city" }, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :state, input_html: {class: "form-control", id: "state" }, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :zip, input_html: {class: "form-control", id: "zip"}, wrapper_html: {class: 'form-group'} %>
+
+            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control"}, wrapper_html: {class: "form-group"} %>
+
+            <div class= "row input form-group" id="select-need">
+            
+            <% unless @all_needs.empty? %>
+                <%= fields_for(@post_need) do |pn| %>
+                    <div class="field">
+                        <%= pn.label "Select Needs"%> <br />
+                        <%= collection_check_boxes :needs, :id, @all_needs, :id, :name do |need| %>
+                            <%= need.label %>
+                            <%= need.check_box %>
+                        <% end %>
+                    </div>
+
+                <% end %>
+            <% end %>
+            
+            </div>
+
+            <div id="create-need">
+                <%= link_to "Add a New Need", new_need_path, :class => "btn btn-info btn-submit" %>
+            <div>
+
+            <input type="submit" class="button" value="Submit Request">
+
+        <% end %>
+
+
+    <% end %>
+</div>

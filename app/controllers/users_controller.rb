@@ -9,14 +9,22 @@ end
 
 def new
 	@user = User.new
+	@organizations = Organization.alphabetical
 end
 
 def edit
 	set_user
+	@organizations = Organization.alphabetical
 end
 
 def show
 	set_user
+	if @user.organization_id
+		@organization = Organization.find(@user.organization_id)
+		if @organization.alliance_id
+			@alliance = Organization.where(alliance_id: @organization.alliance_id)
+		end
+	end
 end
 
 def user_all_posts
@@ -27,8 +35,20 @@ def create
 	if @user.save
 		redirect_to home_path, notice: "Successfully added new user: #{@user.username}."
 	else
+		@organizations = Organization.alphabetical
 		render action: 'new'
 	end
+end
+
+def update
+	set_user
+	if @user.update(user_params)
+    redirect_to user_path(@user), notice: "Successfully updated #{@user.username}"
+  else
+  	@organizations = Organization.alphabetical
+    render action: "edit"
+  end
+    
 end
 
 private
@@ -37,6 +57,6 @@ private
 	end
 
 	def user_params
-		params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active)
+		params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id)
 	end
 end

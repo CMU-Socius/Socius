@@ -1,28 +1,119 @@
-.nav {
-    display: block;
-    width: 100%;
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
 
-    img {
-        width: 150px;
-        display: inline;
-        margin: 1em 0;
-        margin-left: 1em;
-    }
-
-    ul {
-
-        list-style: none;
-        display: inline-block;
-        float: right;
-        
-        li {
-            float: right;
-            display: inline-block;
-            margin: 0 3vw;
-        }
-    }
+body {
+	font-family: "Avenir";
+	padding: 0;
+	margin: 0;
 }
 
 main {
-    padding: 3%;
+  padding: 3%;
+  /*background: linear-gradient(#e37682 15%, #5f4d93 85%);*/
+}
+
+* {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+p {
+	font-size: 1.2em;
+	line-height: 2em;
+}
+
+.round-image {
+	border-radius: 50%;
+	width: 300px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.center {
+	margin: 0 auto !important;
+}
+
+.card {
+	padding: 2% 4%;
+	margin: 4% 2%;
+	border-radius: 5px;
+	border: 1px solid #777;
+	box-shadow: 1px 1px 1px #333;
+}
+
+input[type="submit"], button, .button {
+	display: inline-block;
+	padding: 1em 2em;
+	margin: 2em 1em;
+	border-radius: 5px;
+	border: 1px solid #777;
+	background: #fcfcfc;
+	text-decoration: none;
+	color: #444;
+	box-shadow: 1px 1px 1px #333;
+}
+
+.form {
+	width: 60%;
+}
+form {
+	width: 60%;
+	label {
+		display: block;
+	}
+	input:not([type="checkbox"]), select {
+	  width: 200px;
+	  padding: 1em;
+	  border: 1px solid #999;
+	  border-radius: 6px;
+	  margin-bottom: 10px;
+
+	  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+	          box-sizing: border-box;
+	}
+	input[type="submit"], button {
+		margin: 2em 0 !important;
+	}
+}
+
+.index-table {
+	
+	width: 80%;
+	margin: 0 auto;
+	
+	table {
+		width: 100%;
+		table-layout: fixed;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	td {
+		display: block;
+	}
+
+	.center-on-mobile {
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.team-member {
+		width: 80% !important	;
+	}
 }

@@ -1,30 +1,3 @@
-<h2>Who it's for</h2>
-    <p>For street outreach teams to input and track requests, claim requests in the area, and measure the long-run impact of their work. </p>
-    <ul>
-      <li>Crowdsourced data collection for minimizing service overlap</li>
-      <li>Track requests over time</li>
-      <li>Recognize what types of needs are strongest and where</li>
-    </ul>
-  </div>
-  <%= image_tag "about/socialworker.jpg" %>
-
-<!-- Introduction -->
-<h2>How to download</h2>
-<p>Download only works for android phones and tablets with Android 4.3 or higher. Web version coming soon.</p>
-<ol>
-  <li>Make sure you are downloading through your mobile browser and <b>location services</b> are turned on.</li>
-  <li>Click the Download application button</li>
-  <li>Open the apk that was downloaded</li>
-  <li>Click Install</li>
-</ol>
-<a href="https://vin01188.github.io/sociusinfo/android/sociusV13.apk" class="button" download="">Download Application</a>
-<%= image_tag "about/imagewithhand.png" %>
-
-<!-- Second Section -->
-<h2>How it works</h2>
-<%= image_tag "about/flow.jpg" %>
-<a href="https://vin01188.github.io/sociusinfo/images/sociusmanual.pdf" class="button" download="">Download Manual Guide</a>
-
 <h2>Socius Project Vision</h2>
 <p>As a city becomes smarter, the integrated networks of engineered cyber and physical elements provide the capability to greatly improve the quality of life of its citizens. In order to leverage these capabilities to benefit all classes of society, this project aims to develop a proof-of-concept for socially responsible smart city that utilizes its cyber-physical infrastructure for better management of services, taking responsibility for monitoring the needs of its citizens, and maximizing the social welfare of the myriad stakeholders including the government, private citizens, and NGOs. This research is supported by NSF grants #1651858 and #1651566.</p>
 
@@ -35,8 +8,12 @@
 
 <p>Min Kyung Lee, Lisa Otto, Vincent Kang, Vasu Raman, and Yasser Shoukry , “Location-based services for homeless population,” The 2016 workshop on Urban Homelessness and Underserved Communities. The workshop is affiliated with the Eighth International Conference on Social Informatics (SocInfo 2016) <a href="https://vin01188.github.io/sociusinfo/pdfs/WorkshopforHomeless_mklee.pdf">PDF</a></p>
 
-<h2>The Team</h2>
-<% @team.each do |member| %>
-  <%= image_tag "team/" + member[:name].partition(" ").first + ".jpg" %>
-  <%= link_to member[:name], member[:link] %>
-<% end %>
+<div class="team">
+	<h2>The Team</h2>
+	<% @team.each do |member| %>
+		<div class="team-member">
+		  <%= image_tag "team/" + member[:name].partition(" ").first + ".jpg", class: "member-photo" %>
+		  <%= link_to member[:name], member[:link] %>
+		</div>
+	<% end %>
+</div>

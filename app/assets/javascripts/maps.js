@@ -10,7 +10,7 @@ var addArray = [];
 
 
 // Initialize Google Map for adding a new request
-function initNewPostMap() {
+function initPostMap() {
     var pitt = {lat: 40.4415031, lng: -80.0096409};
 
     var map = new google.maps.Map(document.getElementById('map'), {

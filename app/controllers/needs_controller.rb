@@ -10,7 +10,7 @@ class NeedsController < ApplicationController
     def create
         @need = Need.new(need_params)
          if @need.save!
-		    redirect_to posts_path, notice: "Successfully added new need: #{@need.name}."
+		    redirect_to new_post_path, notice: "Successfully added new need: #{@need.name}."
 	    
         else
 		    render action: 'new'
@@ -42,7 +42,7 @@ class NeedsController < ApplicationController
     end
 
     def need_params
-        params.require(:need).permit(:name)
+        params.require(:need).permit(:name, :category)
     end
 
 

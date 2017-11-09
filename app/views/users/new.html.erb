@@ -1,1 +1,9 @@
-<%= render :partial => "form" %>
+<div class="form center card">
+	<% if !logged_in?%>
+	    <h2>Sign Up </h2>
+	<% else %>
+	    <h2> Add a New User </h2>
+	<% end %>
+
+	<%= render :partial => "form" %>
+</div>

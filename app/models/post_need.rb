@@ -18,6 +18,10 @@ class PostNeed < ActiveRecord::Base
 		end
 	end
 
+	def need
+		Need.find(self.need_id)
+	end
+
 
 	private
 	

@@ -33,7 +33,7 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
   validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
-	validate :poster_is_active_in_system
+	# validate :poster_is_active_in_system
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given
@@ -45,6 +45,10 @@ class Post < ActiveRecord::Base
 	def complete
 		self.date_completed = DateTime.current
 		self.save!
+	end
+
+	def post_needs
+		PostNeed.where(post_id: self.id)
 	end
 
 	#Methods for analytics
@@ -85,7 +89,7 @@ class Post < ActiveRecord::Base
 		return true if self.poster.nil?
 		all_active = User.active.to_a.map{|u| u.id}
 		unless all_active.include?(self.poster.id)
-        self.errors.add("Poster is not active in the system")
+        self.errors.add(self.poster.proper_name, " is not active in the system")
       end
 		true
   end

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @alliance.name %>
+</p>
+
+<ul>
+	<% @organizations.each do |org| %>
+		<li><%= link_to org.name, org %></li>
+	<% end %>
+</ul>
+
+<%= link_to 'Edit Alliance', edit_alliance_path(@alliance) %>

@@ -1,0 +1,8 @@
+<div id="flash">
+	<% unless flash[:error].nil? %>
+		<small class="error"><%= flash[:error] %></small>
+	<% end %>
+	<% unless notice.nil? %>
+	  <p id="notice"> <%= notice %></p>
+	<% end %>
+</div>

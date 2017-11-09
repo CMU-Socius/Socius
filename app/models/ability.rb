@@ -7,13 +7,20 @@ class Ability
       can :manage, :all
 
     elsif user.role? :worker
-      can :index, Post
-      can :create, Post
-      can :update, Post
-    
+      can :manage, Post
+      can :read, User
+      can :update, User do |u|
+        u.id == user.id
+      end
+      can :read, Organization do |o|
+        o.id == user.organization_id
+      end
+      can :update, Organization do |o|
+        o.id == user.organization_id
+      end
     else
       can :create, User
-      can :read, :all
+      can :read, Post
     end
 
     

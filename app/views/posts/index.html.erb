@@ -1,11 +1,36 @@
-<h1> Current Requests </h1>
+<div class="index-table">
+	<h1> Current Requests </h1>
 
-<div class="col-lg-12">
-<div id="map" style='width: 800px; height: 500px;'></div>
+	<table>
+		<thead>
+			<tr>
+				<td>Address</td>
+				<td colspan="2">Needs</td>
+				<td>Poster</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @post_details.each do |post, post_needs, poster| %>
+				<tr>
+					<td>
+						<%= post.street_1 %><br/>
+						<% if post.street_2 %>
+							<%= post.street_2 %><br/>
+						<% end %>
+						<%= post.city %>, <%= post.state %> <%= post.zip %>
+					</td>
+					<td colspan="2">
+						<ul>
+							<% post_needs.each do |need| %>
+								<li><%= need.name %></li>
+							<% end %>
+						</ul>
+						<%= link_to "Edit Post", edit_post_path(post) %>
+						
+					</td>
+					<td><%= link_to poster.proper_name, poster %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>
-
-
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2U2mV3ObwrSTO3QbO_Qxu7A6my_AwSEo&callback=initIndexPostsMap">
-</script>
-
