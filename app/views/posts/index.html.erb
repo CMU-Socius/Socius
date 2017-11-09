@@ -1,36 +1,4 @@
 <div class="index-table">
 	<h1> Current Requests </h1>
-
-	<table>
-		<thead>
-			<tr>
-				<td>Address</td>
-				<td colspan="2">Needs</td>
-				<td>Poster</td>
-			</tr>
-		</thead>
-		<tbody>
-			<% @post_details.each do |post, post_needs, poster| %>
-				<tr>
-					<td>
-						<%= post.street_1 %><br/>
-						<% if post.street_2 %>
-							<%= post.street_2 %><br/>
-						<% end %>
-						<%= post.city %>, <%= post.state %> <%= post.zip %>
-					</td>
-					<td colspan="2">
-						<ul>
-							<% post_needs.each do |need| %>
-								<li><%= need.name %></li>
-							<% end %>
-						</ul>
-						<%= link_to "Edit Post", edit_post_path(post) %>
-						
-					</td>
-					<td><%= link_to poster.proper_name, poster %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+	<%= render :partial => "partials/post_table", locals: {post_details: @post_details} %>
 </div>

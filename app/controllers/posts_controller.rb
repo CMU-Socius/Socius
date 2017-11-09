@@ -6,9 +6,7 @@ class PostsController < ApplicationController
 
 def index
 	posts = Post.all.chronological
-	post_needs = posts.map { |p| p.post_needs.to_a.map {|pn| pn.need } }
-	posters = posts.map { |p| User.find(p.poster_id) }
-	@post_details = posts.zip(post_needs, posters)
+	@post_details = Post.get_post_details(posts)
 end
 
 def show

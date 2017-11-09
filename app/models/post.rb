@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
 	scope :chronological, -> { order(date_posted: :desc) }
 	scope :incomplete,    -> { where(date_completed: nil)}
 	scope :completed,     -> { where.not(date_completed: nil)}
+	scope :posted_by,   -> (poster) { where(poster_id: poster.id) }
 	scope :claimed_by,   -> (claimer) { where(claimer_id: claimer.id) }
 
 
@@ -49,6 +50,12 @@ class Post < ActiveRecord::Base
 
 	def post_needs
 		PostNeed.where(post_id: self.id)
+	end
+
+	def self.get_post_details(posts)
+		post_needs = posts.map { |p| p.post_needs.to_a.map {|pn| pn.need } }
+		posters = posts.map { |p| User.find(p.poster_id) }
+		post_details = posts.zip(post_needs, posters)
 	end
 
 	#Methods for analytics

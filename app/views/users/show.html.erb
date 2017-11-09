@@ -20,26 +20,11 @@
 	<%= link_to @organization.name, organization_path(@organization) %>
 <% end %>
 
-<div>
-	<table>
-		<thead>
-			<tr>
-				<th>Thead1</th>
-				<th>Thead2</th>
-				<th>Thead3</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @claimed_posts.each do |post| %>
-				<tr>
-					<td><%= post.id %></td>
-					<td></td>
-					<td></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
+<h3>Posted Requests</h3>
+<div><%= render partial: "partials/post_table", locals: { post_details: @post_details } %></div>
+
+<h3>Claimed Requests</h3>
+<div><%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %></div>
 
 <hr/>
 <%= link_to "Edit Profile", edit_user_path(@user) %>

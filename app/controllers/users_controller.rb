@@ -19,7 +19,11 @@ end
 
 def show
 	set_user
-	@claimed_posts = Post.claimed_by(@user.id)
+	claimed_posts = Post.claimed_by(@user)
+	@claimed_post_details = Post.get_post_details(claimed_posts)
+
+	posts = Post.posted_by(@user)
+	@post_details = Post.get_post_details(posts)
 	if @user.organization_id
 		@organization = Organization.find(@user.organization_id)
 		if @organization.alliance_id
