@@ -21,24 +21,26 @@
 
             <div class= "row input form-group" id="select-need">
             
-            <% unless @all_needs.empty? %>
-                <%= fields_for(@post_need) do |pn| %>
-                    <div class="field">
-                        <%= pn.label "Select Needs"%> <br />
-                        <%= collection_check_boxes :needs, :id, @all_needs, :id, :name do |need| %>
-                            <%= need.label %>
-                            <%= need.check_box %>
-                        <% end %>
-                    </div>
+                <% unless @all_needs.empty? %>
+                    <%= fields_for(@post_need) do |pn| %>
+                        <div class="field">
+                            <%= pn.label "Select Needs"%> <br />
+                            <%= collection_check_boxes :needs, :id, @all_needs, :id, :name do |need| %>
+                                <%= need.label %>
+                                <%= need.check_box %>
+                            <% end %>
+                        </div>
 
+                    <% end %>
                 <% end %>
-            <% end %>
             
             </div>
 
             <div id="create-need">
                 <%= link_to "Add a New Need", new_need_path, :class => "btn btn-info btn-submit" %>
             <div>
+
+            <%= f.input :comment, input_html: {class: "form-control", id: "comment"}, wrapper_html: {class: 'form-group'} %>
 
             <input type="submit" class="button" value="Submit Request">
 
