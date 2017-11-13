@@ -1,32 +1,46 @@
-<table>
-	<thead>
-		<tr>
-			<td>Address</td>
-			<td colspan="2">Needs</td>
-			<td>Poster</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% post_details.each do |post, post_needs, poster| %>
-			<tr>
-				<td>
-					<%= post.street_1 %><br/>
-					<% if post.street_2 %>
-						<%= post.street_2 %><br/>
-					<% end %>
-					<%= post.city %>, <%= post.state %> <%= post.zip %>
-				</td>
-				<td colspan="2">
-					<ul>
-						<% post_needs.each do |need| %>
-							<li><%= need.name %></li>
-						<% end %>
-					</ul>
-					<%= link_to "Edit Post", edit_post_path(post) %>
-					
-				</td>
-				<td><%= link_to poster.proper_name, poster %></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
+<div id="posts-table">
+	<% unless post_details.empty? %>
+		<table>
+			<thead>
+				<tr>
+					<td>Address</td>
+					<td colspan="2">Needs</td>
+					<td>Poster</td>
+					<td>Claimer</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% post_details.each do |post, post_needs, poster, claimer| %>
+					<tr>
+						<td>
+							<%= post.street_1 %><br/>
+							<% if post.street_2 %>
+								<%= post.street_2 %><br/>
+							<% end %>
+							<%= post.city %>, <%= post.state %> <%= post.zip %>
+						</td>
+						<td colspan="2">
+							<ul>
+								<% post_needs.each do |need| %>
+									<li><%= need.name %></li>
+								<% end %>
+							</ul>
+							<%= link_to "Edit Post", edit_post_path(post) %>
+							
+						</td>
+						<td><%= link_to poster.proper_name, poster %></td>
+						<td>
+							<% if claimer %>
+								<%= link_to claimer.proper_name, claimer %>
+							<% else %>
+								<%= link_to 'Claim Request', claim_request_path(post_id: post.id), remote: true %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% else %>
+		<p><i>There are no posts to display.</i></p>
+	<% end %>
+<div>

@@ -54,6 +54,16 @@ end
 def destroy
 end
 
+def claim
+	post = Post.find(params[:post_id])
+	post.claimed_by(session[:user_id].to_i)
+	posts = Post.all.chronological
+	@post_details = Post.get_post_details(posts)
+	respond_to do |format|
+		format.html { render "index" }
+	end
+end
+
 
 private
 	def set_post

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new', :as => :login
   get 'logout' => 'sessions#destroy', :as => :logout
 
+  # AJAX Routes
+  get 'claim_request' => 'posts#claim', :as => :claim_request
 
   #Set the root url
   root :to => 'home#home'

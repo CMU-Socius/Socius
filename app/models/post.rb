@@ -54,16 +54,17 @@ class Post < ActiveRecord::Base
 
 	def self.get_post_details(posts)
 		post_needs = posts.map { |p| p.post_needs.to_a.map {|pn| pn.need } }
-		posters = posts.map { |p| User.find(p.poster_id) }
-		post_details = posts.zip(post_needs, posters)
+		posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
+		claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }
+		post_details = posts.zip(post_needs, posters, claimers)
 	end
 
 	#Methods for analytics
 	#all posts in the same location
 
-	def claimed_by(user)
+	def claimed_by(user_id)
 		if self.claimer_id.nil?
-			self.claimer_id = (user.id)
+			self.claimer_id = user_id
 			self.save!
 		else
 			false
