@@ -14,13 +14,13 @@ end
 
 def new
 	@post = Post.new
-	@all_needs = Need.all
+	@all_needs = Need.by_category
 	@post_need = @post.post_needs.build
 end
 
 def edit
 	set_post
-	@all_needs = Need.all
+	@all_needs = Need.by_category
 	@post_need = @post.post_needs
 end
 
@@ -36,7 +36,7 @@ def create
 		end
 		redirect_to posts_path, notice: "Added post!"
 	else
-		render_action 'new'
+		render action: 'new'
 	end
 end
 
@@ -45,7 +45,7 @@ def update
 	if @post.update(post_params)
     redirect_to posts_path, notice: "Successfully updated post."
   else
-  	@all_needs = Need.all
+  	@all_needs = Need.by_category
 		@post_need = @post.post_needs.build
     render action: "edit"
   end
@@ -55,13 +55,27 @@ def destroy
 end
 
 def claim
-	post = Post.find(params[:post_id])
-	post.claimed_by(session[:user_id].to_i)
+	set_post
+	@post.claimed_by(session[:user_id].to_i)
 	posts = Post.all.chronological
 	@post_details = Post.get_post_details(posts)
-	respond_to do |format|
-		format.html { render "index" }
-	end
+	redirect_to posts_path, notice: "Claimed request!"
+end
+
+def unclaim
+	set_post
+	@post.unclaim
+	posts = Post.all.chronological
+	@post_details = Post.get_post_details(posts)
+	redirect_to posts_path, notice: "Unclaimed request!"
+end
+
+def cancel
+	set_post
+	@post.cancel
+	posts = Post.all.chronological
+	@post_details = Post.get_post_details(posts)
+	redirect_to posts_path, notice: "Cancelled request!"
 end
 
 

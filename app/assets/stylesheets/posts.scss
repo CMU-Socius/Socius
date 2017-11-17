@@ -1,3 +1,145 @@
 // Place all the styles related to the Post controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#posts-table {
+	width: 100%;
+	table-layout: fixed;
+	a {
+		display: block;
+	}
+	small {
+		color: #999;
+		font-size: 0.9em;
+		display: block;
+	}
+	thead {
+		text-transform: uppercase;
+		color: #FFA500;
+	}
+	tr {
+		&:nth-of-type(even) {
+			background: #f8f8f8;
+		}
+		td {
+			padding: 1em;
+		}
+	}
+}
+
+#form-nav {
+	text-align: center;
+	ul {
+		display: flex;
+		align-items: center;
+	  justify-content: center;
+		li {
+			display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    position: relative;
+			list-style: none;
+			color: #777;
+			font-size: 1.4em;
+			padding-right: 10px;
+			&.navLink {
+				cursor: pointer;
+			}
+	    span {
+	    	font-size: 0.7em !important;
+	    	display: flex;
+		    align-items: center;
+		    justify-content: center;
+	    	width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				background: #FFA500;
+				color: white;
+				margin-right: 10px;
+				&.inactive {
+					opacity: 0.3;
+				}
+	    }
+			:after {
+				content: '';
+		    position: absolute;
+		    top: calc(50%);
+		    left: calc(100% + 5px);
+		    bottom: 0;
+		    border-top: 1px solid rgba(0, 0, 0, 0.3);
+		    height: 1px;
+		    width: 5rem;
+			}
+			&:not(:last-child) {
+				margin-right: 8rem;
+			}
+		}
+	}
+}
+
+#post-form {
+	-webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+	> table {
+		width: 300vw;
+		table-layout: fixed;
+		td {
+			vertical-align: top;
+			position: relative;
+			padding: 0 5% 2% 5%;
+			height: 100%;
+			label {
+				display: inline-block;
+			}
+			div {
+				input:not([type="checkbox"]), textarea {
+					width: 100%;
+					padding: 1em 2em;
+					margin: 1em 0;
+				}
+			}
+			textarea {
+				min-height: 10em;
+			}
+			#needs-table {
+				width: 100%;
+				p {
+					font-size: 3em;
+				}
+				tr {
+					&:nth-of-type(even) {
+						background: #f8f8f8;
+					}
+				}
+				td {
+					vertical-align: middle;
+					border-bottom: 1px solid #666;
+					padding: 1em;
+					&:nth-of-type(1) {
+						text-align: right;
+						padding-right: 3em;
+					}
+					&:nth-of-type(2) {
+						width: 60%;
+					}
+				}
+			}
+		}
+		.post-form-prev-button,
+		.post-form-next-button {
+			margin-top: 20px;
+			font-size: 2em;
+			float: right;
+			color: #888;
+			cursor: pointer;
+			&:hover {
+				color: #FFA500;
+			}
+		}
+		.post-form-prev-button {
+			float: left;
+		}
+	}
+}

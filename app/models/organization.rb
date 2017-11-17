@@ -4,7 +4,7 @@ class Organization < ActiveRecord::Base
 	belongs_to :alliance
 
 	#Validations
-	validates_presence_of :name
+	validates :name, presence: true, uniqueness: { case_sensitive: false}
 	validate :organization_is_not_a_duplicate, on: :create
 
 	#Scopes
@@ -13,7 +13,7 @@ class Organization < ActiveRecord::Base
   scope :inactive,      -> { where(active: false) }
 
 	def already_exists?
-  	Organization.where(name: self.name).size == 1
+  	Organization.where(name: self.name).size > 0
   end
 
   def users

@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   # AJAX Routes
   get 'claim_request' => 'posts#claim', :as => :claim_request
+  get 'unclaim_request' => 'posts#unclaim', :as => :unclaim_request
+  get 'cancel_request' => 'posts#cancel', :as => :cancel_request
+  get 'complete_post_need' => 'post_needs#complete', :as => :complete_post_need
+  get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
 
   #Set the root url
   root :to => 'home#home'

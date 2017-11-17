@@ -6,5 +6,36 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Organization.create(name: "Test Organization", active: true)
-User.create(username: "minkyung", first_name: "Minkyung", last_name: "Lee", email: "test@test.com", phone: "111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true)
+Organization.create(name: "Carnegie Mellon University", active: true)
+User.create(username: "minkyung", first_name: "Minkyung", last_name: "Lee", email: "test@test.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Researcher")
+
+needs_list = [
+	["food", "coffee"],
+	["food", "canned goods"],
+	["food", "sandwiches"],
+	["food", "fruit"],
+	["food", "water"],
+	["food", "granola bars"],
+	["food", "other"],
+	["clothing", "jeans"],
+	["clothing", "socks"],
+	["clothing", "coats"],
+	["clothing", "hats"],
+	["clothing", "gloves"],
+	["clothing", "blankets"],
+	["clothing", "shoes"],
+	["clothing", "boots"],
+	["clothing", "underwear"],
+	["toiletries", "wet wipes"],
+	["toiletries", "feminine care products"],
+	["toiletries", "hand sanitizer"],
+	["toiletries", "soap"],
+	["toiletries", "deodorant"],
+	["toiletries", "shampoo"],
+	["toiletries", "lotion"],
+	["toiletries", "toilet paper"]
+]
+
+needs_list.each do |category, name|
+  Need.create( name: name, category: category )
+end

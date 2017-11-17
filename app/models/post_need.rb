@@ -12,10 +12,19 @@ class PostNeed < ActiveRecord::Base
 
 
 	#Methods
+	def complete?
+		not self.time_completed.nil?
+	end
+
 	def completed
 		if self.time_completed.nil?
 			set_time_completed_to_now
 		end
+	end
+
+	def undo_completed
+		self.time_completed = nil
+		self.save!
 	end
 
 	def need

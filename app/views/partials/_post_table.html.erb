@@ -3,15 +3,24 @@
 		<table>
 			<thead>
 				<tr>
+					<td>Posted By</td>
 					<td>Address</td>
-					<td colspan="2">Needs</td>
-					<td>Poster</td>
+					<td>Needs</td>
 					<td>Claimer</td>
+					<td>Status</td>
+					<td>Actions</td>
 				</tr>
 			</thead>
 			<tbody>
 				<% post_details.each do |post, post_needs, poster, claimer| %>
 					<tr>
+						<td>
+							<%= link_to poster.proper_name, poster %>
+							<small><%= post.created_at.to_time.strftime('%B %e at %l:%M %p') %></small>
+							<% if logged_in? and current_user.id == post.poster_id %>
+								<%= link_to "Edit Post", edit_post_path(post) %>
+							<% end %>
+						</td>
 						<td>
 							<%= post.street_1 %><br/>
 							<% if post.street_2 %>
@@ -19,21 +28,49 @@
 							<% end %>
 							<%= post.city %>, <%= post.state %> <%= post.zip %>
 						</td>
-						<td colspan="2">
+						<td>
 							<ul>
-								<% post_needs.each do |need| %>
-									<li><%= need.name %></li>
+								<% post_needs.each do |pn| %>
+									<li>
+										<% if pn.complete? %>
+											<span class="complete"><%= pn.need.name %></span>
+											<% if logged_in? and current_user.id == post.claimer_id %>
+												<%= link_to "Undo Complete", undo_complete_post_need_path(id: pn.id) %>
+											<% end %>
+										<% else %>
+											<span class="incomplete"><%= pn.need.name %></span>
+											<% if logged_in? and current_user.id == post.claimer_id %>
+												<%= link_to "Complete", complete_post_need_path(id: pn.id) %>
+											<% end %>
+										<% end %>
+									</li>
 								<% end %>
 							</ul>
-							<%= link_to "Edit Post", edit_post_path(post) %>
-							
 						</td>
-						<td><%= link_to poster.proper_name, poster %></td>
 						<td>
 							<% if claimer %>
 								<%= link_to claimer.proper_name, claimer %>
+								<% if logged_in? and claimer.id == current_user.id %>
+									<%= link_to 'Unclaim Request', unclaim_request_path(id: post.id) %>
+								<% end %>
+							<% elsif logged_in? %>
+								<%= link_to 'Claim Request', claim_request_path(id: post.id) %>
 							<% else %>
-								<%= link_to 'Claim Request', claim_request_path(post_id: post.id), remote: true %>
+								<%= link_to 'Login', login_path %>
+							<% end %>
+						</td>
+						<td>
+							<%  if post.date_cancelled.nil? and post.date_claimed.nil? %>
+										Unclaimed
+							<% 	elsif post.date_claimed %>
+										Claimed by <%= User.find(post.claimer_id).proper_name %> on <%= post.date_claimed.to_s %>
+							<%	elsif post.date_cancelled %>
+										Cancelled on <%= post.date_cancelled.to_s %>
+							<% end %>
+						</td>
+						<td>
+							<% if logged_in? and current_user.id == post.poster_id and post.date_cancelled.nil? %>
+								<%= link_to 'Cancel Request', cancel_request_path(id: post.id), remote: true %>
 							<% end %>
 						</td>
 					</tr>

@@ -53,7 +53,7 @@ class Post < ActiveRecord::Base
 	end
 
 	def self.get_post_details(posts)
-		post_needs = posts.map { |p| p.post_needs.to_a.map {|pn| pn.need } }
+		post_needs = posts.map { |p| p.post_needs.to_a }
 		posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
 		claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }
 		post_details = posts.zip(post_needs, posters, claimers)
@@ -65,6 +65,8 @@ class Post < ActiveRecord::Base
 	def claimed_by(user_id)
 		if self.claimer_id.nil?
 			self.claimer_id = user_id
+			self.date_cancelled = nil
+			self.date_claimed = Date.current
 			self.save!
 		else
 			false
@@ -74,6 +76,18 @@ class Post < ActiveRecord::Base
 	def unclaim
 		if !self.claimer_id.nil?
 			self.claimer_id = nil
+			self.date_claimed = nil
+			self.save!
+		else
+			false
+		end
+	end
+
+	def cancel
+		if self.date_cancelled.nil?
+			self.date_cancelled = Date.current
+			self.claimer_id = nil
+			self.date_claimed = nil
 			self.save!
 		else
 			false
@@ -88,8 +102,6 @@ class Post < ActiveRecord::Base
 			"#{self.street_1}, #{self.street_2}, #{self.city}, #{self.state} #{self.zip}"
 		end
 	end
-
-
 
 
 	private
