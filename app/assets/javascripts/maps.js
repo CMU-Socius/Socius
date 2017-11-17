@@ -179,7 +179,7 @@ function addMarker(post) {
 
                 '<tr>' +
                     '<th>Status:</th>' +
-                    '<td>' + `${post.claimer_id == null ? 'Open' : 'Claimed'}` + '</td>' +
+                    '<td>' + "${post.claimer_id == null ? 'Open' : 'Claimed'}" + '</td>' +
                 '</tr>' +
 
                 '<tr>' +
