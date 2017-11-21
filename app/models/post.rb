@@ -34,6 +34,7 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
   validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
+  validate :address_is_valid
 	# validate :poster_is_active_in_system
 
 	#Callbacks
@@ -103,8 +104,6 @@ class Post < ActiveRecord::Base
 		end
 	end
 
-
-	private
 	def poster_is_active_in_system
 		return true if self.poster.nil?
 		all_active = User.active.to_a.map{|u| u.id}
@@ -120,6 +119,11 @@ class Post < ActiveRecord::Base
       self.date_posted = DateTime.current
     end
   end
+
+  def address_is_valid
+		return true if Geocoder.coordinates(self.full_street_address)
+		self.errors.add(:city, "Address was not found.")
+	end
 
 
 
