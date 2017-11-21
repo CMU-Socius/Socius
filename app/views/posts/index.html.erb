@@ -1,4 +1,14 @@
 <div class="index-table">
 	<h1> Current Requests </h1>
+
+	<div id="map-container">
+	  <div id="map-canvas"></div>
+	</div>
+	
+	<%= content_tag :div, class: "map_info", data: {post_details: @post_details} do %>
+	<% end %>
+
 	<%= render :partial => "partials/post_table", locals: {post_details: @post_details} %>
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU" async defer></script>
