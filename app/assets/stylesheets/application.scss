@@ -9,15 +9,23 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_self
- *= require_tree .
  */
 
+@import "variables";
+@import "nav";
+@import "home";
+@import "needs";
+@import "organizations";
+@import "post_needs";
+@import "posts";
+@import "users";
+@import "alliances";
+
 body {
-	font-family: "Avenir";
+	font-family: "Quicksand";
 	padding: 0;
 	margin: 0;
+	color: $grey;
 }
 
 main {
@@ -30,8 +38,17 @@ main {
 	box-sizing: border-box;
 }
 
+h1 {
+	text-transform: uppercase;
+	font-size: 5em;
+}
+
+h2 {
+	font-size: 3em;
+}
+
 p {
-	font-size: 1.2em;
+	font-size: 1em;
 	line-height: 2em;
 }
 
@@ -58,14 +75,15 @@ p {
 
 input[type="submit"], button, .button {
 	display: inline-block;
-	padding: 1em 2em;
+	padding: 0.5em 1em;
 	margin: 2em 1em;
 	border-radius: 5px;
-	border: 1px solid #777;
-	background: #fcfcfc;
+	border: 2px solid white;
+	background: none;
 	text-decoration: none;
-	color: #444;
-	box-shadow: 1px 1px 1px #333;
+	color: white;
+	font-size: 1.5em;
+	/*box-shadow: 1px 1px 1px #333;*/
 }
 
 .form {

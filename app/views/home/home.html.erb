@@ -1,49 +1,25 @@
-<header class="center-text">
-	<h1>Socius</h1>
+<header>
+	<h1 id="heading">Socius</h1>
 
-	<p>
+	<h3>
 		Better documenting needs and coordinating services for street outreach teams
-	</p>
+	</h3>
+
+	<a href="https://vin01188.github.io/sociusinfo/images/sociusmanual.pdf" class="button" download="">Download Manual Guide</a>
 </header>
 
-<table>
-	<tr>
-		<td>
-			<h2>Who it's for</h2>
-			<p>For street outreach teams to input and track requests, claim requests in the area, and measure the long-run impact of their work. </p>
-			<ul>
-			  <li>Crowdsourced data collection for minimizing service overlap</li>
-			  <li>Track requests over time</li>
-			  <li>Recognize what types of needs are strongest and where</li>
-			</ul>
-		</td>
-		<td>
-			<%= image_tag "about/socialworker.jpg", class: "round-image" %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<!-- Introduction -->
-			<h2>How to download</h2>
-			<p>Download only works for android phones and tablets with Android 4.3 or higher. Web version coming soon.</p>
-			<ol>
-			  <li>Make sure you are downloading through your mobile browser and <b>location services</b> are turned on.</li>
-			  <li>Click the Download application button</li>
-			  <li>Open the apk that was downloaded</li>
-			  <li>Click Install</li>
-			</ol>
-			<a href="https://vin01188.github.io/sociusinfo/android/sociusV13.apk" class="button" download="">Download Application</a>
-		</td>
-		<td>
-			<%= image_tag "about/imagewithhand.png", class: "round-image center-on-mobile" %>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="center-text">
-			<!-- Second Section -->
-			<h2>How it works</h2>
-			<%= image_tag "about/flow.jpg" %>
-			<a href="https://vin01188.github.io/sociusinfo/images/sociusmanual.pdf" class="button" download="">Download Manual Guide</a>
-		</td>
-	</tr>
-</table>
+<div id="who">
+	<div>
+		<h2>Who it's for?</h2>
+		<p>For street outreach teams to input and track requests, claim requests in the area, and measure the long-run impact of their work. </p>
+		<ul>
+		  <li>Crowdsourced data collection for minimizing service overlap</li>
+		  <li>Track requests over time</li>
+		  <li>Recognize what types of needs are strongest and where</li>
+		</ul>
+	</div>
+</div>
+
+<div>
+	<%= image_tag "about/flow.jpg" %>
+</div>

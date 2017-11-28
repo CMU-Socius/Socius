@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// require variables
+
 #map-container {
 	height: 400px;
 	border-radius: 16px 16px;
@@ -29,7 +31,7 @@
 	}
 	thead {
 		text-transform: uppercase;
-		color: #FFA500;
+		color: $orange;
 	}
 	tr {
 		&:nth-of-type(even) {

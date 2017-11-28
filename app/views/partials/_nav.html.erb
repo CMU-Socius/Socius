@@ -22,15 +22,12 @@
       <li>
         <%= link_to "Log In", login_path %>
       </li>
-      <li>
-        <%= link_to "Sign up", new_user_path%>
-      </li>
     <% end %>
     <li>
-      <%= link_to("Requests", posts_path) %>
+      <%= link_to("New Request", new_post_path) %>
     </li>
     <li>
-      <%= link_to("New Request", new_post_path) %>
+      <%= link_to("Requests", posts_path) %>
     </li>
     <li>
       <%= link_to("About", about_path) %>
