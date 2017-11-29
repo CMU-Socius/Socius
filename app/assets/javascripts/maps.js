@@ -24,7 +24,12 @@ function initPostMap() {
     var post_details = $('.map_info').data('postDetails');
     for(var i = 0; i < post_details.length; i++) {
 
-        var title = "Request";
+        var infoContent = 
+        '<div class="infoWindow">'+
+            '<div id="content">'+
+                'Request' +
+            '</div>' +
+        '</div>';
         var lat = post_details[i][0]["latitude"];
         var lng = post_details[i][0]["longitude"];
         var coords = new google.maps.LatLng(lat, lng);
@@ -40,7 +45,7 @@ function initPostMap() {
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infowindow.setContent(title);
+                infowindow.setContent(infoContent);
                 infowindow.open(map, marker);
             }
         })(marker, i));

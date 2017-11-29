@@ -19,8 +19,13 @@
         border-color: inherit;
     }
 
-    .logo:hover {
-        border: none;
+    .logo {
+        img {
+            width: 50px;
+        }
+        &:hover {
+            border: none;
+        }
     }
 
     img {
