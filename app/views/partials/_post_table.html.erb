@@ -23,7 +23,7 @@
 						</td>
 						<td>
 							<%= post.street_1 %><br/>
-							<% if post.street_2 %>
+							<% unless post.street_2.empty? %>
 								<%= post.street_2 %><br/>
 							<% end %>
 							<%= post.city %>, <%= post.state %> <%= post.zip %>

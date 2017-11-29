@@ -1,13 +1,17 @@
+<div id="profile-header">
+	<h2><%= @user.proper_name %></h2>
+	<p>
+		<%= @user.job_title%> 
+		<% if @organization %>
+			at <%= link_to @organization.name, organization_path(@organization) %>
+		<% end %>
+	</p>
 
-<h1><%= @user.proper_name %></h1>
-<p>
-	<%= @user.job_title%> 
-	<% if @organization %>
-		at <%= link_to @organization.name, organization_path(@organization) %>
-	<% end %>
-</p>
-
-<small><%= @user.email %> | <%= @user.phone %></small>
+	<small>
+		<%= @user.email %> | <%= @user.phone %><br/><br/>
+		<%= link_to "Edit Profile", edit_user_path(@user) %>
+	</small>
+</div>
 
 <h3>Posted Requests</h3>
 <div><%= render partial: "partials/post_table", locals: { post_details: @post_details } %></div>
@@ -16,4 +20,3 @@
 <div><%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %></div>
 
 <hr/>
-<%= link_to "Edit Profile", edit_user_path(@user) %>

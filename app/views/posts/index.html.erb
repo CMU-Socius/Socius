@@ -1,10 +1,9 @@
-<div class="index-table">
-	<h2>Current Requests </h2>
+<div id="map-container">
 	<small>Not seeing a map? Try refreshing! (CMD + Shift + R)</small>
+	<div id="map-canvas"></div>
+</div>
 
-	<div id="map-container">
-	  <div id="map-canvas"></div>
-	</div>
+<div class="index-table">
 	
 	<%= content_tag :div, class: "map_info", data: {post_details: @post_details} do %>
 	<% end %>
