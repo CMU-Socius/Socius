@@ -66,13 +66,17 @@ header {
 	p {
 		width: 90%;
 		margin: 0 auto;
-		text-align: left;
+		font-size: 1.3em;
 	}
 }
 
-#team {
+#info {
 	padding: 5% 10%;
 	text-align: center;
+	p {
+		text-align: left;
+		color: #777;
+	}
 	table {
 		table-layout: fixed;
 		td {
