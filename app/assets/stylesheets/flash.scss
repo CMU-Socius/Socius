@@ -1,0 +1,34 @@
+#flash {
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 2em;
+	text-align: right;
+	border-radius: 15px;
+	background: white;
+	color: $grey;
+	animation: fadeout 4s ease;
+	p {
+		margin: 15px;
+	}
+}
+
+@keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-moz-keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-webkit-keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-o-keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
