@@ -13,21 +13,14 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <%= render :partial=> 'partials/nav' %>
     <%= render :partial=> 'partials/flash' %>
     <%= yield %>
 
   </body>
 
-
-
-
-
-
-
-
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU" async defer></script>
   <%= javascript_include_tag "application" %>
   <%#= yield :scripts %>
 

@@ -12,4 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-readyselector
 //= require_tree .
+
+$(".posts.index").ready(function() {
+    initIndexMap();
+});
+
+$(".posts.show").ready(function() {
+    initPostMap();
+});

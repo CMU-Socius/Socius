@@ -53,11 +53,36 @@ class Post < ActiveRecord::Base
 		PostNeed.where(post_id: self.id)
 	end
 
+	def poster_name
+		self.poster_id ? User.find(self.poster_id).proper_name : nil
+	end
+
+	def claimer_name
+		self.claimer_id ? User.find(self.claimer_id).proper_name : nil
+	end
+
 	def self.get_post_details(posts)
-		post_needs = posts.map { |p| p.post_needs.to_a }
-		posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
-		claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }
-		post_details = posts.zip(post_needs, posters, claimers)
+		# post_needs = posts.map { |p| p.post_needs.to_a }
+		# posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
+		# claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }
+		# post_details = posts.zip(post_needs, posters, claimers)
+		post_details = posts.map { |p| {
+			"id" => p.id, 
+			"poster_id" => p.poster_id, 
+			"poster_name" => p.poster_id ? User.find(p.poster_id).proper_name : nil,
+			"created_at" => p.created_at, 
+			"street_1" => p.street_1,
+			"street_2" => p.street_2,
+			"city" => p.city,
+			"state" => p.state,
+			"zip" => p.zip, 
+			"lat" => p.latitude, 
+			"lng" => p.longitude, 
+			"claimer_id" => p.claimer_id, 
+			"claimer_name" => p.claimer_id ? User.find(p.claimer_id).proper_name : nil,
+			"date_cancelled" => p.date_cancelled,
+			"date_claimed" => p.date_claimed
+		}}
 	end
 
 	#Methods for analytics

@@ -1,8 +1,6 @@
 
 // Initialize Google Map for adding a new request
-function initPostMap() {
-
-    if(!document.getElementById('map-canvas')) return;
+function initIndexMap() {
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
@@ -14,30 +12,30 @@ function initPostMap() {
 
     var marker;
     var bounds = new google.maps.LatLngBounds();
-    var infowindow = new google.maps.InfoWindow({
-        boxStyle: {
-            background: "white",
-            width: "400px"
-        },
-    });
+    var infowindow = new google.maps.InfoWindow();
 
     var post_details = $('.map_info').data('postDetails');
     for(var i = 0; i < post_details.length; i++) {
 
-        var infoContent = 
-        '<div class="infoWindow">'+
-            '<div id="content">'+
-                'Request' +
-            '</div>' +
-        '</div>';
-        var lat = post_details[i][0]["latitude"];
-        var lng = post_details[i][0]["longitude"];
+        var post = post_details[i];
+
+        var lat = post["lat"];
+        var lng = post["lng"];
         var coords = new google.maps.LatLng(lat, lng);
         if(i == 0) map.setCenter(coords);
 
+        var infoContent = 
+        '<div class="infoWindow">'+
+            '<div id="content">'+
+                '<h4>'+ post["street_1"] + '</h4>' +
+                '<a target="_blank" href="/posts/' + post["id"] + '">View Details</a>' +
+            '</div>' +
+        '</div>';
+
         marker = new google.maps.Marker({
             position: coords,
-            label: ""
+            label: "",
+            info: infoContent
         });
 
         marker.setMap(map);
@@ -45,7 +43,7 @@ function initPostMap() {
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infowindow.setContent(infoContent);
+                infowindow.setContent(marker.info);
                 infowindow.open(map, marker);
             }
         })(marker, i));
@@ -56,6 +54,6 @@ function initPostMap() {
 
 }
 
-$(document).ready(function() {
-    initPostMap();
-});
+function initPostMap() {
+    return;
+}
