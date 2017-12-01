@@ -41,6 +41,18 @@ main {
 	box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: 3px;
+  cursor: pointer;
+  &:hover {
+      border-color: inherit;
+  }
+}
+
 h1 {
 	text-transform: uppercase;
 	font-size: 5em;
@@ -130,12 +142,31 @@ form {
 }
 
 .index-table {
-	
+	padding: 3% 5%;
 	margin: 0 auto;
+
+	.button {
+		color: $orange;
+		font-size: 0.8em;
+		border-color: $orange;
+	}
 	
 	table {
 		width: 100%;
 		table-layout: fixed;
+		thead {
+			text-transform: uppercase;
+			color: $orange;
+		}
+		tr {
+			&:nth-of-type(even) {
+				background: #f8f8f8;
+			}
+			td {
+				text-align: left;
+				padding: 1em;
+			}
+		}
 	}
 }
 

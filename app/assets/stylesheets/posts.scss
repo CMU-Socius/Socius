@@ -18,30 +18,14 @@
 	width: 100%;
 }
 
-#post-index-table {
-	padding: 3% 5%;
-	#posts-table {
+.post-index-table {
+	.posts-table {
 		width: 100%;
 		table-layout: fixed;
-		a {
-			display: block;
-		}
 		small {
 			color: #999;
 			font-size: 0.9em;
 			display: block;
-		}
-		thead {
-			text-transform: uppercase;
-			color: $orange;
-		}
-		tr {
-			&:nth-of-type(even) {
-				background: #f8f8f8;
-			}
-			td {
-				padding: 1em;
-			}
 		}
 	}
 }

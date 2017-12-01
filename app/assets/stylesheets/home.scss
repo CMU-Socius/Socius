@@ -123,9 +123,19 @@ header {
 		text-transform: uppercase;
 		margin-bottom: 20px;
 	}
-	* {
+	form {
+		width: 50%;
 		margin: 0 auto;
 		vertical-align: middle;
+		margin-bottom: 2em;
+		label {
+			width: auto;
+			min-width: auto;
+		}
+		div {
+			width: 50%;
+			margin: 0 auto;
+		}
 	}
 	.button {
 		font-size: 0.8em;

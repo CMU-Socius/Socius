@@ -8,15 +8,35 @@
 	</p>
 
 	<small>
-		<%= @user.email %> | <%= @user.phone %><br/><br/>
-		<%= link_to "Edit Profile", edit_user_path(@user) %>
+		<%= @user.email %> | <%= @user.phone %><br/>
+		<%#= link_to "Edit Profile", edit_user_path(@user) , class: "button" %>
 	</small>
 </div>
 
-<h3>Posted Requests</h3>
-<div><%= render partial: "partials/post_table", locals: { post_details: @post_details } %></div>
+<div id="profile-tabs">
+	<div id="profile-tabs-nav">
+		<table>
+		<tr>
+			<td><a data-target="posts">My Posts</a></td>
+			<td><a class="inactive" data-target="claims">My Claims</a></td>
+			<td><a class="inactive" data-target="org">My Organization</a></td>
+			<td><a class="inactive" data-target="alliance">My Alliance</a></td>
+		</tr>
+		</table>
+	</div>
+	<div id="profile-tabs-content">
+		<div id="profile-posts" class="post-index-table">
+			<%= render partial: "partials/post_table", locals: { post_details: @post_details } %>
+		</div>
+		<div id="profile-claims" class="post-index-table inactive">
+			<%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %>
+		</div>
+		<div id="profile-org" class="inactive">
+			<%= render partial: "organizations/details", locals: { post_details: @organization } %>
+		</div>
+		<div id="profile-alliance" class="inactive">
+			Alliance stuff
+		</div>
+	</div>
 
-<h3>Claimed Requests</h3>
-<div><%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %></div>
-
-<hr/>
+</div>

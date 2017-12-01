@@ -9,12 +9,6 @@
         <a href>Welcome, <%=current_user.first_name %></a> ▼
         <ul>
           <li><%= link_to "My Profile", user_path(current_user) %></li>
-          <% if current_user.organization_id %>
-            <li><%= link_to("My Organization", current_user.organization) %></li>
-          <% end %>
-          <% if current_user.alliance %>
-            <li><%= link_to("My Alliance", current_user.alliance) %></li>
-          <% end %>
           <li><%= link_to("Log Out", logout_path) %></li>
         </ul>
       </li>

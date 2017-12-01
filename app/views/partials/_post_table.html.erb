@@ -1,10 +1,10 @@
-<div id="posts-table">
+<div class="posts-table index-table">
 	<% unless post_details.empty? %>
 		<table>
 			<thead>
 				<tr>
 					<td>Posted By</td>
-					<td>Address</td>
+					<td colspan="2">Address</td>
 					<!-- <td>Needs</td> -->
 					<td>Claimer</td>
 					<td>Status</td>
@@ -18,7 +18,7 @@
 							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
 							<small><%= post["created_at"].to_time.strftime('%B %e at %l:%M %p') %></small>
 						</td>
-						<td>
+						<td colspan="2">
 							<%= post["street_1"] %><br/>
 							<% unless post["street_2"].empty? %>
 								<%= post["street_2"] %><br/>
@@ -61,4 +61,4 @@
 	<% else %>
 		<p><i>There are no posts to display.</i></p>
 	<% end %>
-<div>
+</div>

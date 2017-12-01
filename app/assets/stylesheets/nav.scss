@@ -13,11 +13,10 @@
     a {
         text-decoration: none;
         color: $grey;
-        border-bottom: 1px solid transparent;
-    }
-
-    a:hover {
-        border-color: inherit;
+        border-bottom: 2px solid transparent;
+        &:hover {
+            border-color: inherit;
+        }
     }
 
     .logo {
@@ -47,7 +46,7 @@
             float: right;
             display: inline-block;
             vertical-align: middle;
-            padding: 0 3vw;
+            padding: 0 2vw;
             position: relative;
             line-height: 2em;
             > ul {
@@ -56,6 +55,9 @@
                 display: none;
                 width: inherit;
                 text-align: left;
+                padding: 0;
+                background: white;
+                color: $orange;
                 padding: 5px 0;
                 li {
                     margin: 0;
@@ -63,7 +65,13 @@
                     text-align: left;
                     width: 100%;
                     display: block;
-                    margin: 5px 0;
+                    margin: 2px 0;
+                    a {
+                        border-bottom: none;
+                    }
+                    &:not(:last-child) {
+                        border-bottom: 1px solid #eee;
+                    }
                 }
             }
         }

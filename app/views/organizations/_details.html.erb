@@ -1,0 +1,27 @@
+<div class="index-table">
+	<h3><%= @organization.name %></h3>
+
+	<% if @alliance %>
+		Alliance: <%= link_to @alliance.name, @alliance %>
+	<% end %>
+	<table>
+		<thead>
+			<tr>
+				<th>Member</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Title</th>
+			</tr>
+		</thead>
+		<% @organization.users.each do |user| %>
+			<tr>
+				<td><%= link_to user.proper_name, user_path(user) %></td>
+				<td><%= user.email %></td>
+				<td><%= user.phone %></td>
+				<td><%= user.job_title.titleize %></td>
+			</tr>
+		<% end %>
+	</table>
+
+	<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
+</div>

@@ -31,4 +31,7 @@ function shiftForm(index) {
 		if(i == index) $(navLinks[i]).removeClass('inactive');
 		else $(navLinks[i]).addClass('inactive');
 	}
+
+	// scroll up
+	window.scrollTo(0, 0);
 }

@@ -10,6 +10,7 @@ def index
 end
 
 def show
+	@post_details = Post.get_post_details([@post])
 end
 
 def new

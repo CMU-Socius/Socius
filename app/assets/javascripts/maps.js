@@ -55,5 +55,49 @@ function initIndexMap() {
 }
 
 function initPostMap() {
-    return;
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 15,
+    });
+
+    map.addListener('click', function() {
+        // alert("map clicked");
+    });
+
+    var marker;
+    var infowindow = new google.maps.InfoWindow();
+
+    var post_details = $('.map_info').data('postDetails');
+    
+    var post = post_details[0];
+
+    var lat = post["lat"];
+    var lng = post["lng"];
+    var coords = new google.maps.LatLng(lat, lng);
+    map.setCenter(coords);
+
+    var infoContent = 
+    '<div class="infoWindow">'+
+        '<div id="content">'+
+            '<h4>'+ post["street_1"] + '</h4>' +
+            '<a href="/posts/' + post["id"] + '/edit">Edit Address</a>' +
+        '</div>' +
+    '</div>';
+
+    marker = new google.maps.Marker({
+        position: coords,
+        label: "",
+        info: infoContent
+    });
+
+    marker.setMap(map);
+    infowindow.setContent(marker.info);
+    infowindow.open(map, marker);
+
+    google.maps.event.addListener(marker, 'click', (function(marker) {
+        return function() {
+            infowindow.setContent(marker.info);
+            infowindow.open(map, marker);
+        }
+    })(marker));
+
 }
