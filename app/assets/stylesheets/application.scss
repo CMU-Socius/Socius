@@ -27,6 +27,8 @@ body {
 	padding: 0;
 	margin: 0;
 	color: $grey;
+	overflow-x: hidden;
+	width: 100%;
 }
 
 main {
@@ -84,28 +86,44 @@ input[type="submit"], button, .button {
 	text-decoration: none;
 	color: white;
 	font-size: 1.5em;
+	cursor: pointer;
 	/*box-shadow: 1px 1px 1px #333;*/
 }
 
-.form {
-	width: 60%;
+label {
+	display: block;
+	float: left;
+	width: 10%;
+	min-width: 150px;
+	margin-top: 5px;
 }
+
+input:not([type="checkbox"]):not([type="submit"]), textarea, select {
+  height: 30px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  padding: 1em;
+  opacity: 0.5;
+  color: white;
+  font-family: 'Quicksand';
+
+  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+          box-sizing: border-box;
+  outline-style:none;
+  &:focus {
+  	opacity: 1;
+  }
+}
+
+textarea {
+	min-height: 10em;
+}
+
 form {
 	width: 60%;
-	label {
-		display: block;
-	}
-	input:not([type="checkbox"]), select {
-	  width: 200px;
-	  padding: 1em;
-	  border: 1px solid #999;
-	  border-radius: 6px;
-	  margin-bottom: 10px;
-
-	  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
-	     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
-	          box-sizing: border-box;
-	}
 	input[type="submit"], button {
 		margin: 2em 0 !important;
 	}

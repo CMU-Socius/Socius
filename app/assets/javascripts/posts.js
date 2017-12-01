@@ -9,7 +9,8 @@ $(function(){
   	shiftForm(index);
   });
   $('.navLink').click(function() {
-  	index = parseInt($(this).find('span').html()) - 1;
+  	// index = parseInt($(this).find('span').html()) - 1;
+  	index = $(".navLink").index(this);
   	shiftForm(index);
   });
 });
@@ -25,7 +26,7 @@ function shiftForm(index) {
 	form.style.transform = 'translate(-' + (100 * index) + 'vw)';
 
 	// update nav
-	var navLinks = $('#form-nav ul li span');
+	var navLinks = $('.navLink');
 	for(var i = 0; i < navLinks.length; i++) {
 		if(i == index) $(navLinks[i]).removeClass('inactive');
 		else $(navLinks[i]).addClass('inactive');

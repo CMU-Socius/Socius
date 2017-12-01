@@ -46,7 +46,7 @@
 	}
 }
 
-#form-nav {
+/*#form-nav {
 	text-align: center;
 	ul {
 		display: flex;
@@ -94,72 +94,91 @@
 			}
 		}
 	}
-}
-
-#post-form {
-	-webkit-transition: all 1s;
-      -moz-transition: all 1s;
-      -o-transition: all 1s;
-      transition: all 1s;
-	> table {
-		/*width: 300%;*/
-		width: 300vw;
-		table-layout: fixed;
-		td {
-			vertical-align: top;
-			position: relative;
-			padding: 0 5% 2% 5%;
-			height: 100%;
-			label {
+}*/
+#post-form-container {
+	background: $orange;
+	padding-top: 3%;
+	color: white;
+	text-align: center;
+	#form-nav {
+		text-align: center;
+		margin-bottom: 1em;
+		h1 {
+			font-size: 4.5em;
+			width: 100%;
+		}
+		ul {
+			width: 50%;
+			margin: 0 auto;
+			padding: 0;
+			display: flex;
+			text-align: right;
+  		justify-content: space-between;
+			li {
 				display: inline-block;
+				cursor: pointer;
+				padding-bottom: 4px;
+				border-bottom: 2px solid white;
+				&.inactive {
+					opacity: 0.5;
+				}
 			}
-			div {
-				input:not([type="checkbox"]), textarea {
+		}
+	}
+
+	#post-form {
+		text-align: left;
+		-webkit-transition: all 1s;
+	      -moz-transition: all 1s;
+	      -o-transition: all 1s;
+	      transition: all 1s;
+		> table {
+			/*width: 300%;*/
+			width: 300vw;
+			table-layout: fixed;
+			td {
+				vertical-align: top;
+				position: relative;
+				padding: 0 5% 2% 5%;
+				height: 100%;
+				div {
+					margin: 20px 0;
+					&.inline {
+						display: inline-block;
+						width: 33%;
+					}
+				}
+				.button-wrapper {
+					text-align: center;
+					.button {
+						display: inline-block;
+						margin: 0 auto;
+						font-size: 1em;
+					}
+				}
+				#needs-table {
 					width: 100%;
-					padding: 1em 2em;
-					margin: 1em 0;
-				}
-			}
-			textarea {
-				min-height: 10em;
-			}
-			#needs-table {
-				width: 100%;
-				p {
-					font-size: 3em;
-				}
-				tr {
-					&:nth-of-type(even) {
-						background: #f8f8f8;
+					p {
+						font-size: 3em;
 					}
-				}
-				td {
-					vertical-align: middle;
-					border-bottom: 1px solid #666;
-					padding: 1em;
-					&:nth-of-type(1) {
-						text-align: right;
-						padding-right: 3em;
+					label {
+						min-width: 150px;
+						margin-top: 0;
 					}
-					&:nth-of-type(2) {
-						width: 60%;
+					td {
+						vertical-align: middle;
+						border-bottom: 1px solid #666;
+						padding: 1em;
+						&:nth-of-type(1) {
+							text-align: right;
+							padding-right: 3em;
+						}
+						&:nth-of-type(2) {
+							width: 60%;
+						}
 					}
 				}
 			}
-		}
-		.post-form-prev-button,
-		.post-form-next-button {
-			margin-top: 20px;
-			font-size: 2em;
-			float: right;
-			color: #888;
-			cursor: pointer;
-			&:hover {
-				color: #FFA500;
-			}
-		}
-		.post-form-prev-button {
-			float: left;
 		}
 	}
 }
