@@ -6,4 +6,24 @@
 </div>
 
 <div id="post-data">
+	<p>Posted by: <%= link_to @poster.proper_name, @poster %></p>
+	<p>
+		Current Status: 
+		<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
+			Unclaimed
+		<% 	elsif @post.date_claimed %>
+			Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
+		<%	elsif @post.date_cancelled %>
+			Cancelled on <%= @post.date_cancelled.to_s %>
+		<% end %>
+	</p>
+	<p>Number of People: <%= @post.number_people %></p>
+	<p>Comment:
+		<% if @post.comment.empty? %>
+			<i>None</i>
+		<% else %>
+			<br/><%= @post.comment %>
+		<% end %>
+	</p>
+	
 </div>

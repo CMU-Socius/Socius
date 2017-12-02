@@ -140,6 +140,10 @@
 						font-size: 1em;
 					}
 				}
+				p {
+					text-align: center;
+					width: 100%;
+				}
 				#needs-table {
 					width: 100%;
 					p {
@@ -184,4 +188,8 @@
 	  padding: 10px;
 	  display: block !important;
 	}    */
+}
+
+#post-data {
+	padding: 3% 5%;
 }
