@@ -25,6 +25,6 @@ $(".posts.show").ready(function() {
     initPostMap();
 });
 
-$(".posts.new").ready(function() {
+$("#post-form-container").ready(function() {
     initPostFormMap();
 });

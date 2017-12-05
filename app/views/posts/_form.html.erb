@@ -18,6 +18,7 @@
 
             <tr>
                 <td>
+                    <small>Not seeing a map? Try refreshing! (CMD + Shift + R)</small>
                     <div id="map-canvas"></div>
                     <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
 
@@ -76,3 +77,5 @@
         <% end %>
     </div>
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=initPostFormMap" async defer></script>
