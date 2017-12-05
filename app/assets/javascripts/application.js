@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-readyselector
+//= require posts
+//= require maps
 //= require_tree .
 
 $(".posts.index").ready(function() {
@@ -21,4 +23,8 @@ $(".posts.index").ready(function() {
 
 $(".posts.show").ready(function() {
     initPostMap();
+});
+
+$(".posts.new").ready(function() {
+    initPostFormMap();
 });

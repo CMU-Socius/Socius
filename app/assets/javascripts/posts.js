@@ -1,5 +1,6 @@
+var index = 0;
+
 $(function(){
-	var index = 0;
   $('.post-form-next-button').click(function() {
   	index += 1;
   	shiftForm(index);

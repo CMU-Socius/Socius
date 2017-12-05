@@ -18,21 +18,21 @@
 
             <tr>
                 <td>
+                    <div id="map-canvas"></div>
                     <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
 
-                    <%= f.input :street_1, input_html: {class: "form-control", id: "street-1"} %>
+                    <%= f.input :street_1, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
                 
-                    <%= f.input :street_2, input_html: {class: "form-control", id: "street-2"} %>
+                    <%= f.input :street_2, :as => :hidden, input_html: {class: "form-control", id: "street-2"} %>
                     <div>
-                        <%= f.input :city, input_html: {class: "form-control", id: "city" }, wrapper_html: { class: "inline"} %>
+                        <%= f.input :city, :as => :hidden, input_html: {class: "form-control", id: "city" }, wrapper_html: { class: "inline"} %>
 
-                        <%= f.input :state, input_html: {class: "form-control", id: "state" }, wrapper_html: { class: "inline"} %>
+                        <%= f.input :state, :as => :hidden, input_html: {class: "form-control", id: "state" }, wrapper_html: { class: "inline"} %>
 
-                        <%= f.input :zip, input_html: {class: "form-control", id: "zip"}, wrapper_html: { class: "inline"} %>
+                        <%= f.input :zip, :as => :hidden, input_html: {class: "form-control", id: "zip"}, wrapper_html: { class: "inline"} %>
                     </div>
-                    <div class="button-wrapper">
-                        <a class="post-form-next-button button">Next >></a>
-                    </div>
+                    <a class="post-form-next-button button">Next >></a>
+                    
                 </td>
                 <td>
                     <p>If selecting other for any category, please be sure to specify further in the next section.</p>

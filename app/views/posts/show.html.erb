@@ -25,5 +25,11 @@
 			<br/><%= @post.comment %>
 		<% end %>
 	</p>
+
+	<ul>
+	<% @post.post_needs.each do |pn| %>
+		<li><%=pn.need.name %></li>
+	<% end %>
+	</ul>
 	
 </div>

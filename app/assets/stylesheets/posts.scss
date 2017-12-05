@@ -126,7 +126,8 @@
 				padding: 0 5% 2% 5%;
 				height: 100%;
 				div {
-					margin: 20px 0;
+					/*margin: 20px 0;*/
+					padding: 5px 0;
 					&.inline {
 						display: inline-block;
 						width: 33%;
@@ -176,6 +177,9 @@
 	.gm-style div div div {
 		width: 100%;
 		max-width: 200px;
+		a {
+			color: $grey;
+		}
 	}
 	/*.gm-style-iw {
 	  background-color: white !important;
