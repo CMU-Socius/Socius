@@ -165,7 +165,6 @@ function initPostFormMap() {
                         if(types.indexOf("administrative_area_level_1") >= 0) state = address_components[i].short_name;
                         if(types.indexOf("postal_code") >= 0) zip = address_components[i].long_name;
                     }
-                    console.log(street_1)
                     // set values of hidden address inputs
                     $("input[name='post[street_1]']").val(street_1);
                     $("input[name='post[street_2]']").val(street_2);
@@ -174,7 +173,7 @@ function initPostFormMap() {
                     $("input[name='post[zip]']").val(zip);
 
                     // move to next section
-                    index++;
+                    index = 1;
                     shiftForm(index);
                 } else {
                     // alert user and don't do anything
