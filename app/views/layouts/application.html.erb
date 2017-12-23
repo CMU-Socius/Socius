@@ -16,11 +16,10 @@
   <body class="<%= controller_name %> <%= action_name %>">
     <%= render :partial=> 'partials/nav' %>
     <%= render :partial=> 'partials/flash' %>
+    <%= javascript_include_tag "application" %>
     <%= yield %>
 
   </body>
-
-  <%= javascript_include_tag "application" %>
   <%#= yield :scripts %>
 
 

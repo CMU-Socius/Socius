@@ -81,7 +81,8 @@ class Post < ActiveRecord::Base
 			"claimer_id" => p.claimer_id, 
 			"claimer_name" => p.claimer_id ? User.find(p.claimer_id).proper_name : nil,
 			"date_cancelled" => p.date_cancelled,
-			"date_claimed" => p.date_claimed
+			"date_claimed" => p.date_claimed,
+			"date_completed" => p.date_completed,
 		}}
 	end
 

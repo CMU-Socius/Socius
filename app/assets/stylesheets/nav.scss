@@ -1,10 +1,11 @@
 .nav {
     display: block;
-    width: 100%;
+    width: 98%;
     background: $orange;
-    padding: 1em;
+    padding: 1em 1%;
     height: 4em;
     vertical-align: middle;
+    box-sizing: content-box;
 
     .button {
         display: inline;

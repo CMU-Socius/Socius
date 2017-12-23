@@ -35,10 +35,16 @@ function initIndexMap() {
         marker = new google.maps.Marker({
             position: coords,
             label: "",
-            info: infoContent
+            info: infoContent,
         });
 
         marker.setMap(map);
+        
+        if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+        else if(post["date_cancelled"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
+        else if(post["date_claimed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+        else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+
         bounds.extend(coords);
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -159,11 +165,11 @@ function initPostFormMap() {
                         zip      = ""; // ZIP: postal_code.long_name
                     for(var i = 0; i < address_components.length; i++) {
                         var types = address_components[i].types;
-                        if(types.indexOf("street_number") >= 0) street_1 = address_components[i].long_name + " " + street_1;
-                        if(types.indexOf("route") >= 0) street_1 += address_components[i].long_name;
-                        if(types.indexOf("locality") >= 0) city = address_components[i].long_name;
-                        if(types.indexOf("administrative_area_level_1") >= 0) state = address_components[i].short_name;
-                        if(types.indexOf("postal_code") >= 0) zip = address_components[i].long_name;
+                        if(types.indexOf("street_number") >= 0)               street_1 =  address_components[i].long_name + " " + street_1;
+                        if(types.indexOf("route") >= 0)                       street_1 += address_components[i].long_name;
+                        if(types.indexOf("locality") >= 0)                    city     =  address_components[i].long_name;
+                        if(types.indexOf("administrative_area_level_1") >= 0) state    =  address_components[i].short_name;
+                        if(types.indexOf("postal_code") >= 0)                 zip      =  address_components[i].long_name;
                     }
                     // set values of hidden address inputs
                     $("input[name='post[street_1]']").val(street_1);
@@ -177,7 +183,8 @@ function initPostFormMap() {
                     shiftForm(index);
                 } else {
                     // alert user and don't do anything
-                    alert("Google Maps failed to find an address for this point. Try another point.")
+                    alert("Google Maps failed to find an address for this point. Try another point.");
+                    return;
                 }
             });
         });

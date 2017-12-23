@@ -6,7 +6,7 @@
   <ul>
     <% if logged_in? %>
       <li>
-        <a href>Welcome, <%=current_user.first_name %></a> ▼
+        <a>Welcome, <%=current_user.first_name %></a> ▼
         <ul>
           <li><%= link_to "My Profile", user_path(current_user) %></li>
           <li><%= link_to("Log Out", logout_path) %></li>

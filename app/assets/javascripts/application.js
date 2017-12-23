@@ -17,14 +17,14 @@
 //= require maps
 //= require_tree .
 
-$(".posts.index").ready(function() {
-    initIndexMap();
-});
+// $(".posts.index").ready(function() {
+//     initIndexMap();
+// });
 
-$(".posts.show").ready(function() {
-    initPostMap();
-});
+// $(".posts.show").ready(function() {
+//     initPostMap();
+// });
 
-$("#post-form-container").ready(function() {
-    initPostFormMap();
-});
+// $("#post-form-container").ready(function() {
+//     initPostFormMap();
+// });

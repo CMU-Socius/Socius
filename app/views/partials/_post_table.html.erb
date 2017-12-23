@@ -15,10 +15,12 @@
 				<% post_details.each do |post| %>
 					<tr>
 						<td>
+							<p class="mobile-only table-heading">Posted By</p>
 							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
 							<small><%= post["created_at"].to_time.strftime('%B %e at %l:%M %p') %></small>
 						</td>
 						<td colspan="2">
+							<p class="mobile-only table-heading">Address</p>
 							<%= post["street_1"] %><br/>
 							<% unless post["street_2"].empty? %>
 								<%= post["street_2"] %><br/>
@@ -27,6 +29,7 @@
 						</td>
 						<td>
 							<% if post["claimer_id"] %>
+								<p class="mobile-only table-heading">Claimer</p>
 								<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
 								<% if logged_in? and post["claimer_id"] == current_user.id %>
 									<%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
@@ -38,6 +41,7 @@
 							<% end %>
 						</td>
 						<td>
+							<p class="mobile-only table-heading">Status</p>
 							<%  if post["date_cancelled"].nil? and post["date_claimed"].nil? %>
 										Unclaimed
 							<% 	elsif post["date_claimed"] %>
@@ -48,9 +52,11 @@
 						</td>
 						<td>
 							<% if logged_in? and current_user.id == post["poster_id"] %>
+								<p class="mobile-only table-heading">Actions</p>
 								<%= link_to "View Post", post_path(post["id"]) %>
 							<% end %>
 							<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
+								<p class="mobile-only table-heading">Actions</p>
 								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"]), remote: true %>
 							<% end %>
 						</td>

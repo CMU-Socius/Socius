@@ -21,6 +21,7 @@
 @import "posts";
 @import "users";
 @import "alliances";
+@import "mobile";
 
 body {
 	font-family: "Quicksand";
@@ -179,19 +180,4 @@ form {
 
 .incomplete {
 	color: orange;
-}
-
-@media screen and (max-width: 768px) {
-	td {
-		display: block;
-	}
-
-	.center-on-mobile {
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	.team-member {
-		width: 80% !important	;
-	}
 }
