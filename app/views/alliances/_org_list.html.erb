@@ -1,0 +1,9 @@
+<div id="alliance-org-list">
+	<% if @alliance %>
+		<h3><%= @alliance.name %> </h3>
+		<% @alliance.organizations.each do |org| %>
+			<%= link_to org.name.titleize, org %>
+		<% end %>
+	<% end %>
+
+</div>

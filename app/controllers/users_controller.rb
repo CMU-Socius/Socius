@@ -27,7 +27,7 @@ def show
 	if @user.organization_id
 		@organization = Organization.find(@user.organization_id)
 		if @organization.alliance_id
-			@alliance = Organization.where(alliance_id: @organization.alliance_id)
+			@alliance = Alliance.find(@organization.alliance_id)
 		end
 	end
 end

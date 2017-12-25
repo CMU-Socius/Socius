@@ -3,4 +3,8 @@ class Alliance < ActiveRecord::Base
 
 	#Scopes
 	scope :alphabetical,  -> { order(:name) }
+
+	def organizations
+  	Organization.where(alliance_id: self.id)
+  end
 end

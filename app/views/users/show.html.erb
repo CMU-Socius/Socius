@@ -32,10 +32,14 @@
 			<%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %>
 		</div>
 		<div id="profile-org" class="inactive">
-			<%= render partial: "organizations/details", locals: { post_details: @organization } %>
+			<%= render partial: "organizations/details" %>
 		</div>
 		<div id="profile-alliance" class="inactive">
-			Alliance stuff
+			<% unless @alliance.nil? %>
+				<%= render partial: "alliances/org_list" %>
+			<% else %>
+				<i>This user is not in an alliance.</i>
+			<% end %>
 		</div>
 	</div>
 
