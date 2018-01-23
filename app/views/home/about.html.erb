@@ -17,7 +17,7 @@
 				<td>
 				  <%= image_tag "team/" + member[:name].partition(" ").first + ".jpg", class: "member-photo" %>
 				  <div>
-				  	<%= link_to member[:name], member[:link] %>
+				  	<%= link_to member[:name], member[:link], :target => "_blank" %>
 				  </div>
 				</td>
 			<% end %>

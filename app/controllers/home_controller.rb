@@ -13,6 +13,7 @@ class HomeController < ApplicationController
       { name: "Vincent Kang", link: "http://www.vincentkang.me/" },
       { name: "Minnie Wu", link: "" },
       { name: "Sean Park", link: "https://spark33.github.io/" },
+      { name: "Grace Wong", link: "https://gwcreatives.carbonmade.com/about" },
     ]
   end
 
