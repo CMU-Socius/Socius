@@ -18,9 +18,8 @@
     <%= f.input :phone, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
 
     <%= f.input :job_title, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
-
-    <%= f.label :Organization %>
-    <%= f.collection_select :organization_id, @organizations, :id, :name, prompt: true %>
+    
+    <%= f.input :organization_id, collection: @organizations, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
 
     <% if logged_in? && (current_user.role?(:admin))  %>
         <%= f.input :role, collection: User::ROLES, wrapper_html: {class: 'form-group'}, prompt: true %>

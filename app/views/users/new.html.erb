@@ -1,9 +1,11 @@
-<div class="form center card">
-	<% if !logged_in?%>
-	    <h2>Sign Up </h2>
-	<% else %>
-	    <h2> Add a New User </h2>
-	<% end %>
+<div id="signup">
+	<div class="form center">
+		<% if !logged_in?%>
+		    <h2>Sign Up </h2>
+		<% else %>
+		    <h2> Add a New User </h2>
+		<% end %>
 
-	<%= render :partial => "form" %>
+		<%= render :partial => "form" %>
+	</div>
 </div>
