@@ -8,6 +8,19 @@
 		display: block;
 	}
 
+	#login, #signup {
+		width: 100%;
+		form {
+			div {
+				width: 100%;
+			}
+		}
+	}
+
+	label {
+		font-size: 1em;
+	}
+
 	table {
 		margin: 0 auto;
 		.table-heading {

@@ -114,6 +114,7 @@ function initPostFormMap() {
     var lat = 40.440624;
     var lng = -79.995888;
     var initialCoords = new google.maps.LatLng(lat, lng);
+    setNewPostLocation(initialCoords);
 
     // init elements
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -124,10 +125,7 @@ function initPostFormMap() {
     var marker = new google.maps.Marker({
         position: initialCoords,
         label: "",
-        // info: infoContent
     });
-
-    var infowindow = new google.maps.InfoWindow();
 
     // set props
     marker.setMap(map);
@@ -135,67 +133,44 @@ function initPostFormMap() {
     map.addListener('click', function(event) {
         lat = event.latLng.lat();
         lng = event.latLng.lng();
-        marker.setPosition(new google.maps.LatLng(lat, lng));
-        infowindow.open(map, marker);
+        var latLng = new google.maps.LatLng(lat, lng);
+        marker.setPosition(latLng);
+        setNewPostLocation(latLng);
     });
 
-    var infoContent = 
-    '<div class="infoWindow">'+
-        '<div id="content">'+
-            '<a>Select Position</a>'
-        '</div>' +
-    '</div>';
+}
 
-    infowindow.setContent(infoContent);
-
+function setNewPostLocation(latLng) {
     var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({"location": latLng}, function(results, status) {
+        if(status === "OK" && results[0] !== null) {
+            // find address from latlng and break it down into components
+            var address_components = results[0].address_components;
+            var street_1 = "", // STREET 1: street_number.long_name + " " + route.long_name
+                street_2 = "", // STREET 2: 
+                city     = "", // CITY: locality.long_name 
+                state    = "", // STATE: administrative_area_level_1.short_name 
+                zip      = ""; // ZIP: postal_code.long_name
+            for(var i = 0; i < address_components.length; i++) {
+                var types = address_components[i].types;
+                if(types.indexOf("street_number") >= 0)               street_1 =  address_components[i].long_name + " " + street_1;
+                if(types.indexOf("route") >= 0)                       street_1 += address_components[i].long_name;
+                if(types.indexOf("locality") >= 0)                    city     =  address_components[i].long_name;
+                if(types.indexOf("administrative_area_level_1") >= 0) state    =  address_components[i].short_name;
+                if(types.indexOf("postal_code") >= 0)                 zip      =  address_components[i].long_name;
+            }
+            // set values of hidden address inputs
+            $("input[name='post[street_1]']").val(street_1);
+            $("input[name='post[street_2]']").val(street_2);
+            $("input[name='post[city]']").val(city);
+            $("input[name='post[state]']").val(state);
+            $("input[name='post[zip]']").val(zip);
 
-    google.maps.event.addListener(infowindow, 'domready', function() {
-        $(".infoWindow a").on("click", function() {
-            var latLng = marker.getPosition();
-            // get address
-            geocoder.geocode({"location": latLng}, function(results, status) {
-                if(status === "OK" && results[0] !== null) {
-                    // find address from latlng and break it down into components
-                    var address_components = results[0].address_components;
-                    var street_1 = "", // STREET 1: street_number.long_name + " " + route.long_name
-                        street_2 = "", // STREET 2: 
-                        city     = "", // CITY: locality.long_name 
-                        state    = "", // STATE: administrative_area_level_1.short_name 
-                        zip      = ""; // ZIP: postal_code.long_name
-                    for(var i = 0; i < address_components.length; i++) {
-                        var types = address_components[i].types;
-                        if(types.indexOf("street_number") >= 0)               street_1 =  address_components[i].long_name + " " + street_1;
-                        if(types.indexOf("route") >= 0)                       street_1 += address_components[i].long_name;
-                        if(types.indexOf("locality") >= 0)                    city     =  address_components[i].long_name;
-                        if(types.indexOf("administrative_area_level_1") >= 0) state    =  address_components[i].short_name;
-                        if(types.indexOf("postal_code") >= 0)                 zip      =  address_components[i].long_name;
-                    }
-                    // set values of hidden address inputs
-                    $("input[name='post[street_1]']").val(street_1);
-                    $("input[name='post[street_2]']").val(street_2);
-                    $("input[name='post[city]']").val(city);
-                    $("input[name='post[state]']").val(state);
-                    $("input[name='post[zip]']").val(zip);
-
-                    // move to next section
-                    index = 1;
-                    shiftForm(index);
-                } else {
-                    // alert user and don't do anything
-                    alert("Google Maps failed to find an address for this point. Try another point.");
-                    return;
-                }
-            });
-        });
-    });
-    infowindow.open(map, marker);
-
-    google.maps.event.addListener(marker, 'click', (function(marker) {
-        return function() {
-            infowindow.open(map, marker);
+        } else {
+            // alert user and don't do anything
+            alert("Google Maps failed to find an address for this point. Try another point.");
+            return;
         }
-    })(marker));
-
+    });
 }
 

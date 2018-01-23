@@ -24,8 +24,6 @@
     <% if logged_in? && (current_user.role?(:admin))  %>
         <%= f.input :role, collection: User::ROLES, wrapper_html: {class: 'form-group'}, prompt: true %>
         <%= f.input_field :active, as: :boolean, boolean_style: :inline %>
-        <%= f.label :active %>
-      <!-- managers can only create shippers and other managers -->
 
     <%else%>
         <%= f.input :role, :as => :hidden, :input_html => {:value => :worker} %>
