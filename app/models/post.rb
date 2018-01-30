@@ -49,6 +49,17 @@ class Post < ActiveRecord::Base
 		self.save!
 	end
 
+	def update_post_needs(new_completed_ids)
+		completed_ids = new_completed_ids.select{ |id| id != '' }.map { |id| id.to_i }
+		self.post_needs.each do |pn|
+			if completed_ids.include? pn.id
+				pn.complete
+			else
+				pn.undo_complete
+			end
+		end
+	end
+
 	def post_needs
 		PostNeed.where(post_id: self.id)
 	end

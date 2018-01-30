@@ -6,13 +6,14 @@
 					<td>Posted By</td>
 					<td colspan="2">Address</td>
 					<!-- <td>Needs</td> -->
-					<td>Claimer</td>
+					<td>Post Needs</td>
 					<td>Status</td>
 					<td>Actions</td>
 				</tr>
 			</thead>
 			<tbody>
 				<% post_details.each do |post| %>
+					<% post_needs = Post.find(post['id']).post_needs %>
 					<tr>
 						<td>
 							<p class="mobile-only table-heading">Posted By</p>
@@ -28,15 +29,13 @@
 							<%= post["city"] %>, <%= post["state"] %> <%= post["zip"] %>
 						</td>
 						<td>
-							<% if post["claimer_id"] %>
-								<p class="mobile-only table-heading">Claimer</p>
-								<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
-								<% if logged_in? and post["claimer_id"] == current_user.id %>
-									<%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
+							<p class="mobile-only table-heading">Post Needs</p>
+							<ul>
+								<% post_needs.each do |pn| %>
+									<li><%= pn.need.name %></li>
 								<% end %>
-							<% elsif logged_in? and post["date_cancelled"].nil? %>
-								<%= link_to 'Claim Request', claim_request_path(id: post["id"]) %>
-							<% end %>
+							</ul>
+							<%= link_to "Complete Needs", post_path(post["id"]) %>
 						</td>
 						<td>
 							<p class="mobile-only table-heading">Status</p>
@@ -46,6 +45,15 @@
 										Claimed by <%= post["claimer_name"] %> on <%= post["date_claimed"].to_s %>
 							<%	elsif post["date_cancelled"] %>
 										Cancelled on <%= post["date_cancelled"].to_s %>
+							<% end %>
+							<% if post["claimer_id"] %>
+								<p class="mobile-only table-heading">Claimer</p>
+								<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
+								<% if logged_in? and post["claimer_id"] == current_user.id %>
+									<%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
+								<% end %>
+							<% elsif logged_in? and post["date_cancelled"].nil? %>
+								<%= link_to 'Claim Request', claim_request_path(id: post["id"]) %>
 							<% end %>
 						</td>
 						<td>

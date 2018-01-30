@@ -26,11 +26,18 @@
 		<% end %>
 	</p>
 
-	<ul>
-	<% @post.post_needs.each do |pn| %>
-		<li><%=pn.need.name %></li>
+	<%= form_tag(update_needs_path, method: 'get') do %>
+		<%#= @post.post_needs.completed_ids.inspect %>
+		<%= hidden_field :post, :id, :value => @post.id %>
+		<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+		<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
+      <div>
+          <%= pn.label %>
+          <%= pn.check_box %>
+      </div>
+  	<% end %>
+  	<%= submit_tag 'Update' %>
 	<% end %>
-	</ul>
 	
 </div>
 

@@ -28,7 +28,7 @@ function initIndexMap() {
         '<div class="infoWindow">'+
             '<div id="content">'+
                 '<h4>'+ post["street_1"] + '</h4>' +
-                '<a target="_blank" href="/posts/' + post["id"] + '">View Details</a>' +
+                '<a target="_blank" href="/posts/' + post["id"] + '">View Post</a>' +
             '</div>' +
         '</div>';
 
@@ -41,7 +41,7 @@ function initIndexMap() {
         marker.setMap(map);
         
         if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-        else if(post["date_cancelled"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
+        else if(post["date_cancelled"]) marker.setIcon("<%= asset_path('grey-pin.png') %>");
         else if(post["date_claimed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
         else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 

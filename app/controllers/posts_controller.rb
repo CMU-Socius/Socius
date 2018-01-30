@@ -12,6 +12,7 @@ end
 def show
 	@poster = @post.poster
 	@post_details = Post.get_post_details([@post])
+	@post_needs = @post.post_needs
 end
 
 def new
@@ -51,6 +52,13 @@ def update
 		@post_need = @post.post_needs.build
     render action: "edit"
   end
+end
+
+def update_needs
+	post_id = params['post']['id'].to_i
+	@post = Post.find(post_id)
+	@post.update_post_needs(params['post_needs']['completed_ids'])
+	redirect_to post_path(post_id), notice: "Updated post!"
 end
 
 def destroy

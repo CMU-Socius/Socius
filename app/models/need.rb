@@ -12,7 +12,7 @@ class Need < ActiveRecord::Base
 	scope :of_category,    ->(category) { where(category: category) }
 
 	#Validations
-	validates :name, presence: true, uniqueness: { case_sensitive: false}
+	validates :name, presence: true
 	validates :category, inclusion: { in: CATEGORIES.map { |c| c[1].to_s }, message: "is not a recognized category in system" }
 
 	#Callbacks

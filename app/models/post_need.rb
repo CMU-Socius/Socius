@@ -16,19 +16,27 @@ class PostNeed < ActiveRecord::Base
 		not self.time_completed.nil?
 	end
 
-	def completed
+	def complete
 		if self.time_completed.nil?
 			set_time_completed_to_now
 		end
 	end
 
-	def undo_completed
+	def self.completed_ids
+		where.not(time_completed: nil).map { |pn| pn.id }
+	end
+
+	def undo_complete
 		self.time_completed = nil
 		self.save!
 	end
 
 	def need
 		Need.find(self.need_id)
+	end
+
+	def need_name
+		Need.find(self.need_id).name
 	end
 
 
