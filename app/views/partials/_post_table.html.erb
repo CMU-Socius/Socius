@@ -57,13 +57,11 @@
 							<% end %>
 						</td>
 						<td>
-							<% if logged_in? and current_user.id == post["poster_id"] %>
-								<p class="mobile-only table-heading">Actions</p>
-								<%= link_to "View Post", post_path(post["id"]) %>
-							<% end %>
+							<p class="mobile-only table-heading">Actions</p>
+							<%= link_to "View Post", post_path(post["id"]) %>
 							<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
 								<p class="mobile-only table-heading">Actions</p>
-								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"]), remote: true %>
+								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"]) %>
 							<% end %>
 						</td>
 					</tr>

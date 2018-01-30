@@ -60,22 +60,22 @@ class User < ActiveRecord::Base
   end
 
 
-
-
-
-
-
-
-
 # Callbacks
   before_destroy :is_never_destroyable
   before_save :reformat_phone
+
+  before_save :downcase_email_and_username
   
   private
   def reformat_phone
     phone = self.phone.to_s  # change to string in case input as all numbers 
     phone.gsub!(/[^0-9]/,"") # strip all non-digits
     self.phone = phone       # reset self.phone to new string
+  end
+
+  def downcase_email_and_username
+    self.email = self.email.downcase
+    self.username = self.username.downcase
   end
 
   def organization_is_active_in_system

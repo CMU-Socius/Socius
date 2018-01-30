@@ -12,7 +12,7 @@ end
 def show
 	@poster = @post.poster
 	@post_details = Post.get_post_details([@post])
-	@post_needs = @post.post_needs
+	@post_needs = @post.post_needs.alphabetical
 end
 
 def new

@@ -134,6 +134,28 @@ input:not([type="checkbox"]):not([type="submit"]), textarea, select {
   }
 }
 
+input[type='checkbox'] {
+	-webkit-appearance:none;
+	width: 20px;
+	height: 20px;
+	background: white;
+	padding: 0;
+	margin: -2px;
+	border: 2px solid $grey;
+	font-size: 15px;
+	line-height: 20px;
+	text-align: center;
+	&:after {
+		content: '_';
+	}
+	&:checked {
+		opacity: 0.5;
+		&:after {
+			content: '✓';
+		}
+  }
+}
+
 textarea {
 	min-height: 10em;
 }

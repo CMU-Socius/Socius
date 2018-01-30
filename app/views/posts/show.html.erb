@@ -26,17 +26,22 @@
 		<% end %>
 	</p>
 
-	<%= form_tag(update_needs_path, method: 'get') do %>
-		<%#= @post.post_needs.completed_ids.inspect %>
-		<%= hidden_field :post, :id, :value => @post.id %>
-		<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
-		<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
-      <div>
-          <%= pn.label %>
-          <%= pn.check_box %>
-      </div>
-  	<% end %>
-  	<%= submit_tag 'Update' %>
+	<% unless @post_needs.empty? %>
+		<h4>Post Needs</h4>
+		<%= form_tag(update_needs_path, method: 'get') do %>
+			<%#= @post.post_needs.completed_ids.inspect %>
+			<%= hidden_field :post, :id, :value => @post.id %>
+			<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+			<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
+	      <div class="update-post-need-wrapper">
+	          <%= pn.label %>
+	          <%= pn.check_box %>
+	      </div>
+	  	<% end %>
+	  	<%= submit_tag 'Update' %>
+		<% end %>
+	<% else %>
+		<p><i>No Needs Registered</i></p>
 	<% end %>
 	
 </div>

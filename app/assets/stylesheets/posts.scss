@@ -7,15 +7,27 @@
 #map-container {
 	background: $orange;
 	padding: 3% 5%;
+	position: relative;
+	color: white;
+	#legend {
+		float: right;
+		.key {
+			line-height: 20px;
+			display: inline-block;
+			img {
+				height: 20px;
+			}
+		}
+	}
 	small {
-		display: block;
+		display: inline-block;
 		margin: 5px 0;
-		color: white;
 	}
 }
 #map-canvas {
 	height: 384px;
 	width: 100%;
+	color: $grey;
 }
 
 #post-form-container {
@@ -23,6 +35,14 @@
 	padding: 3% 5%;
 	color: white;
 	text-align: center;
+
+	h1 {
+		margin-top: 0;
+	}
+	
+	#address-preview {
+		font-size: 2vw;
+	}
 	small {
 		display: block;
 		text-align: left;
@@ -70,5 +90,8 @@
 	input[type='submit'] {
 		border-color: $orange;
 		color: $orange;
+	}
+	.update-post-need-wrapper {
+		padding: 10px;
 	}
 }

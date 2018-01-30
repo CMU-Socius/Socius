@@ -3,6 +3,20 @@
 
 <div id="map-container">
 	<small>Not seeing a map? Try refreshing! (CMD + Shift + R)</small>
+	<div id="legend">
+		<div class="key">
+			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/green-dot.png" %> = Completed
+		</div>
+		<div class="key">
+			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" %> = Claimed / In Progress
+		</div>
+		<div class="key">
+			<%= image_tag "grey-pin" %> = Cancelled
+		</div>
+		<div class="key">
+			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/red-dot.png" %> = Unclaimed
+		</div>
+	</div>
 	<div id="map-canvas"></div>
 </div>
 

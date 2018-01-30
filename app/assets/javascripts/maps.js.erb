@@ -166,6 +166,9 @@ function setNewPostLocation(latLng) {
             $("input[name='post[state]']").val(state);
             $("input[name='post[zip]']").val(zip);
 
+            // set value of label
+            $("#address-preview").html(street_1);
+
         } else {
             // alert user and don't do anything
             alert("Google Maps failed to find an address for this point. Try another point.");

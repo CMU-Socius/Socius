@@ -7,6 +7,7 @@ class PostNeed < ActiveRecord::Base
 	validates_datetime :time_completed, :on_or_before => lambda { DateTime.current }, allow_blank: true
 	
 	#Scopes
+	scope :alphabetical, -> {joins(:need).order('name')}
 	scope :completed, -> {where.not(time_completed: nil)}
 	scope :incomplete, -> {where(time_completed: nil)}
 

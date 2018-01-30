@@ -4,6 +4,20 @@
 
 @media screen and (max-width: 768px) {
 
+	input[type='checkbox'] {
+		min-width: 3vw;
+	}
+
+	#map-container {
+		#legend {
+			float: none;
+			display: block;
+			.key {
+				display: block;
+			}
+		}
+	}
+
 	.mobile-only {
 		display: block;
 	}
