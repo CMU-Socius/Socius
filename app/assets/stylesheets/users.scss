@@ -9,13 +9,18 @@
 	text-align: center;
 	color: white;
 	h2 {
-		margin: 1rem 0;
+		margin: 1rem 0 0 0;
+	}
+	p {
+		margin-top: 1rem;
+		margin-bottom: 0;
 	}
 	a {
 		color: white;
 	}
 	small {
 		display: block;
+		opacity: 0.5;
 		a {
 			font-size: 0.8em;
 		}

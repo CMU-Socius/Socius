@@ -28,7 +28,7 @@ function initIndexMap() {
         '<div class="infoWindow">'+
             '<div id="content">'+
                 '<h4>'+ post["street_1"] + '</h4>' +
-                '<a target="_blank" href="/posts/' + post["id"] + '">View Post</a>' +
+                '<a href="/posts/' + post["id"] + '">View Post</a>' +
             '</div>' +
         '</div>';
 
@@ -85,7 +85,6 @@ function initPostMap() {
     '<div class="infoWindow">'+
         '<div id="content">'+
             '<h4>'+ post["street_1"] + '</h4>' +
-            '<a href="/posts/' + post["id"] + '/edit">Edit Address</a>' +
         '</div>' +
     '</div>';
 

@@ -4,6 +4,10 @@
 
 @media screen and (max-width: 768px) {
 
+	h1 {
+		font-size: 3em !important;
+	}
+
 	input[type='checkbox'] {
 		min-width: 3vw;
 	}

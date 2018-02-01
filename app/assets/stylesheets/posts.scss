@@ -41,7 +41,7 @@
 	}
 	
 	#address-preview {
-		font-size: 2vw;
+		font-size: 1.5em;
 	}
 	small {
 		display: block;
@@ -93,5 +93,10 @@
 	}
 	.update-post-need-wrapper {
 		padding: 10px;
+	}
+	small {
+		display: block;
+		opacity: 0.5;
+		margin-bottom: 10px;
 	}
 }

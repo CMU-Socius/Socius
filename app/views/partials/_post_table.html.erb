@@ -18,7 +18,7 @@
 						<td>
 							<p class="mobile-only table-heading">Posted By</p>
 							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
-							<small><%= post["created_at"].to_time.strftime('%B %e at %l:%M %p') %></small>
+							<small><%= format_time(post["created_at"].to_time) %></small>
 						</td>
 						<td colspan="2">
 							<p class="mobile-only table-heading">Address</p>
