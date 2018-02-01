@@ -18,7 +18,7 @@
 						<td>
 							<p class="mobile-only table-heading">Posted By</p>
 							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
-							<small><%= post["created_at"].to_time.strftime('%B %e at %l:%M %p') %></small>
+							<small><%= format_time(post["created_at"].to_time) %></small>
 						</td>
 						<td colspan="2">
 							<p class="mobile-only table-heading">Address</p>
@@ -32,7 +32,12 @@
 							<p class="mobile-only table-heading">Post Needs</p>
 							<ul>
 								<% post_needs.each do |pn| %>
-									<li><%= pn.need.name %></li>
+									<li>
+										<%= pn.need.name %>
+										<% if pn.complete? %>
+											✓
+										<% end %>
+									</li>
 								<% end %>
 							</ul>
 							<%= link_to "Complete Needs", post_path(post["id"]) %>

@@ -1,7 +1,7 @@
 <div id="post-form-container">
     <h1>Submit a Request</h1>
     <p id="address-preview"></p>
-    <small>Not seeing a map? Try refreshing! (CMD + Shift + R)</small>
+    <small>Click or tap the map to select a location.</small>
     <div id="map-canvas"></div>
     <% if logged_in? && !current_user.nil?%>
 
@@ -25,7 +25,7 @@
                     <%= fields_for(@post_need) do |pn| %>
                         <% @all_needs.each do |category, needs| %>
                             <div class="need-category">
-                                <h3><%= category %></h3>
+                                <h2><%= category %></h2>
                                 <%= collection_check_boxes :needs, :id, needs, :id, :name do |need| %>
                                     <div>
                                         <%= need.label %>

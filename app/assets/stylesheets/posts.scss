@@ -41,7 +41,7 @@
 	}
 	
 	#address-preview {
-		font-size: 2vw;
+		font-size: 1.5em;
 	}
 	small {
 		display: block;
@@ -56,9 +56,6 @@
 		width: 100%;
 		.need-category {
 			margin-bottom: 5vw;
-			h3 {
-				font-size: 2.2em;
-			}
 			div {
 				display: flex;
 				align-items: center;
@@ -67,6 +64,8 @@
 				margin-bottom: 0.8vw;
 				label {
 					margin-top: 0;
+					font-size: 1em;
+					width: 15%;
 				}
 			}
 		}
@@ -93,5 +92,10 @@
 	}
 	.update-post-need-wrapper {
 		padding: 10px;
+	}
+	small {
+		display: block;
+		opacity: 0.5;
+		margin-bottom: 10px;
 	}
 }

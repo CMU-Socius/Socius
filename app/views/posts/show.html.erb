@@ -1,7 +1,7 @@
 <%= content_tag :div, class: "map_info", data: {post_details: @post_details} do %>
 <% end %>
 <div id="map-container">
-	<small>Not seeing a map? Try refreshing! (CMD + Shift + R)</small>
+	<small>Click or tap the map to select a location.</small>
 	<div id="map-canvas"></div>
 </div>
 
@@ -37,6 +37,11 @@
 	          <%= pn.label %>
 	          <%= pn.check_box %>
 	      </div>
+	      <% if pn.object.complete? %>
+        	<small>
+        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
+        	</small>
+        <% end %>
 	  	<% end %>
 	  	<%= submit_tag 'Update' %>
 		<% end %>
