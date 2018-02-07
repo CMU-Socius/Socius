@@ -1,54 +1,67 @@
 <%= content_tag :div, class: "map_info", data: {post_details: @post_details} do %>
 <% end %>
 <div id="map-container">
-	<small>Click or tap the map to select a location.</small>
+	<!-- <small>Click or tap the map to select a location.</small> -->
 	<div id="map-canvas"></div>
 </div>
+<div id="post-info-container">
+	<div id="post-data">
+		<div id="post-address">
+			<h2><%= @post.street_1 %></h2>
+			<div id="post-subaddress">
+				<% unless @post.street_2.empty? %>
+					<p><%= @post.street_2 %></p>
+				<% end %>
+				<p><%= "#{@post.city}, #{@post.state} #{@post.zip}" %></p>
+			</div>
+		</div>
+		<h5>Current Status</h5>
+		<p>
+			<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
+				Unclaimed
+			<% 	elsif @post.date_claimed %>
+				Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
+			<%	elsif @post.date_cancelled %>
+				Cancelled on <%= @post.date_cancelled.to_s %>
+			<% end %>
+		</p>
+		<h5>Number of People</h5>
+		<p><%= @post.number_people %></p>
+		<h5>Comment</h5>
+		<p>
+			<% if @post.comment.empty? %>
+				<i>None</i>
+			<% else %>
+				<%= @post.comment %>
+			<% end %>
+		</p>
 
-<div id="post-data">
-	<p>Posted by: <%= link_to @poster.proper_name, @poster %></p>
-	<p>
-		Current Status: 
-		<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
-			Unclaimed
-		<% 	elsif @post.date_claimed %>
-			Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
-		<%	elsif @post.date_cancelled %>
-			Cancelled on <%= @post.date_cancelled.to_s %>
-		<% end %>
-	</p>
-	<p>Number of People: <%= @post.number_people %></p>
-	<p>Comment:
-		<% if @post.comment.empty? %>
-			<i>None</i>
+		<small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
+	</div>
+	<div id="post-need-list">
+		<% unless @post_needs.empty? %>
+			<h3>Reported Needs</h3>
+			<%= form_tag(update_needs_path, method: 'get') do %>
+				<%#= @post.post_needs.completed_ids.inspect %>
+				<%= hidden_field :post, :id, :value => @post.id %>
+				<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+				<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
+		      <div class="update-post-need-wrapper">
+		        <%= pn.check_box %>
+		        <%= pn.label %>
+		      </div>
+		      <% if pn.object.complete? %>
+	        	<small>
+	        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
+	        	</small>
+	        <% end %>
+		  	<% end %>
+		  	<%= submit_tag 'Update' %>
+			<% end %>
 		<% else %>
-			<br/><%= @post.comment %>
+			<p><i>No Needs Registered</i></p>
 		<% end %>
-	</p>
-
-	<% unless @post_needs.empty? %>
-		<h4>Post Needs</h4>
-		<%= form_tag(update_needs_path, method: 'get') do %>
-			<%#= @post.post_needs.completed_ids.inspect %>
-			<%= hidden_field :post, :id, :value => @post.id %>
-			<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
-			<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
-	      <div class="update-post-need-wrapper">
-	          <%= pn.label %>
-	          <%= pn.check_box %>
-	      </div>
-	      <% if pn.object.complete? %>
-        	<small>
-        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
-        	</small>
-        <% end %>
-	  	<% end %>
-	  	<%= submit_tag 'Update' %>
-		<% end %>
-	<% else %>
-		<p><i>No Needs Registered</i></p>
-	<% end %>
-	
+	</div>
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=initPostMap" async defer></script>

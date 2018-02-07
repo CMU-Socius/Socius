@@ -24,7 +24,7 @@ class Need < ActiveRecord::Base
 		CATEGORIES.each do |c|
 			category_needs = Need.of_category(c)
 			unless category_needs.empty?
-				needs[c[0]] = Need.of_category(c).alphabetical.to_a
+				needs[c[0]] = Need.of_category(c).order("CASE WHEN name='Other' THEN 1 ELSE 0 END, name").to_a
 			end
 		end
 		needs
