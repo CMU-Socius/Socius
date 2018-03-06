@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validate :organization_is_active_in_system
   validates_presence_of :password_confirmation, on: :create 
   validates_confirmation_of :password, on: :create, message: "does not match"
-  validates_length_of :password, minimum: 4, message: "must be at least 4 characters long"
+  validates_length_of :password, minimum: 4, on: :create, message: "must be at least 4 characters long"
 
 	# Other methods
   def name

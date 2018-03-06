@@ -50,6 +50,8 @@ gem 'will_paginate'
 gem 'carrierwave', '1.0.0'
 gem 'rails_12factor'
 
+gem 'sendgrid-ruby'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '9.0.6'
