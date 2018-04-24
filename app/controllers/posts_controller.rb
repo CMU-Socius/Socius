@@ -35,7 +35,7 @@ def create
 			if !need.empty?
 				pn = PostNeed.new(:need_id => need, :post_id => @post.id)
 				pn.save!
-				UserNotifier.send_post_notification(@post).deliver_later
+				# UserNotifier.send_post_notification(@post).deliver_later
 			end
 		end
 		redirect_to posts_path, notice: "Added post!"
