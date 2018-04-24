@@ -37,30 +37,17 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
-  ActionMailer::Base.delivery_method = :smtp
 
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-      port: "465",
-      domain: "gmail.com",
-      authentication: "plain",
-      enable_starttls_auto: true,
-      address: 'smtp.gmail.com',
-      user_name: "seanpark1107@gmail.com",
-      password: "22934425"
-      # :user_name => 'apikey',
-      # :password => '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',
-      # :address => 'smtp.sendgrid.net',
+   :address              => "smtp.gmail.com",
+   :port                 => 587,
+   :user_name            => ENV['gmail_username'],
+   :password             => ENV['gmail_password'],
+   :authentication       => "plain",
+   :enable_starttls_auto => true
   }
-
-  # ActionMailer::Base.smtp_settings = {
-  #   :user_name => 'apikey',
-  #   :password => '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',
-  #   :address => 'smtp.sendgrid.net',
-  #   :port => 25587,
-  #   :authentication => :plain,
-  #   :enable_starttls_auto => true
-  # }
 
 end
