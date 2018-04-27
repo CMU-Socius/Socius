@@ -138,6 +138,10 @@ input:not([type="checkbox"]):not([type="submit"]), textarea, select {
   }
 }
 
+select {
+	padding: 0 1em;
+}
+
 input[type='checkbox'] {
 	-webkit-appearance:none;
 	width: 20px;
