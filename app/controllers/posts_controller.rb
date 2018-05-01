@@ -30,16 +30,18 @@ end
 def create
 	@post = Post.new(post_params)
 
-	if @post.save!
-		params[:needs][:id].each do |need|
-			if !need.empty?
-				pn = PostNeed.new(:need_id => need, :post_id => @post.id)
+	if @post.save
+		params[:needs][:id].each do |need_id|
+			unless need_id.empty?
+				pn = PostNeed.new(:need_id => need_id, :post_id => @post.id)
 				pn.save!
 				# UserNotifier.send_post_notification(@post).deliver_later
 			end
 		end
 		redirect_to posts_path, notice: "Added post!"
 	else
+		@all_needs = Need.by_category
+		@post_need = @post.post_needs.build
 		render action: 'new'
 	end
 end
