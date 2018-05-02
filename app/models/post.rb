@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
 	validates_presence_of :street_1, :number_people, :poster_id
 	validates_numericality_of :poster_id, only_integer: true
 	validates_numericality_of :claimer_id, only_integer: true, allow_blank: true
-	validates_numericality_of :number_people, only_integer: true, greater_than: 0
+	validates_numericality_of :number_people, only_integer: true, greater_than: 0, message: "should be an integer"
 	validates_format_of :zip, with: /\A\d{5}\z/, message: "should be five digits long"
 	validates_inclusion_of :state, in: STATES_LIST.map{|key, value| value}, message: "is not an option"
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"

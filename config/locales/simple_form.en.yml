@@ -1,4 +1,8 @@
 en:
+  activerecord:
+    attributes:
+      post:
+        number_people: "Number of people"
   simple_form:
     "yes": 'Yes'
     "no": 'No'
