@@ -1,13 +1,14 @@
 <div id="post-form-container">
-    <h1>Submit a Request</h1>
-    <p><i></i></p>
-    <p id="address-preview"></p>
-    <small>Click or tap the map to select a location.</small>
-    <div id="map-canvas"></div>
     <% if logged_in? && !current_user.nil?%>
-
         <%= simple_form_for @post, html: {class:'form-horizontal', multipart: true} do |f| %>
+
             <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
+
+            <h1>Submit a Request</h1>
+            <%= render 'partials/form_errors', record: @post %>
+            <p id="address-preview"></p>
+            <small>Click or tap the map to select a location.</small>
+            <div id="map-canvas"></div>
 
             <%= f.input :street_1, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
         
@@ -47,7 +48,8 @@
             </div>
         <% end %>
 
-
+    <% else %>
+        <p>Please <%= link_to "login", login_path %> to create a new request!</p>
     <% end %>
 </div>
 
