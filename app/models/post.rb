@@ -35,6 +35,7 @@ class Post < ActiveRecord::Base
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
   validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
   validate :address_is_valid
+  validate :check_post_need_exists
 	# validate :poster_is_active_in_system
 
 	#Callbacks
@@ -150,11 +151,17 @@ class Post < ActiveRecord::Base
 		true
   end
 
-	 def set_datetime_posted_if_not_given
+	def set_datetime_posted_if_not_given
 		 #TO DO: make this account for non date inputs as well
-    unless !self.date_posted.nil?
+    if self.date_posted.nil?
       self.date_posted = DateTime.current
     end
+  end
+
+  def check_post_need_exists
+  	if needs.empty?
+  		errors.add(:no_needs, "were selected.")
+  	end
   end
 
   def address_is_valid
