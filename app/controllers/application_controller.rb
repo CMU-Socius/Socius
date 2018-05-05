@@ -4,23 +4,14 @@ class ApplicationController < ActionController::Base
 
   include ApplicationHelper
 
-  #include SociusWebHomelessHelpers::Gmap
-
-
   protect_from_forgery with: :exception
-
-
-
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "You do not have access to this page."
       redirect_to home_path
   end
 
-
-  @@firebase = Firebase::Client.new('https://socius2-1254.firebaseio.com/')
-
-
+  # @@firebase = Firebase::Client.new('https://socius2-1254.firebaseio.com/')
 
   private
   #Handling authentication
