@@ -30,12 +30,26 @@ end
 def create
 	@post = Post.new(post_params)
 
+	# check that there is a need selected
+	all_empty = true
+	params[:needs][:id].each do |need_id|
+		if !need_id.empty?
+			all_empty = false
+		end
+	end
+	if all_empty
+		@post.errors.add(:no_needs, "were selected.")
+		@all_needs = Need.by_category
+		@post_need = @post.post_needs.build
+		render action: 'new' and return
+	end
+
+	# then try to save the post
 	if @post.save
 		params[:needs][:id].each do |need_id|
 			unless need_id.empty?
 				pn = PostNeed.new(:need_id => need_id, :post_id => @post.id)
 				pn.save!
-				# UserNotifier.send_post_notification(@post).deliver_later
 			end
 		end
 		redirect_to posts_path, notice: "Added post!"
