@@ -11,6 +11,13 @@ class ApplicationController < ActionController::Base
       redirect_to home_path
   end
 
+  def page_not_found
+    respond_to do |format|
+      format.html { render template: 'errors/404.html', layout: 'layouts/application', status: 404 }
+      format.all  { render nothing: true, status: 404 }
+    end
+  end
+
   # @@firebase = Firebase::Client.new('https://socius2-1254.firebaseio.com/')
 
   private
@@ -20,8 +27,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
     rescue ActiveRecord::RecordNotFound
   end
-
-
   helper_method :current_user
 
   def logged_in?
