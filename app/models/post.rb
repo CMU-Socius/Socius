@@ -35,8 +35,6 @@ class Post < ActiveRecord::Base
   validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
   validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
   validate :address_is_valid
-  validate :check_post_need_exists
-	# validate :poster_is_active_in_system
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given
@@ -142,38 +140,16 @@ class Post < ActiveRecord::Base
 		end
 	end
 
-	def poster_is_active_in_system
-		return true if self.poster.nil?
-		all_active = User.active.to_a.map{|u| u.id}
-		unless all_active.include?(self.poster.id)
-        self.errors.add(self.poster.proper_name, " is not active in the system")
-      end
-		true
-  end
-
 	def set_datetime_posted_if_not_given
 		 #TO DO: make this account for non date inputs as well
     if self.date_posted.nil?
       self.date_posted = DateTime.current
     end
   end
-
-  def check_post_need_exists
-  	if needs.empty?
-  		errors.add(:no_needs, "were selected.")
-  	end
-  end
-
+  
   def address_is_valid
 		return true if Geocoder.coordinates(self.full_street_address)
 		self.errors.add(:city, "Address was not found.")
 	end
-
-
-
-
-
-
-
 end
 
