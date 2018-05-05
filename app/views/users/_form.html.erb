@@ -22,7 +22,7 @@
     
     <%= f.input :organization_id, collection: @organizations, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
 
-    <% if logged_in? && current_user.role?(:admin) # admin %>
+    <% if logged_in? && current_user.role?(:admin) %>
         <%= f.input :role, collection: User::ROLES, wrapper_html: {class: 'form-group'}, prompt: true %>
         <%= f.input_field :active, as: :boolean, boolean_style: :inline %>
     <% elsif logged_in? # member %>
