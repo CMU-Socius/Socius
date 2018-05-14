@@ -16,6 +16,20 @@
 		min-width: 3vw;
 	}
 
+	// home#home
+	#who, #vision {
+		h2 {
+			margin: 1.5em 0 !important;
+		}
+		p {
+			text-align: left;
+			font-size: 1em !important;
+		}
+		td p {
+			text-align: center !important;
+		}
+	}
+
 	#map-container {
 		#legend {
 			float: none;
@@ -59,7 +73,7 @@
 		}
 	}
 
-	.nav {
+	nav {
 		ul {
 			padding: 0;
 			text-align: center;
@@ -67,7 +81,6 @@
 	}
 
 	header {
-		text-align: center;
 		h3 {
 			width: 100%;
 		}
@@ -86,11 +99,6 @@
 	}
 
 	#post-form-container {
-		#form-nav {
-			ul {
-				display:none;
-			}
-		}
 		.button-wrapper:not(#submit) {
 			display: none;
 		}

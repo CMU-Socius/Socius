@@ -11,7 +11,6 @@ class HomeController < ApplicationController
       { name: "Mani Srivastava", link: "http://www.ee.ucla.edu/mani-srivastava/" },
       { name: "Lisa Otto", link: "http://www.lisaot.to/" },
       { name: "Vincent Kang", link: "http://www.vincentkang.me/" },
-      { name: "Minnie Wu", link: "" },
       { name: "Sean Park", link: "https://spark33.github.io/" },
       { name: "Grace Wong", link: "https://gwcreatives.carbonmade.com/about" },
     ]
