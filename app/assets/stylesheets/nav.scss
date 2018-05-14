@@ -1,15 +1,10 @@
-.nav {
+nav {
     display: block;
-    width: 98%;
+    width: 100%;
     background: $orange;
     padding: 1em 1%;
-    height: 4em;
     vertical-align: middle;
     box-sizing: content-box;
-
-    .button {
-        display: inline;
-    }
 
     a {
         text-decoration: none;
@@ -79,7 +74,7 @@
 
         li:hover ul {
             display: block;
-            z-index: 999;
+            z-index: 999 !important;
         }
     }
 }
