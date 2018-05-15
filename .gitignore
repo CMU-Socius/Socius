@@ -13,3 +13,5 @@
 /tmp
 
 public/assets/**
+# Ignore ENV variables stored using Figaro
+config/application.yml
