@@ -1,0 +1,13 @@
+@import "variables";
+
+.mail {
+	h5 {
+		border-bottom: 2px solid $grey;
+		padding-bottom: 3px;
+		margin-bottom: 0;
+		font-size: 1em;
+	}
+	p {
+		margin: 30px 0;
+	}
+}

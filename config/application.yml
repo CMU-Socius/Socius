@@ -1,3 +1,6 @@
 
 gmail_username: 'cmusocius@gmail.com'
 gmail_password: 'socius_secret'
+
+sendgrid_username: 'cmu-socius'
+sendgrid_password: 'cmusocius123'
