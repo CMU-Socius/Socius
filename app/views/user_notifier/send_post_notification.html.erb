@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p>This is an example a new post notification.</p>
-    <%= @post.inspect %>
-  </body>
-</html>
+<h3>A new request was posted to Socius!</h3>
+
+<h5>Address</h5>
+<p><%= @post.street_1 %></p>
+<% unless @post.street_2.empty? %>
+	<p><%= @post.street_2 %></p>
+<% end %>
+<p>
+	<%= "#{@post.city}, #{@post.state} #{@post.zip}" %>
+</p>
+
+<h5>Current Status</h5>
+<p>
+	<% if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
+		Unclaimed
+	<% 	elsif @post.date_claimed %>
+		Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
+	<%	elsif @post.date_cancelled %>
+		Cancelled on <%= @post.date_cancelled.to_s %>
+	<% end %>
+</p>
+
+<h5>Number of People</h5>
+<p><%= @post.number_people %></p>
+
+<h5>Comment</h5>
+<p>
+	<% if @post.comment.empty? %>
+		<i>None</i>
+	<% else %>
+		<%= @post.comment %>
+	<% end %>
+</p>
+
+<small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
+
+<h5>Reported Needs</h5>
+<% unless @post_needs.empty? %>
+	<ul>
+		<% @post_needs.each do |pn| %>
+			<li><%= pn.need.name %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<p><i>No Needs Registered</i></p>
+<% end %>
+
+<%= link_to 'View Post', @post %>
