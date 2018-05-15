@@ -46,11 +46,11 @@ gem 'cancancan', '1.15.0'
 gem 'simple_form'
 gem "nested_form"
 gem 'will_paginate'
+gem 'hirb'
 
 gem 'carrierwave', '1.0.0'
 gem 'rails_12factor'
 
-# gem 'sendgrid-ruby'
 gem "figaro"
 
 group :development, :test do
