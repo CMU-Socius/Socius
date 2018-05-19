@@ -1,5 +1,8 @@
 nav {
     position: fixed;
+    top: 0;
+    left: 0;
+    height: 4em;
     min-width: 100%;
     background: $orange;
     padding: 0 1em;
@@ -10,7 +13,7 @@ nav {
     a {
         text-decoration: none;
         color: $grey;
-        padding: 0;
+        padding-bottom: 2px;
         margin: 0;
         border-bottom: 2px solid transparent;
         vertical-align: middle;
