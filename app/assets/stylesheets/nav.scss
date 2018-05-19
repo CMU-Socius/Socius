@@ -47,6 +47,7 @@ nav {
                 background: white;
                 padding: 0;
                 display: inline-table;
+                border: 1px solid #eee;
                 visibility: hidden; 
                 opacity: 0; // for transition
                 transition: all 0.3s ease;
@@ -57,10 +58,6 @@ nav {
                     width: 100%;
                     padding: 15px;
                     border-bottom: 1px solid #eee;
-                    a {
-                        margin: 0;
-                        border-bottom: none;
-                    }
                 }
             }
         }
@@ -69,6 +66,60 @@ nav {
             visibility: visible;
             z-index: 999 !important;
             opacity: 1;
+        }
+    }
+    #menu-toggle, #label-toggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        display: block;
+        padding-top: 3vw;
+        height: auto;
+        .logo, ul, li {
+            display: block !important;
+            width: 100%;
+        }
+        ul {
+            background: $orange;
+            left: 0;
+            height: 0;
+            opacity: 0;
+            text-align: center;
+            transition: all 0.5s ease;
+            visibility: hidden;
+        }
+        li {
+            padding: 5vh !important;
+            background: white;
+            text-align: center !important;
+            border-bottom: 3px solid $orange !important;
+        }
+        #label-toggle {
+            background: linear-gradient(to bottom, white 0%, white 20%, 
+                                           transparent 20%, transparent 40%, 
+                                           white 40%, white 60%, 
+                                           transparent 60%, transparent 80%, 
+                                           white 80%, white 100%); 
+                                           // Gradient Hamburger
+            cursor: pointer;
+            display: block;
+            height: 35px;
+            min-width: 35px;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        #menu-toggle:checked ~ ul {
+            opacity: 1;
+            height: 100vh;
+            visibility: visible !important;
+            > li > ul {
+                visibility: visible;
+                opacity: 1;
+            }
         }
     }
 }
