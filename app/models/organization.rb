@@ -10,15 +10,15 @@ class Organization < ActiveRecord::Base
 	#Scopes
 	scope :alphabetical,  -> { order(:name) }
 	scope :active,        -> { where(active: true) }
-  scope :inactive,      -> { where(active: false) }
+    scope :inactive,      -> { where(active: false) }
 
 	def already_exists?
-  	Organization.where(name: self.name).size > 0
-  end
+  	  Organization.where(name: self.name).size > 0
+    end
 
-  def users
-  	User.where(organization_id: self.id)
-  end
+    def users
+  	  User.where(organization_id: self.id)
+    end
 
 	
 	private
