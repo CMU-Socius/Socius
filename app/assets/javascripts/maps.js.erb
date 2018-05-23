@@ -63,6 +63,7 @@ function initIndexMap() {
 function initPostMap() {
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
+        disableDefaultUI: true
     });
 
     map.addListener('click', function() {
@@ -118,7 +119,14 @@ function initPostFormMap() {
     // init elements
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
-        center: initialCoords
+        center: initialCoords,
+        panControl: true,
+        zoomControl: true,
+        zoomControlOptions: {
+           position: google.maps.ControlPosition.RIGHT_CENTER,
+           style: google.maps.ZoomControlStyle.SMALL
+        },
+        clickableIcons: false   
     });
 
     var marker = new google.maps.Marker({

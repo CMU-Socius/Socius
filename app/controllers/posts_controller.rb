@@ -5,7 +5,14 @@ class PostsController < ApplicationController
 
 
 def index
-	posts = Post.all.chronological
+	if current_user.role? :admin
+		posts = Post.all.chronological
+	elsif current_user.role? :worker
+		posts = Post.for_organization(current_user.organization_id).chronological
+		posts = Post.all.chronological
+	end
+
+	# posts = Post.all.chronological
 	@post_details = Post.get_post_details(posts)
 end
 
@@ -52,7 +59,7 @@ def create
 				pn.save!
 			end
 		end
-		UserNotifier.send_post_notification(@post).deliver_later
+		#UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
 		@all_needs = Need.by_category
@@ -64,18 +71,27 @@ end
 def update
 	set_post
 	if @post.update(post_params)
-    redirect_to posts_path, notice: "Successfully updated post."
-  else
-  	@all_needs = Need.by_category
-		@post_need = @post.post_needs.build
-    render action: "edit"
-  end
+	    redirect_to posts_path, notice: "Successfully updated post."
+	else
+	  	@all_needs = Need.by_category
+			@post_need = @post.post_needs.build
+	    render action: "edit"
+	end
 end
 
 def update_needs
 	post_id = params['post']['id'].to_i
 	@post = Post.find(post_id)
 	@post.update_post_needs(params['post_needs']['completed_ids'])
+	@post.date_completed = DateTime.current
+	@post.post_needs.each do |n|
+		if !n.complete? 
+			@post.date_completed = nil
+
+		end
+	end
+
+	@post.save!
 	redirect_to post_path(post_id), notice: "Updated post!"
 end
 

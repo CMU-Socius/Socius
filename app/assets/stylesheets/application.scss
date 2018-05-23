@@ -22,6 +22,7 @@
 @import "users";
 @import "alliances";
 @import "mobile";
+@import "colors";
 
 body {
 	font-family: "Quicksand";
@@ -142,6 +143,8 @@ select {
 	padding: 0 1em;
 }
 
+
+
 input[type='checkbox'] {
 	-webkit-appearance:none;
 	width: 20px;
@@ -197,6 +200,13 @@ form {
 				background: #f8f8f8;
 			}
 			td {
+				// #viewpost a{
+				// 	color: $orange ;
+				// }
+				.green-text{
+				color: #58d039;}
+				.red-text{
+				color: $red;}
 				text-align: left;
 				padding: 1em;
 			}

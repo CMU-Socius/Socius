@@ -40,22 +40,29 @@
 									</li>
 								<% end %>
 							</ul>
-							<%= link_to "Complete Needs", post_path(post["id"]) %>
+							
 						</td>
 						<td>
 							<p class="mobile-only table-heading">Status</p>
 							<%  if post["date_cancelled"].nil? and post["date_claimed"].nil? %>
-										Unclaimed
+										<div class = "red-text">Unclaimed</div>
+						    
+							<%elsif !post["date_completed"].nil? %>
+									<div class = "green-text">	Completed on <%= post["date_completed"].to_date %></div>
+							
 							<% 	elsif post["date_claimed"] %>
 										Claimed by <%= post["claimer_name"] %> on <%= post["date_claimed"].to_s %>
 							<%	elsif post["date_cancelled"] %>
 										Cancelled on <%= post["date_cancelled"].to_s %>
+					
+
 							<% end %>
 							<% if post["claimer_id"] %>
 								<p class="mobile-only table-heading">Claimer</p>
 								<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
 								<% if logged_in? and post["claimer_id"] == current_user.id %>
-									<%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
+									<%if post["date_completed"].nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
+									<%end%>
 								<% end %>
 							<% elsif logged_in? and post["date_cancelled"].nil? %>
 								<%= link_to 'Claim Request', claim_request_path(id: post["id"]) %>
@@ -63,10 +70,21 @@
 						</td>
 						<td>
 							<p class="mobile-only table-heading">Actions</p>
-							<%= link_to "View Post", post_path(post["id"]) %>
+
+							<%if !post["date_completed"].nil? or post["claimer_id"].nil? or post["claimer_id"]!=current_user.id%>
+
+							<div id ="viewpost"><%= link_to "View Post", post_path(post["id"]) %></div>
+
+							<%else%>
+
+							<%= link_to "Complete Needs", post_path(post["id"]) %>
+
+							<%end%>
+
 							<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
 								<p class="mobile-only table-heading">Actions</p>
-								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"]) %>
+								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"])%>
+
 							<% end %>
 						</td>
 					</tr>

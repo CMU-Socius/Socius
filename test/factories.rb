@@ -17,6 +17,7 @@ FactoryGirl.define do
   end
   
   factory :user do
+    job_title "worker"
     association :organization
     first_name "Ed"
     last_name "Gruberman"

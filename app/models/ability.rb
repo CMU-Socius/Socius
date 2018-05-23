@@ -18,6 +18,9 @@ class Ability
       can :update, Organization do |o|
         o.id == user.organization_id
       end
+      can :read, Post do |o|
+        o.poster.organization_id == user.organization_id
+    end
     else
       can :create, User
       can :read, Post
