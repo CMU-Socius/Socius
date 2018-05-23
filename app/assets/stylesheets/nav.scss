@@ -76,13 +76,18 @@ nav {
 @media screen and (max-width: 768px) {
     nav {
         display: block;
-        padding-top: 3vw;
         height: auto;
-        .logo, ul, li {
+        min-height: 3em;
+        padding: 0 1vw;
+        .logo {
+            margin-top: 5px;
+        }
+        ul, li {
             display: block !important;
             width: 100%;
         }
         ul {
+            margin: 0;
             background: $orange;
             left: 0;
             height: 0;
@@ -106,10 +111,10 @@ nav {
                                            // Gradient Hamburger
             cursor: pointer;
             display: block;
-            height: 35px;
-            min-width: 35px;
+            height: 30px;
+            min-width: 30px;
             position: absolute;
-            top: 10px;
+            top: 5px;
             right: 20px;
         }
         #menu-toggle:checked ~ ul {
