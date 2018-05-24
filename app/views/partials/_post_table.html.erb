@@ -4,8 +4,7 @@
 			<thead>
 				<tr>
 					<td>Posted By</td>
-					<td colspan="2">Address</td>
-					<!-- <td>Needs</td> -->
+					<td colspan="1">Address</td>
 					<td>Post Needs</td>
 					<td>Status</td>
 					<td>Actions</td>
@@ -20,7 +19,7 @@
 							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
 							<small><%= format_time(post["created_at"].to_time) %></small>
 						</td>
-						<td colspan="2">
+						<td colspan="1">
 							<p class="mobile-only table-heading">Address</p>
 							<%= post["street_1"] %><br/>
 							<% unless post["street_2"].empty? %>
