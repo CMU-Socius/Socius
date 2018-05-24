@@ -28,5 +28,5 @@ Rails.application.routes.draw do
 
   #Set the root url
   root :to => 'home#home'
-  # get '*any', via: :all, to: 'application#page_not_found'
+  get '*any', via: :all, to: 'application#page_not_found'
 end

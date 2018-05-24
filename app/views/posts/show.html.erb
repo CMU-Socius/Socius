@@ -39,7 +39,7 @@
 		<small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
 	</div>
 	<div id="post-need-list">
-		<%if @post.claimer_id == current_user.id and post.date_cancelled.nil?%>
+		<%if @post.claimer_id == current_user.id and @post.date_cancelled.nil?%>
 		<% unless @post_needs.empty? %>
 			<h3>Reported Needs</h3>
 			<%= form_tag(update_needs_path, method: 'get') do %>
