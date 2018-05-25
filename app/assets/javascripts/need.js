@@ -1,60 +1,45 @@
 $(document).on('ready', function(){
   $("#fhide").click(function(){
-        $(".fneed").hide();
+        $(".fneed").toggle();
     });
-    $("#fshow").click(function(){
-        $(".fneed").show();
-    });
+
 
 
 
   $("#chide").click(function(){
-        $(".cneed").hide();
+        $(".cneed").toggle();
     });
-    $("#cshow").click(function(){
-        $(".cneed").show();
-    });
+
 
 
 
    $("#thide").click(function(){
-        $(".tneed").hide();
+        $(".tneed").toggle();
     });
-    $("#tshow").click(function(){
-        $(".tneed").show();
-    });
+
 
 
 
     $("#cshide").click(function(){
-        $(".csneed").hide();
+        $(".csneed").toggle();
     });
-    $("#csshow").click(function(){
-        $(".csneed").show();
-    });
+
 
 
 
     $("#trhide").click(function(){
-        $(".trneed").hide();
-    });
-    $("#trshow").click(function(){
-        $(".trneed").show();
+        $(".trneed").toggle();
     });
 
 
     $("#mhide").click(function(){
-        $(".mneed").hide();
-    });
-    $("#mshow").click(function(){
-        $(".mneed").show();
+        $(".mneed").toggle();
     });
 
+
      $("#ohide").click(function(){
-        $(".oneed").hide();
+        $(".oneed").toggle();
     });
-    $("#oshow").click(function(){
-        $(".oneed").show();
-    });
+
 
 });

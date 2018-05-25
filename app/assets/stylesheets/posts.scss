@@ -58,30 +58,33 @@
 	}
 	#needs-list {
 		width: 100%;
-		.need-category {
-			display:none;
-			margin-bottom: 5vw;
-			div {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: 100%;
-				padding: 0.5em;
-				margin-bottom: 0.8vw;
-				h2 {
-					font-size: 3em;
-				}
-				label {
-					margin-top: 0;
-					font-size: 1.3em;
-					width: 15%;
-				}
+		div{
+			margin: 2vw 0vw;
+			.togglelink{
+				font-size: 3em;
 			}
-			small {
-				text-align: center;
-				display: block;
-				opacity: 0.85;
-				margin-top: 30px;
+			.need-category {
+				display:none;
+				margin-bottom: 5em;
+				div {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					padding: 0.5em;
+					margin-bottom: 0.8vw;
+					label {
+						margin-top: 0;
+						font-size: 1.3em;
+						width: 15%;
+					}
+				}
+				small {
+					text-align: center;
+					display: block;
+					opacity: 0.85;
+					margin-top: 30px;
+				}
 			}
 		}
 	}

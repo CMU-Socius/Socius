@@ -139,6 +139,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    material_icons (2.2.1)
+      railties (>= 3.2)
     meta_request (0.4.0)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -256,7 +258,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     validates_timeliness (4.0.2)
       timeliness (~> 0.3.7)
-    vuejs-rails (2.5.13)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -292,6 +293,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  material_icons
   meta_request
   minitest
   minitest-rails
@@ -315,7 +317,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   validates_timeliness
-  vuejs-rails (= 2.5.13)
   web-console (~> 2.0)
   will_paginate
   wirble

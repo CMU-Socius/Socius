@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   get 'complete_post_need' => 'post_needs#complete', :as => :complete_post_need
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
 
-  get 'need/by_cat', to: 'needs#by_cat', as: :by_cat
   #Set the root url
   root :to => 'home#home'
   get '*any', via: :all, to: 'application#page_not_found'

@@ -99,6 +99,46 @@
 	}
 
 	#post-form-container {
+		#needs-list {
+			div{
+			margin: 3vw 0vw;
+			.togglelink{
+				font-weight: bold;
+				width: 90%;
+				padding: 1vw;
+				background-color: $light-orange;
+				color: orange;
+				font-size: 1.4em;
+				&:hover {
+				      border: none ;
+				  }
+			 }
+
+			 .need-category {
+				display:none;
+				margin-bottom: 5em;
+				div {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					padding: 0.5em;
+					margin-bottom: 0.8vw;
+					label {
+						margin-top: 0;
+						font-size: 1.2em;
+						width: 15%;
+					}
+				}
+				small {
+					text-align: center;
+					display: block;
+					opacity: 0.85;
+					margin-top: 30px;
+				}
+			}
+		    }
+		}
 		.button-wrapper:not(#submit) {
 			display: none;
 		}

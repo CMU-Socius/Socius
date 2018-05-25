@@ -28,7 +28,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
 
-gem 'vuejs-rails', '2.5.13'
+gem 'material_icons'
+
+
 
 
 # Use Unicorn as the app server

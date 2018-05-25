@@ -1,4 +1,7 @@
 /*
+*= require material_icons
+*/
+/*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -22,6 +25,7 @@
 @import "users";
 @import "alliances";
 @import "mobile";
+
 
 body {
 	font-family: "Quicksand";
@@ -50,7 +54,7 @@ a {
   margin-bottom: 3px;
   cursor: pointer;
   &:hover {
-      border-color: inherit;
+      // border-color: inherit;
   }
 }
 
