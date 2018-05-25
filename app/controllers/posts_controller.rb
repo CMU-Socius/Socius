@@ -9,10 +9,7 @@ def index
 		posts = Post.all.chronological
 	elsif current_user.role? :worker
 		posts = Post.for_organization(current_user.organization_id).chronological
-		posts = Post.all.chronological
 	end
-
-	# posts = Post.all.chronological
 	@post_details = Post.get_post_details(posts)
 end
 
@@ -59,7 +56,7 @@ def create
 				pn.save!
 			end
 		end
-		# UserNotifier.send_post_notification(@post).deliver_later
+		UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
 		@all_needs = Need.by_category
@@ -83,14 +80,9 @@ def update_needs
 	post_id = params['post']['id'].to_i
 	@post = Post.find(post_id)
 	@post.update_post_needs(params['post_needs']['completed_ids'])
-	@post.date_completed = DateTime.current
-	@post.post_needs.each do |n|
-		if !n.complete? 
-			@post.date_completed = nil
-
-		end
+	if post.all_completed? 
+		@post.date_completed = DateTime.current
 	end
-
 	@post.save!
 	redirect_to post_path(post_id), notice: "Updated post!"
 end

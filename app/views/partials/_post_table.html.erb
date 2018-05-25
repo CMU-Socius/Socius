@@ -1,3 +1,6 @@
+<div style = "text-align: center">
+<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
+</div>
 <div class="posts-table index-table">
 	<% unless post_details.empty? %>
 		<table>
@@ -16,7 +19,7 @@
 					<tr>
 						<td>
 							<p class="mobile-only table-heading">Posted By</p>
-							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %>
+							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %></br>
 							<small><%= format_time(post["created_at"].to_time) %></small>
 						</td>
 						<td colspan="1">
@@ -82,7 +85,7 @@
 
 							<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
 								<p class="mobile-only table-heading">Actions</p>
-								<%= link_to 'Cancel Request', cancel_request_path(id: post["id"])%>
+								<small><%= link_to 'Cancel Request', cancel_request_path(id: post["id"])%></small>
 
 							<% end %>
 						</td>

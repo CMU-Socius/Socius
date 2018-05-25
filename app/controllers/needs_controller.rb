@@ -33,7 +33,15 @@ class NeedsController < ApplicationController
         end
     end
 
-  
+    def by_cat
+        @lists = Array.new
+        @all_needs = Need.by_category
+        @all_needs.each do |cat,needs|
+            @lists << [cat]
+        end
+        @lists
+    end
+
 
     private
 

@@ -22,7 +22,6 @@
 @import "users";
 @import "alliances";
 @import "mobile";
-@import "colors";
 
 body {
 	font-family: "Quicksand";
@@ -147,8 +146,8 @@ select {
 
 input[type='checkbox'] {
 	-webkit-appearance:none;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	background: white;
 	padding: 0;
 	margin: -2px;
@@ -156,9 +155,6 @@ input[type='checkbox'] {
 	font-size: 15px;
 	line-height: 20px;
 	text-align: center;
-	&:after {
-		content: '_';
-	}
 	&:checked {
 		opacity: 0.5;
 		&:after {
@@ -204,7 +200,7 @@ form {
 				// 	color: $orange ;
 				// }
 				.green-text{
-				color: #58d039;}
+				color: $green;}
 				.red-text{
 				color: $red;}
 				text-align: left;

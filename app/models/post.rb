@@ -25,6 +25,7 @@ class Post < ActiveRecord::Base
 	scope :for_organization, ->(organization_id) {joins(:poster).where('organization_id = ?',organization_id )}
 
 
+
 	# Validations
 	validates_presence_of :street_1, :number_people, :poster_id
 	validates_numericality_of :poster_id, only_integer: true
@@ -109,7 +110,17 @@ class Post < ActiveRecord::Base
 		else
 			false
 		end
-  end
+    end
+
+    def all_completed?
+		self.post_needs.each do |n|
+				if !n.complete? 
+					return false
+				end
+	    end
+	    return true
+
+    end
 
 	def unclaim
 		if !self.claimer_id.nil?

@@ -59,12 +59,14 @@
 	#needs-list {
 		width: 100%;
 		.need-category {
+			display:none;
 			margin-bottom: 5vw;
 			div {
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				width: 100%;
+				padding: 0.5em;
 				margin-bottom: 0.8vw;
 				h2 {
 					font-size: 3em;
@@ -90,7 +92,7 @@
 	.gm-style div div div {
 		width: 100%;
 		text-align: left;
-		max-width: 400px;
+		max-width: 200px;
 		a {
 			color: $grey;
 		}
