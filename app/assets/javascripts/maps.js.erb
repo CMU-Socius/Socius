@@ -118,7 +118,8 @@ function initPostFormMap() {
     // init elements
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
-        center: initialCoords
+        center: initialCoords,
+        clickableIcons: false   
     });
 
     var marker = new google.maps.Marker({

@@ -1,0 +1,104 @@
+<div>&nbsp</div>
+<%= fields_for(@post_need) do |pn| %>
+    <div><div style = "font-size: 3em;font-weight: bold">FOOD</div> <a id="fshow">Show</a>&nbsp|&nbsp<a id="fhide">Hide</a></div>
+    <div class = "fneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:food), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+    <div><div style = "font-size: 3em;font-weight: bold">CLOTHING</div> <a id="cshow">Show</a>&nbsp|&nbsp<a id="chide">Hide</a></div>
+
+    <div class = "cneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:clothing), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+    <div><div style = "font-size: 3em;font-weight: bold">TOILETRIES</div> <a id="tshow">Show</a>&nbsp|&nbsp<a id="thide">Hide</a></div>
+
+    <div class = "tneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:toiletries), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+    <div><div style = "font-size: 3em;font-weight: bold">CAMP SUPPLIES</div> <a id="csshow">Show</a>&nbsp|&nbsp<a id="cshide">Hide</a></div>
+
+    <div class = "csneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:camp), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+
+    <div><div style = "font-size: 3em;font-weight: bold">TRANSPORTATION</div> <a id="trshow">Show</a>&nbsp|&nbsp<a id="trhide">Hide</a></div>
+
+    <div class = "trneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:transportation), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+    <div><div style = "font-size: 3em;font-weight: bold">MEDICAL SUPPLIES</div> <a id="mshow">Show</a>&nbsp|&nbsp<a id="mhide">Hide</a></div>
+
+    <div class = "mneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:medical), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+
+    <div><div style = "font-size: 3em;font-weight: bold">OTHERS</div> <a id="oshow">Show</a>&nbsp|&nbsp<a id="ohide">Hide</a></div>
+
+    <div class = "oneed need-category">
+        <%= collection_check_boxes :needs, :id, Need.of_category(:other), :id, :name do |need| %>
+            <div>
+                <%= need.label %>&nbsp&nbsp&nbsp
+                <%= need.check_box %>
+            </div>
+        <% end %>
+        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+    </div>
+
+<%end%>

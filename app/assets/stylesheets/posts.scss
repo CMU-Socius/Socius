@@ -53,18 +53,20 @@
 	}
 
 	form {
-		width: 70%;
+		width: 95%;
 		margin: 0 auto;
 	}
 	#needs-list {
 		width: 100%;
 		.need-category {
+			display:none;
 			margin-bottom: 5vw;
 			div {
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				width: 100%;
+				padding: 0.5em;
 				margin-bottom: 0.8vw;
 				h2 {
 					font-size: 3em;

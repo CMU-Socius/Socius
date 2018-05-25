@@ -142,10 +142,12 @@ select {
 	padding: 0 1em;
 }
 
+
+
 input[type='checkbox'] {
 	-webkit-appearance:none;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	background: white;
 	padding: 0;
 	margin: -2px;
@@ -153,9 +155,6 @@ input[type='checkbox'] {
 	font-size: 15px;
 	line-height: 20px;
 	text-align: center;
-	&:after {
-		content: '_';
-	}
 	&:checked {
 		opacity: 0.5;
 		&:after {
@@ -197,6 +196,13 @@ form {
 				background: #f8f8f8;
 			}
 			td {
+				// #viewpost a{
+				// 	color: $orange ;
+				// }
+				.green-text{
+				color: $green;}
+				.red-text{
+				color: $red;}
 				text-align: left;
 				padding: 1em;
 			}
