@@ -21,13 +21,16 @@
     <%= f.input :job_title, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
     
     <%= f.input :organization_id, collection: @organizations, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
+    <div>&nbsp</div>
 
     <% if logged_in? && current_user.role?(:admin) %>
         <%= f.input :role, collection: User::ROLES, wrapper_html: {class: 'form-group'}, prompt: true %>
-        <%= f.input_field :active, as: :boolean, boolean_style: :inline %>
+        <div>&nbsp</div>
+         <%= f.input :active, collection: [true,false], wrapper_html: {class: 'form-group'}, prompt: true %>
     <% elsif logged_in? # member %>
         <p>Forgot your password? Contact the system administrator.</p>
     <% else # new signup %>
+        <%= f.input :active, :as => :hidden, :input_html => {:value => false} %>
         <%= f.input :role, :as => :hidden, :input_html => {:value => :worker} %>
     <%end%>
      

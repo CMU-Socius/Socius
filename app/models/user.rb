@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 	scope :admin,         -> {where(role: 'admin')}
 
 	#Validations
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 	validates :username, presence: true, uniqueness: { case_sensitive: false}
   validates :email, presence: true, uniqueness: { case_sensitive: false}, format: { with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, message: "is not a valid format" }
   validates :phone, format: { with: /\A\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}\z/, message: "should be 10 digits (area code needed) and delimited with dashes only", allow_blank: true }

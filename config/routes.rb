@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#home', as: :home
   get 'about' => 'home#about', as: :about
   get 'privacy' => 'home#privacy', as: :privacy
+  get 'newaccount' => 'home#newaccount', as: :newaccount
 
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   get 'update_needs' => 'posts#update_needs', :as => :update_needs
   get 'complete_post_need' => 'post_needs#complete', :as => :complete_post_need
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
+  get 'approve' => 'users#approve', :as => :approve_user
 
   #Set the root url
   root :to => 'home#home'

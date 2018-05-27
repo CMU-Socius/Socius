@@ -35,10 +35,21 @@ end
 def user_all_posts
 end
 
+def approve
+	set_user
+	if !@user.active
+		@user.active = true
+		@user.save!
+		UserNotifier.approved_notification(@user).deliver
+		redirect_to user_path(@user), notice: "Successfully approved this user!"
+	end
+end
+
 def create
 	@user = User.new(user_params)
-	if @user.save
-		redirect_to home_path, notice: "Successfully added new user: #{@user.username}."
+	if @user.save and !logged_in?
+		UserNotifier.new_account_notification(@user).deliver
+		redirect_to newaccount_path, notice: "Successfully added new user: #{@user.username}."
 	else
 		@organizations = Organization.alphabetical
 		render action: 'new'

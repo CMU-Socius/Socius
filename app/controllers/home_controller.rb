@@ -18,5 +18,8 @@ class HomeController < ApplicationController
 
   def privacy
   end
+
+  def newaccount
+  end
   
 end

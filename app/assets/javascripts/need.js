@@ -1,6 +1,6 @@
 $(document).on('ready', function(){
-  $("#fhide").click(function(){
-        $(".fneed").toggle();
+  $(".togglelink").click(function(){
+        $(this).siblings('.need-category').toggle();
     });
 
 

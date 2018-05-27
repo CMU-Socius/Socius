@@ -1,0 +1,20 @@
+
+
+<h2>A new accounted created for socius!</h2>
+
+<h5>Username</h5>
+<p><%= @user.username %></p>
+
+
+<h5>First Name and Last Name</h5>
+<p>
+<%="First Name: #{@user.first_name}   Last Name: #{@user.last_name}"%>
+</p>
+
+
+<h5>Associated Organization</h5>
+<p>
+<%=@user.organization.name%>
+</p>
+
+<%= link_to 'View User', @user %>

@@ -1,111 +1,22 @@
 <div>&nbsp</div>
-    <div><a class = "togglelink" id="fhide">
-    <i class=" material-icons md-12">keyboard_arrow_down</i>
-    FOOD</a> 
 
-    <div class = "fneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:food), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
+    <% @all_needs.each do |category, needs| %>
+	    <div class = "needblock">
+		    <a class = "togglelink">
+		    <i class=" material-icons md-12">keyboard_arrow_down</i>
+		    <%=category%></a> 
 
-
-    <div><a class = "togglelink" id="chide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    CLOTHING</a></div>
-
-    <div class = "cneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:clothing), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
-
-
-
-    <div><a class = "togglelink" id= "thide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    TOILETRIES</a> </div>
-
-    <div class = "tneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:toiletries), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
-
-
-
-    <div><a class = "togglelink" id="cshide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    CAMP SUPPLIES</a></div>
-
-    <div class = "csneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:camp), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
-
-
-
-    <div><a class = "togglelink" id = "trhide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    TRANSPORTATION</a> </div>
-
-    <div class = "trneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:transportation), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
-
-
-
-    <div><a class = "togglelink" id = "mhide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    MEDICAL SUPPLIES</a> </div>
-
-    <div class = "mneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:medical), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
-
-
-    <div><a class = "togglelink" id = "ohide">
-    	<i class="material-icons md-12">keyboard_arrow_down</i>
-    OTHERS</a></div>
-
-    <div class = "oneed need-category">
-        <%= collection_check_boxes :needs, :id, Need.of_category(:other), :id, :name do |need| %>
-            <div>
-                <%= need.label %>&nbsp&nbsp&nbsp
-                <%= need.check_box %>
-            </div>
-        <% end %>
-        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-    </div>
+		    <div class = "need-category">
+		        <%= collection_check_boxes :needs, :id, needs, :id, :name do |need| %>
+		            <div>
+		                <%= need.label %>&nbsp&nbsp&nbsp
+		                <%= need.check_box %>
+		            </div>
+		        <% end %>
+		        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+		    </div>
+	    </div>
+	<%end%>
 
 <div>&nbsp</div>
 <div>&nbsp</div>

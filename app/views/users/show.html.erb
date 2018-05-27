@@ -14,16 +14,27 @@
 			<%= link_to "Edit Profile", edit_user_path(@user) , class: "button" %>
 		<% end %>
 	</small>
+
+	<%if logged_in? and current_user.role?(:admin) and !@user.active%>
+	    <%= link_to "APPROVE", approve_user_path(id: @user["id"]) , class: "button" %>
+	<%end%>
 </div>
 
 <div id="profile-tabs">
 	<div id="profile-tabs-nav">
 		<table>
 		<tr>
-			<td><a data-target="posts">My Posts</a></td>
-			<td><a class="inactive" data-target="claims">My Claims</a></td>
-			<td><a class="inactive" data-target="org">My Organization</a></td>
-			<td><a class="inactive" data-target="alliance">My Alliance</a></td>
+			<%if logged_in? and current_user.role?(:admin)%>
+				<td><a data-target="posts">Posts</a></td>
+				<td><a class="inactive" data-target="claims">Claims</a></td>
+				<td><a class="inactive" data-target="org">Organization</a></td>
+				<td><a class="inactive" data-target="alliance">Alliance</a></td>
+			<%else%>
+				<td><a data-target="posts">My Posts</a></td>
+				<td><a class="inactive" data-target="claims">My Claims</a></td>
+				<td><a class="inactive" data-target="org">My Organization</a></td>
+				<td><a class="inactive" data-target="alliance">My Alliance</a></td>
+			<%end%>
 		</tr>
 		</table>
 	</div>
@@ -35,7 +46,7 @@
 			<%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %>
 		</div>
 		<div id="profile-org" class="inactive">
-			<%= render partial: "organizations/user_org" %>
+			<%= render partial: "organizations/details" %>
 		</div>
 		<div id="profile-alliance" class="inactive">
 			<% unless @alliance.nil? %>
