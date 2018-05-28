@@ -7,7 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Organization.create(name: "Carnegie Mellon University", active: true)
-User.create(username: "minkyung", first_name: "Minkyung", last_name: "Lee", email: "test@test.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Researcher")
+# User.create(username: "minkyung", first_name: "Minkyung", last_name: "Lee", email: "test@test.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Researcher")
+User.create(username: "xinrany", first_name: "Xinran", last_name: "Yuan", email: "yuanxinran@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Student")
 
 needs_list = [
 	["food", "coffee"],

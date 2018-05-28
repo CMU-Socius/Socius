@@ -4,7 +4,6 @@ class OrganizationsController < ApplicationController
 
 	def index
 		@organizations = Organization.all.alphabetical
-		puts @organizations
 	end
 
 	def show

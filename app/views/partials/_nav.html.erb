@@ -15,6 +15,9 @@
     <li>
       <%= link_to("New Request", new_post_path) %>
     </li>
+    <%if logged_in? and current_user.role?(:admin)%>
+          <li><%= link_to("Organizations", organizations_path) %></li>
+    <%end%>
     <% if logged_in? %>
       <li>
         <a>Welcome, <%=current_user.first_name %></a> ▼

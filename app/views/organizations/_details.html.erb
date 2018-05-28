@@ -1,9 +1,19 @@
+<div class = "header">
+	<h2><%= @organization.name %> Roster</h2>
+</div>
+<div class = "go_back">
+	<%= link_to "< All Organizations", organizations_path %>
+</div>
+
 <div class="index-table">
-	<h3><%= @organization.name %> Roster</h3>
+
 
 	<% if @alliance %>
 		Alliance: <%= link_to @alliance.name, @alliance %>
 	<% end %>
+	<%if @organization.users.count == 0%>
+	<%="This organization has no users now."%>
+	<%else%>
 	<table>
 		<thead>
 			<tr>
@@ -25,7 +35,11 @@
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Phone</p>
-					<%= user.phone %>
+					<%if !user.phone.empty?%>
+						<%= user.phone %>
+					<%else%>
+						<%="Not Available"%>
+					<%end%>
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Title</p>
@@ -34,8 +48,13 @@
 			</tr>
 		<% end %>
 	</table>
-
-	<%if logged_in? and current_user.role?(:admin)%>
-		<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
 	<%end%>
+	<div class = "table_action">
+		<%if logged_in? and current_user.role?(:admin)%>
+			<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
+			<%= link_to "Create New User", new_user_path, class: "button" %>
+		<%end%>
+	</div>
+
+
 </div>

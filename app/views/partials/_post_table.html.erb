@@ -1,5 +1,20 @@
+<%if @user.nil?%>
+<!-- manage request page -->
+   <%if current_user.role?(:admin)%>
+	<p>You have access to all the posts. </p>
+	<%else %>
+	<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
+	<%end%>
 
-<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
+<%else%>
+<!-- user show page -->
+	<%if current_user.role?(:admin) and current_user.id == @user.id %>
+	<p>You have access to all the posts. </p>
+	<%elsif current_user.id == @user.id%>
+	<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
+	<%end%>
+
+<%end%>
 
 <div class="posts-table index-table">
 	<% unless post_details.empty? %>
@@ -15,85 +30,88 @@
 			</thead>
 			<tbody>
 				<% post_details.each do |post| %>
-					<% post_needs = Post.find(post['id']).post_needs %>
-					<tr>
-						<td>
-							<p class="mobile-only table-heading">Posted By</p>
-							<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %></br>
-							<small><%= format_time(post["created_at"].to_time) %></small>
-						</td>
-						<td colspan="1">
-							<p class="mobile-only table-heading">Address</p>
-							<%= post["street_1"] %><br/>
-							<% unless post["street_2"].empty? %>
-								<%= post["street_2"] %><br/>
-							<% end %>
-							<%= post["city"] %>, <%= post["state"] %> <%= post["zip"] %>
-						</td>
-						<td>
-							<p class="mobile-only table-heading">Post Needs</p>
-							<ul>
-								<% post_needs.each do |pn| %>
-									<li>
-										<%= pn.need.name %>
-										<% if pn.complete? %>
-											✓
-										<% end %>
-									</li>
+				    <%unless !Post.find(post['id']).date_cancelled.nil?%>
+				    <!-- for now do not show the cancelled requests -->
+						<% post_needs = Post.find(post['id']).post_needs %>
+						<tr>
+							<td>
+								<p class="mobile-only table-heading">Posted By</p>
+								<%= link_to post["poster_name"], user_path(id: post["poster_id"]) %></br>
+								<small><%= format_time(post["created_at"].to_time) %></small>
+							</td>
+							<td colspan="1">
+								<p class="mobile-only table-heading">Address</p>
+								<%= post["street_1"] %><br/>
+								<% unless post["street_2"].empty? %>
+									<%= post["street_2"] %><br/>
 								<% end %>
-							</ul>
-							
-						</td>
-						<td>
-							<p class="mobile-only table-heading">Status</p>
-							<%  if post["date_cancelled"].nil? and post["date_claimed"].nil? %>
-										<div class = "red-text">Unclaimed</div>
-						    
-							<%elsif !post["date_completed"].nil? %>
-									<div class = "green-text">	Completed on <%= post["date_completed"].to_date %></div>
-							
-							<% 	elsif post["date_claimed"] %>
-										Claimed by <%= post["claimer_name"] %> on <%= post["date_claimed"].to_s %>
-							<%	elsif post["date_cancelled"] %>
-										Cancelled on <%= post["date_cancelled"].to_s %>
-					
+								<%= post["city"] %>, <%= post["state"] %> <%= post["zip"] %>
+							</td>
+							<td>
+								<p class="mobile-only table-heading">Post Needs</p>
+								<ul>
+									<% post_needs.each do |pn| %>
+										<li>
+											<%= pn.need.name %>
+											<% if pn.complete? %>
+												✓
+											<% end %>
+										</li>
+									<% end %>
+								</ul>
+								
+							</td>
+							<td>
+								<p class="mobile-only table-heading">Status</p>
+								<%  if post["date_cancelled"].nil? and post["date_claimed"].nil? %>
+											<div class = "red-text">Unclaimed</div>
+							    
+								<%elsif !post["date_completed"].nil? %>
+										<div class = "green-text">	Completed on <%= post["date_completed"].to_date %></div>
+								
+								<% 	elsif post["date_claimed"] %>
+											Claimed by <%= post["claimer_name"] %> on <%= post["date_claimed"].to_s %>
+								<%	elsif post["date_cancelled"] %>
+											Cancelled on <%= post["date_cancelled"].to_s %>
+						
 
-							<% end %>
-							<% if post["claimer_id"] %>
-								<p class="mobile-only table-heading">Claimer</p>
-								<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
-								<% if logged_in? and post["claimer_id"] == current_user.id %>
-									<%if post["date_completed"].nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
-									<%end%>
 								<% end %>
-							<% elsif logged_in? and post["date_cancelled"].nil? %>
-								<%= link_to 'Claim Request', claim_request_path(id: post["id"]) %>
-							<% end %>
-						</td>
-						<td>
-							<p class="mobile-only table-heading">Actions</p>
-
-							<%if !post["date_completed"].nil? or post["claimer_id"].nil? or post["claimer_id"]!=current_user.id%>
-
-							<div id ="viewpost"><%= link_to "View Post", post_path(post["id"]) %></div>
-
-							<%else%>
-
-							<%= link_to "Complete Needs", post_path(post["id"]) %>
-
-							<%end%>
-
-							<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
+								<% if post["claimer_id"] %>
+									<p class="mobile-only table-heading">Claimer</p>
+									<%= link_to post["claimer_name"], user_path(id: post["claimer_id"]) %>
+									<% if logged_in? and post["claimer_id"] == current_user.id %>
+										<%if post["date_completed"].nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: post["id"]) %>
+										<%end%>
+									<% end %>
+								<% elsif logged_in? and post["date_cancelled"].nil? %>
+									<%= link_to 'Claim Request', claim_request_path(id: post["id"]) %>
+								<% end %>
+							</td>
+							<td>
 								<p class="mobile-only table-heading">Actions</p>
-								<small><%= link_to 'Cancel Request', cancel_request_path(id: post["id"])%></small>
 
-							<% end %>
-						</td>
-					</tr>
+								<%if !post["date_completed"].nil? or post["claimer_id"].nil? or post["claimer_id"]!=current_user.id%>
+
+								<div id ="viewpost"><%= link_to "View Post", post_path(post["id"]) %></div>
+
+								<%else%>
+
+								<%= link_to "Complete Needs", post_path(post["id"]) %>
+
+								<%end%>
+
+								<% if logged_in? and current_user.id == post["poster_id"] and post["date_cancelled"].nil? %>
+									<p class="mobile-only table-heading">Actions</p>
+									<small><%= link_to 'Cancel Request', cancel_request_path(id: post["id"])%></small>
+
+								<% end %>
+							</td>
+						</tr>
+					<%end%>
 				<% end %>
 			</tbody>
 		</table>
 	<% else %>
-		<p><i>There are no posts to display.</i></p>
+		<p><i>There are no posts to display now.</i></p>
 	<% end %>
 </div>

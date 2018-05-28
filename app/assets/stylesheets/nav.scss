@@ -35,7 +35,7 @@ nav {
         display: flex;
         justify-content: space-between;
         list-style-type: none;
-        width: 50%;
+        width: 60%;
         > li {
             display: inline-block;
             position: relative;
@@ -91,13 +91,13 @@ nav {
             background: $orange;
             left: 0;
             height: 0;
-            opacity: 0;
+            opacity: 0; 
             text-align: center;
             transition: all 0.5s ease;
             visibility: hidden;
         }
         li {
-            padding: 5vh !important;
+            padding: 4vh !important;
             background: white;
             text-align: center !important;
             border-bottom: 3px solid $orange !important;

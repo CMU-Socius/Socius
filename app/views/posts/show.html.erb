@@ -39,30 +39,43 @@
 		<small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
 	</div>
 	<div id="post-need-list">
-		<%if @post.claimer_id == current_user.id and @post.date_cancelled.nil?%>
-		<% unless @post_needs.empty? %>
-			<h3>Reported Needs</h3>
-			<%= form_tag(update_needs_path, method: 'get') do %>
-				<%#= @post.post_needs.completed_ids.inspect %>
-				<%= hidden_field :post, :id, :value => @post.id %>
-				<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
-				<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
-		      <div class="update-post-need-wrapper">
-		        <%= pn.check_box %>
-		        <%= pn.label %>
-		      </div>
-		      <% if pn.object.complete? %>
-	        	<small>
-	        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
-	        	</small>
-	        <% end %>
-		  	<% end %>
-		  	<%= submit_tag 'Update' %>
+			<% unless @post_needs.empty? %>
+			    <%if @post.claimer_id == current_user.id and @post.date_cancelled.nil?%>
+					<h3>Reported Needs</h3>
+					<%= form_tag(update_needs_path, method: 'get') do %>
+						<%#= @post.post_needs.completed_ids.inspect %>
+						<%= hidden_field :post, :id, :value => @post.id %>
+						<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+						<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
+				      <div class="update-post-need-wrapper">
+				        <%= pn.check_box %>
+				        <%= pn.label %>
+				      </div>
+				      <% if pn.object.complete? %>
+			        	<small>
+			        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
+			        	</small>
+			        <% end %>
+				  	<% end %>
+				  	<%= submit_tag 'Update' %>
+					<% end %>
+				<%else%>
+				    <h3>Reported Needs</h3>
+					<% @post.post_needs.each do |pn| %>
+					      <div class="update-post-need-wrapper">
+					        <%= pn.need.name %>
+					      </div>
+					      <% if pn.complete? %>
+				        	<small>
+				        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
+				        	</small>
+				          <%end%>
+				    <% end %>
+
+				<%end%>
+			<% else %>
+				<p><i>No Needs Registered</i></p>
 			<% end %>
-		<% else %>
-			<p><i>No Needs Registered</i></p>
-		<% end %>
-	 <%end%>
 	</div>
 </div>
 

@@ -47,10 +47,17 @@ end
 
 def create
 	@user = User.new(user_params)
-	if @user.save and !logged_in?
-		UserNotifier.new_account_notification(@user).deliver
-		redirect_to newaccount_path, notice: "Successfully added new user: #{@user.username}."
-	else
+	if @user.save
+		if logged_in? and current_user.role?(:admin)
+			# user created by admin, redirect_to user profile
+			redirect_to user_path(@user), notice: "Successfully created account: #{@user.username}."
+		else
+			# user created by guest, needs authorization from the admin
+			UserNotifier.new_account_notification(@user).deliver
+			redirect_to newaccount_path, notice: "Successfully created account: #{@user.username}."
+		end
+	else 
+		puts("nere")
 		@organizations = Organization.alphabetical
 		render action: 'new'
 	end

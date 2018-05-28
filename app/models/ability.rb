@@ -8,22 +8,20 @@ class Ability
 
     elsif user.role? :worker
       can :manage, Post
-      can :read, User
+      can :read, User do |u|
+        u.organization_id = user.organization_id
+      end
       can :update, User do |u|
         u.id == user.id
       end
       can :read, Organization do |o|
         o.id == user.organization_id
       end
-      can :update, Organization do |o|
-        o.id == user.organization_id
-      end
       can :read, Post do |o|
         o.poster.organization_id == user.organization_id
-    end
+      end
     else
       can :create, User
-      can :read, Post
     end
 
     

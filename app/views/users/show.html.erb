@@ -10,13 +10,13 @@
 
 	<small>
 		<%= @user.email %> | <%= @user.phone %><br/>
-		<% if logged_in? && (current_user.role?(:admin) or current_user.id == @user.id) %>
+		<% if can? :update, @user %>
 			<%= link_to "Edit Profile", edit_user_path(@user) , class: "button" %>
 		<% end %>
 	</small>
 
 	<%if logged_in? and current_user.role?(:admin) and !@user.active%>
-	    <%= link_to "APPROVE", approve_user_path(id: @user["id"]) , class: "button" %>
+	    <%= link_to "APPROVE", approve_user_path(id: @user['id']) , class: "button" %>
 	<%end%>
 </div>
 
@@ -24,7 +24,7 @@
 	<div id="profile-tabs-nav">
 		<table>
 		<tr>
-			<%if logged_in? and current_user.role?(:admin)%>
+			<%if logged_in? and (current_user.role?(:admin) or current_user.id!=@user.id)%>
 				<td><a data-target="posts">Posts</a></td>
 				<td><a class="inactive" data-target="claims">Claims</a></td>
 				<td><a class="inactive" data-target="org">Organization</a></td>

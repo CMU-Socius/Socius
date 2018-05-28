@@ -14,11 +14,14 @@ class UserNotifier < ApplicationMailer
 
   def new_account_notification(user)
     @user = user
-    mail(:to => "yuanxinran@live.com", :subject => 'New Account Created ')
+    admins = User.admin
+    recipients = admins.collect(&:email).join(',')
+    mail(:to => recipients, :subject => 'New Account Created')
   end
 
   def approved_notification(user)
-    mail(:to => user.email, :subject => 'Your Socius Account is approved ')
+    @user = user
+    mail(:to => @user.email, :subject => 'Your Socius Account is approved ')
   end
 
 end

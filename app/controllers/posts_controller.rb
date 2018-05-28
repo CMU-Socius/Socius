@@ -6,9 +6,9 @@ class PostsController < ApplicationController
 
 def index
 	if current_user.role? :admin
-		posts = Post.all.chronological
+		posts = Post.where(date_cancelled: nil).chronological
 	elsif current_user.role? :worker
-		posts = Post.for_organization(current_user.organization_id).chronological
+		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological
 	end
 	@post_details = Post.get_post_details(posts)
 end
