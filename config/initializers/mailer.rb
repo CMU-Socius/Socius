@@ -5,8 +5,8 @@ if Rails.env.development?
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'socius.herokuapp.com',
-    user_name:            ENV["SENDGRID_USERNAME"],
-    password:             ENV["SENDGRID_PASSWORD"],
+    user_name:            ENV["GMAIL_USERNAME"],
+    password:             ENV["GMAIL_PASSWORD"],
     authentication:       'plain',
     enable_starttls_auto: true 
   }

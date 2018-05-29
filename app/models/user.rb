@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     role.downcase.to_sym == authorized_role
   end
 
+  def approve
+    self.update_attribute(:active, true)
+  end
+
 
 # Callbacks
   before_destroy :is_never_destroyable

@@ -152,6 +152,7 @@ function initPostFormMap() {
         // more details for that place.
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
+      var plength = places.length;
 
       if (places.length == 0) {
         return;
@@ -187,13 +188,16 @@ function initPostFormMap() {
           scaledSize: new google.maps.Size(25, 25)
         };
 
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
+        // if have more than one place, then create an icon for each place
+        if (plength>1){
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+        }
+        
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
