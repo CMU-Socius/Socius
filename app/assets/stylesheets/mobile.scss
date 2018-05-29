@@ -71,6 +71,32 @@
 		td {
 			display: block;
 			width: 100% !important;
+			.detail_link{
+				font-size: 0.8em;
+				color: $orange;
+				text-decoration: none;
+				display: inline-block !important;
+				padding-bottom: 2px;
+				border-bottom: 2px solid transparent;
+				margin-bottom: 3px;
+				cursor: pointer;
+			}
+		}
+
+		tr{
+		.detail_toggle{
+			display: none;
+			background: $lighter-orange;
+			td {
+				.green-text{
+				color: $green;}
+				.red-text{
+				color: $red;}
+				text-align: left;
+				padding: 1em;
+
+			}
+		}
 		}
 	}
 
@@ -170,4 +196,97 @@
 		margin: 0 auto;
 		text-align: center;
 	}
+	.filterlink{
+		width: 50%;
+		display: block;
+		text-align: center;
+		margin: auto auto;
+		margin-top: 3vw;
+		color: $orange;
+		font-weight: bold;
+		font-size: 1.5em;
+		&:active,&:hover {
+			color: $orange !important;
+			border-bottom: 2px solid $orange;
+		}
+
+	}
+	.filtertable{
+		display: none;
+		background: $lighter-orange;
+		padding-bottom: 20px;
+		.filter_form{
+			width: 100%;
+			margin:auto;
+			form {
+				width: 80%;
+				margin-left: auto;
+		        margin-right: auto;
+				.filter_element{
+					font-size: 0.8em;
+					width: 100%;
+					padding: 2%;
+					display:inline-block;
+					.filter{
+						background: $light-orange;
+						color: black;
+					}
+				}
+
+
+				input[type="submit"], button{
+					color: $orange;
+					font-size: 0.8em;
+					display: block;
+					width: 40%;
+					border: 2px solid $orange;
+					margin: auto auto auto auto !important;
+				}
+			}
+			
+
+		}
+
+	}
+
+	.index-table{
+		tbody{
+			tr{
+				.detail_toggle{
+				td {
+					// #viewpost a{
+					// 	color: $orange ;
+					// }
+					.green-text{
+					color: $green;}
+					.red-text{
+					color: $red;}
+					text-align: left;
+					padding: 1em;
+
+
+				}
+			}
+
+			}
+		}
+		
+	}
+
+	.status_inform{
+		    border: 2px solid $light-orange;
+			width: 90%;
+			margin: auto auto;
+			text-align: center;
+			padding: 0.5em;
+			.status{
+				line-height: 150%;
+				display: block;
+				font-szie: 1em;
+			}
+		}
+
+	
+
+
 }

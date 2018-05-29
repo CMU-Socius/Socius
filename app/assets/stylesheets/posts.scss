@@ -7,7 +7,6 @@
 #map-container {
 	background: $orange;
 	padding: 3% 5%;
-	position: relative;
 	color: white;
 	h1 {
 		text-align: center;
@@ -159,37 +158,68 @@
 	}
 }
 
-.filter_form{
-	width: 100%;
-	margin:auto;
+.filterlink{
+		width: 20%;
+		display: block;
+		text-align: center;
+		margin: auto auto;
+		margin-top: 3vw;
+		color: $orange;
+		font-weight: bold;
+		font-size: 1.5em;
+		&:active,&:hover {
+			border-bottom: 1px solid $orange;
+		}
 
-	form {
-		width: 90%;
-		margin-left: auto;
-        margin-right: auto;
-		.filter_element{
-			font-size: 0.8em;
-			width: 30%;
-			padding: 2%;
-			display:inline-block;
-			.filter{
-				background: $light-orange;
-				color: black;
+	}
+.filtertable{
+	background: $lighter-orange;
+	.filter_form{
+		width: 100%;
+		margin:auto;
+
+		form {
+			width: 90%;
+			margin-left: auto;
+	        margin-right: auto;
+			.filter_element{
+				font-size: 0.8em;
+				width: 30%;
+				padding: 2%;
+				display:inline-block;
+				.filter{
+					background: $light-orange;
+					color: black;
+				}
+			}
+
+
+			input[type="submit"], button{
+				color: $orange;
+				font-size: 1em;
+				display: block;
+				width: 10%;
+				border: 2px solid $orange;
+				margin: auto 10px auto auto !important;
+				font-weight: bold;
 			}
 		}
+		
 
-
-		input[type="submit"], button{
-			color: $orange;
-			font-size: 0.8em;
-			display: block;
-			width: 10%;
-			border: 2px solid $orange;
-			margin: auto 10px auto auto !important;
-		}
 	}
-	
 
 }
+
+.status_inform{
+		width: 80%;
+		margin: auto auto;
+		.status{
+			margin: 0em 1em;
+			display: inline-block;
+			font-szie: 1em;
+		}
+}
+
+
 
 

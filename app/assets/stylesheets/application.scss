@@ -24,8 +24,8 @@
 @import "posts";
 @import "users";
 @import "alliances";
-@import "mobile";
 @import "pagination";
+@import "mobile";
 
 body {
 	font-family: "Quicksand";
@@ -46,7 +46,7 @@ main {
 	box-sizing: border-box;
 }
 
-a {
+a:not(.filterlink){
   text-decoration: none;
   display: inline-block;
   padding-bottom: 2px;
@@ -57,6 +57,7 @@ a {
       border-color: inherit;
   }
 }
+
 
 h1 {
 	text-transform: uppercase;
@@ -212,12 +213,17 @@ form {
 				// #viewpost a{
 				// 	color: $orange ;
 				// }
+				.detail_link{
+					display: none;
+				}
 				.green-text{
 				color: $green;}
 				.red-text{
 				color: $red;}
 				text-align: left;
 				padding: 1em;
+
+
 			}
 		}
 	}

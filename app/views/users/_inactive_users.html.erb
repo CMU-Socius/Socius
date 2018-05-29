@@ -11,7 +11,7 @@
 				<tbody>
 					<% @inactive_users.each do |u| %>
 					<tr>
-					     <td><p class="mobile-only table-heading">Name</p><%=link_to u.name,u%></td>
+					     <td><p class="mobile-only table-heading">Name</p><%=link_to u.proper_name,u%></td>
 					     <td><p class="mobile-only table-heading">Organization</p><%=link_to u.organization.name, u.organization%></td>
 					     <td> <%= link_to "APPROVE", approve_user_path(id: u['id']), class: "approve" %></td>
 					</tr>

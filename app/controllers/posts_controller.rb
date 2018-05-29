@@ -12,6 +12,11 @@ def index
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
+	@default_p = params[:posted_by].nil? ? "anyone" : params[:posted_by]
+	@default_c = params[:claim_status].nil? ? "all" : params[:claim_status]
+	@default_o = params[:complete_status].nil? ? "all" : params[:complete_status]
+
+	
 end
 
 def show
@@ -83,6 +88,8 @@ def update_needs
 	@post.update_post_needs(params['post_needs']['completed_ids'])
 	if @post.all_completed? 
 		@post.date_completed = DateTime.current
+	else
+		@post.date_completed = nil
 	end
 	@post.save!
 	redirect_to post_path(post_id), notice: "Updated post!"

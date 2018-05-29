@@ -15,7 +15,6 @@
 //= require jquery-readyselector
 //= require posts
 //= require maps
-//= require nav
 //= require_tree .
 
 // $(".posts.index").ready(function() {

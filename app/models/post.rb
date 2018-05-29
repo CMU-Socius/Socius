@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 	
 	# get an array of the states in U.S.
     STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
-
+    
 	#Scope
 	scope :chronological, -> { order(date_posted: :desc) }
 	scope :incomplete,    -> { where(date_completed: nil)}
@@ -75,6 +75,38 @@ class Post < ActiveRecord::Base
 
 	def claimer_name
 		self.claimer_id ? User.find(self.claimer_id).proper_name : nil
+	end
+
+	def self.filter(posted_by, claim_status,complete_status)
+		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status)
+	end
+
+	def self.filter_posted(p)
+		if p.to_i !=0
+			Post.where(poster_id: p)
+		else
+			Post.all
+		end
+	end
+
+	def self.filter_claim(c)
+		if c.to_i !=0
+			Post.where(claimer_id: c)
+		elsif c == "unclaimed"
+			Post.where(claimer_id: nil)
+		else
+			Post.all
+		end
+	end
+
+	def self.filter_complete(c)
+		if c == "incomplete"
+			Post.incomplete
+		elsif c == "completed"
+			Post.completed
+		else
+			Post.all
+		end
 	end
 
 	def self.get_post_details(posts)

@@ -21,27 +21,48 @@
 	<div id="map-canvas"></div>
 </div>
 
-<div class = "filter_form">
-<%= form_tag(submit_filter_path, method: 'get') do %>
-    <div class = "filter_element">
-		<%= label_tag 'posted by' %>
-	    <%= select_tag(:posted_by, options_for_select( [["anyone","anyone"],["myself","myself"]] ),{:class => "filter"}) %>
+
+<a class = "filterlink"><i class=" material-icons md-12">keyboard_arrow_down</i>FILTER BAR</a>
+<div class = "filtertable">
+	<div class = "filter_form">
+	<%= form_tag(submit_filter_path, method: 'get') do %>
+	    <div class = "filter_element">
+			<%= label_tag 'posted by' %>
+		    <%= select_tag(:posted_by, options_for_select( [["anyone","anyone"],["myself",current_user.id]], @default_p),{:class => "filter"}) %>
+		</div>
+		<div class = "filter_element">
+			<%= label_tag 'claim status' %>
+		    <%= select_tag(:claim_status, options_for_select( [["all","all"],["unclaimed","unclaimed"],["claimed by me",current_user.id]], @default_c),{:class => "filter"}) %>
+		</div>
+		<div class = "filter_element">
+			<%= label_tag 'complete status' %>
+		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"]],@default_o),{:class => "filter"}) %>
+		</div>
+		<div class = "filter_submit">
+			<%= submit_tag "Filter"%>
+		</div>
+	<% end %>
 	</div>
-	<div class = "filter_element">
-		<%= label_tag 'claim status' %>
-	    <%= select_tag(:claim_status, options_for_select( [["all","all"],["unclaimed","unclaimed"],["claimed by me",current_user.id]]),{:class => "filter"}) %>
-	</div>
-	<div class = "filter_element">
-		<%= label_tag 'complete status' %>
-	    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","unclaimed"],["complete","complete"]]),{:class => "filter"}) %>
-	</div>
-	<div class = "filter_submit">
-		<%= submit_tag "Filter"%>
-	</div>
-<% end %>
 </div>
+<div class = "status_inform">
+	    <%if @user.nil?%>
+		<!-- manage request page -->
+		   <%if current_user.role?(:admin)%>
+			<p>* You have access to all the posts. </p>
+			<%else %>
+			<p><%="* You have access to all the requests posted by #{current_user.organization.name}"%></p>
+			<%end%>
 
+		<%else%>
+		<!-- user show page -->
+			<%if current_user.role?(:admin) and current_user.id == @user.id %>
+			<p>You have access to all the posts. </p>
+			<%elsif current_user.id == @user.id%>
+			<p><%="* You have access to all the requests posted by #{current_user.organization.name}"%></p>
+			<%end%>
 
+		<%end%>
+</div>
 
 <div class="post-index-table index-table">
 	<%= render :partial => "partials/post_table", locals: {posts: @posts} %>

@@ -1,20 +1,4 @@
-<%if @user.nil?%>
-<!-- manage request page -->
-   <%if current_user.role?(:admin)%>
-	<p>You have access to all the posts. </p>
-	<%else %>
-	<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
-	<%end%>
 
-<%else%>
-<!-- user show page -->
-	<%if current_user.role?(:admin) and current_user.id == @user.id %>
-	<p>You have access to all the posts. </p>
-	<%elsif current_user.id == @user.id%>
-	<p><%="You have access to all the requests posted by #{current_user.organization.name}"%></p>
-	<%end%>
-
-<%end%>
 
 <div class="posts-table index-table">
 	<% unless posts.empty? %>
@@ -38,8 +22,9 @@
 								<p class="mobile-only table-heading">Posted By</p>
 								<%= link_to "#{p.poster.first_name} #{p.poster.last_name}", user_path(p.poster) %></br>
 								<small><%= format_time(p.date_posted.to_time) %></small>
+								<a class = "detail_link mobile-only"><i class=" material-icons">keyboard_arrow_down</i>VIEW DETAILS</a>
 							</td>
-							<td colspan="1">
+							<td colspan="1" class = "detail_toggle">
 								<p class="mobile-only table-heading">Address</p>
 								<%= p.street_1 %><br/>
 								<% unless p.street_2.empty? %>
@@ -47,7 +32,7 @@
 								<% end %>
 								<%= p.city %>, <%= p.state %> <%= p.zip%>
 							</td>
-							<td>
+							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Post Needs</p>
 								<ul>
 									<% post_needs.each do |pn| %>
@@ -61,8 +46,9 @@
 								</ul>
 								
 							</td>
-							<td>
+							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Status</p>
+
 								<%  if p.date_cancelled.nil? and p.date_claimed.nil? %>
 											<div class = "red-text">Unclaimed</div>
 							    
@@ -76,17 +62,19 @@
 											Cancelled on <%= p.date_cancelled.to_s %>
 
 								<% end %>
+
 								<% if p.claimer_id %>
-									<p class="mobile-only table-heading">Claimer</p>
 									<% if logged_in? and p.claimer_id == current_user.id %>
-										<%if p.date_completed.nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: p.id),data: {confirm: "Are you sure you want to cancel this request?"}%>
+										<%if p.date_completed.nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: p.id),data: {confirm: "Are you sure you want to unclaim this request?"}%>
 										<%end%>
 									<% end %>
 								<% elsif logged_in? and p.date_cancelled.nil? %>
 									<%= link_to 'Claim Request', claim_request_path(id: p.id) %>
 								<% end %>
+
+
 							</td>
-							<td>
+							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Actions</p>
 
 								<%if !p.date_completed.nil? or p.claimer_id.nil? or p.claimer_id!=current_user.id%>
@@ -99,8 +87,9 @@
 
 								<%end%>
 
-								<% if logged_in? and current_user.id == p.poster_id and p.date_cancelled.nil? %>
-									<p class="mobile-only table-heading">Actions</p>
+								<% if logged_in? and current_user.id == p.poster_id and p.date_cancelled.nil? and p.date_completed.nil? %>
+									</br>
+								    </br>
 									<small><%= link_to 'Cancel Request', cancel_request_path(id: p.id), data: {confirm: "Are you sure you want to cancel this request?"}%>
 									
 									</small>

@@ -13,7 +13,7 @@
 				<tbody>
 					<% @active_users.each do |u| %>
 					<tr>
-					     <td><p class="mobile-only table-heading">Name</p><%=link_to u.name,u%></td>
+					     <td><p class="mobile-only table-heading">Name</p><%=link_to u.proper_name,u%></td>
 					     <td><p class="mobile-only table-heading">Organization</p><%=link_to u.organization.name, u.organization%></td>
 					     <td><p class="mobile-only table-heading">Email</p><%=u.email%></td>
 					     <td><p class="mobile-only table-heading">Phone</p><%=u.phone%></td>
