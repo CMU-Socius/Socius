@@ -6,11 +6,12 @@ class PostsController < ApplicationController
 
 def index
 	if current_user.role? :admin
-		posts = Post.where(date_cancelled: nil).chronological
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
 	end
-	@post_details = Post.get_post_details(posts)
+	@posts.current_page
+	@post_details = Post.get_post_details(@posts)
 end
 
 def show
@@ -80,7 +81,7 @@ def update_needs
 	post_id = params['post']['id'].to_i
 	@post = Post.find(post_id)
 	@post.update_post_needs(params['post_needs']['completed_ids'])
-	if post.all_completed? 
+	if @post.all_completed? 
 		@post.date_completed = DateTime.current
 	end
 	@post.save!
@@ -93,24 +94,28 @@ end
 def claim
 	set_post
 	@post.claimed_by(session[:user_id].to_i)
-	posts = Post.all.chronological
-	@post_details = Post.get_post_details(posts)
-	redirect_to posts_path, notice: "Claimed request!"
+	redirect_to post_path(@post), notice: "Claimed request!"
 end
 
 def unclaim
 	set_post
 	@post.unclaim
-	posts = Post.all.chronological
-	@post_details = Post.get_post_details(posts)
+	if current_user.role? :admin
+		posts = Post.where(date_cancelled: nil).chronological.paginate(:page => params[:page])
+	elsif current_user.role? :worker
+		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
+	end
 	redirect_to posts_path, notice: "Unclaimed request!"
 end
 
 def cancel
 	set_post
 	@post.cancel
-	posts = Post.all.chronological
-	@post_details = Post.get_post_details(posts)
+	if current_user.role? :admin
+		posts = Post.where(date_cancelled: nil).chronological.paginate(:page => params[:page])
+	elsif current_user.role? :worker
+		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
+	end
 	redirect_to posts_path, notice: "Cancelled request!"
 end
 

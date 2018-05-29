@@ -2,11 +2,14 @@ class Post < ActiveRecord::Base
 
 	# get module to help with some functionality
   include SociusWebHomelessHelpers::Validations
+
+    self.per_page = 10
 	
 	#Relationships
 
 	
 	belongs_to :poster, class_name: :User, foreign_key: :poster_id
+	belongs_to :claimer, class_name: :User, foreign_key: :claimer_id
 	has_many :post_needs
 	has_many :needs, through: :post_needs
 
@@ -23,6 +26,7 @@ class Post < ActiveRecord::Base
 	scope :posted_by,   -> (poster) { where(poster_id: poster.id) }
 	scope :claimed_by,   -> (claimer) { where(claimer_id: claimer.id) }
 	scope :for_organization, ->(organization_id) {joins(:poster).where('organization_id = ?',organization_id )}
+	scope :not_cancelled, ->{where(date_cancelled: nil)}
 
 
 
@@ -36,7 +40,7 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
     validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
     validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
-    validate :address_is_valid
+    validate :address_is_valid, on:  :create
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given

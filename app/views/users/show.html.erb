@@ -20,6 +20,7 @@
 	<%end%>
 </div>
 
+
 <div id="profile-tabs">
 	<div id="profile-tabs-nav">
 		<table>
@@ -40,12 +41,13 @@
 	</div>
 	<div id="profile-tabs-content">
 		<div id="profile-posts" class="post-index-table">
-			<%= render partial: "partials/post_table", locals: { post_details: @post_details } %>
+			<%= render partial: "partials/post_table", locals: { posts: @posts} %>
 		</div>
 		<div id="profile-claims" class="post-index-table inactive">
-			<%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %>
+			<%= render partial: "partials/post_table", locals: { posts: @claimed_posts } %>
 		</div>
 		<div id="profile-org" class="inactive">
+			<h3><%=@organization.name%></h3>
 			<%= render partial: "organizations/details" %>
 		</div>
 		<div id="profile-alliance" class="inactive">

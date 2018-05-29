@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
 
   # For use in authorizing with CanCan
   ROLES = [['Administrator', :admin],['Manager', :manager],['Social Worker', :worker]]
-
 	# use has_secure_password
   has_secure_password
   

@@ -4,6 +4,11 @@
 	<!-- <small>Click or tap the map to select a location.</small> -->
 	<div id="map-canvas"></div>
 </div>
+
+<div class = "go_back">
+	<%= link_to "< All Posts", posts_path %>
+</div>
+
 <div id="post-info-container">
 	<div id="post-data">
 		<div id="post-address">
@@ -15,10 +20,15 @@
 				<p><%= "#{@post.city}, #{@post.state} #{@post.zip}" %></p>
 			</div>
 		</div>
+
+		<%if !@post.date_cancelled.nil?%>
+		<h4 class="alert">Note this post has been cancelled.</h4>
+		<%end%>
 		<h5>Current Status</h5>
 		<p>
 			<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
-				Unclaimed
+				Unclaimed&nbsp
+				<%= link_to 'Claim Request', claim_request_path(id: @post.id),class: "claim" %>
 			<% 	elsif @post.date_claimed %>
 				Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
 			<%	elsif @post.date_cancelled %>
@@ -53,7 +63,7 @@
 				      </div>
 				      <% if pn.object.complete? %>
 			        	<small>
-			        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
+			        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
 			        	</small>
 			        <% end %>
 				  	<% end %>

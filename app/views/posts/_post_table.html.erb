@@ -17,7 +17,7 @@
 <%end%>
 
 <div class="posts-table index-table">
-	<% unless posts.empty? %>
+	<% unless @posts.empty? %>
 		<table>
 			<thead>
 				<tr>
@@ -29,7 +29,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% posts.each do |p| %>
+				<% @posts.each do |p| %>
 				    <%unless p.nil?%>
 				    <!-- for now do not show the cancelled requests -->
 						<% post_needs = p.post_needs %>
@@ -110,11 +110,10 @@
 						</tr>
 					<%end%>
 				<% end %>
+				<%= will_paginate @posts %>
 			</tbody>
 		</table>
-		<div class ='apple_pagination'>
-				<%=will_paginate posts%>
-		</div>
+		<%will_paginate @posts%>
 	<% else %>
 		<p><i>There are no posts to display now.</i></p>
 	<% end %>

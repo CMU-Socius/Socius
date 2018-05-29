@@ -1,1 +1,13 @@
+<div class = "header">
+	<h2><%= @organization.name %> Roster</h2>
+</div>
+<div class = "go_back">
+	<%= link_to "< All Organizations", organizations_path %>
+</div>
 <%= render partial: "organizations/details", locals: { post_details: @organization } %>
+<div class = "table_action">
+		<%if logged_in? and current_user.role?(:admin)%>
+			<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
+			<%= link_to "Create New User", new_user_path, class: "button" %>
+		<%end%>
+</div>

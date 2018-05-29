@@ -4,7 +4,8 @@ before_action :check_login, except: [:new, :create]
 authorize_resource
 
 def index
-	@active_users = User.active.alphabetical.to_a
+	@active_users = User.active.alphabetical.paginate(:page => params[:page])
+	@inactive_users = User.inactive.alphabetical.paginate(:page => params[:page])
 end
 
 def new
@@ -19,11 +20,8 @@ end
 
 def show
 	set_user
-	claimed_posts = Post.claimed_by(@user)
-	@claimed_post_details = Post.get_post_details(claimed_posts)
-
-	posts = Post.posted_by(@user)
-	@post_details = Post.get_post_details(posts)
+	@claimed_posts = Post.not_cancelled.claimed_by(@user).paginate(:page => params[:page])
+	@posts = Post.not_cancelled.posted_by(@user).paginate(:page => params[:page])
 	if @user.organization_id
 		@organization = Organization.find(@user.organization_id)
 		if @organization.alliance_id
@@ -37,16 +35,15 @@ end
 
 def approve
 	set_user
-	if !@user.active
-		@user.active = true
-		@user.save!
-		UserNotifier.approved_notification(@user).deliver
-		redirect_to user_path(@user), notice: "Successfully approved this user!"
-	end
+	@user.active = true
+	@user.save!
+	UserNotifier.approved_notification(@user).deliver
+	redirect_to users_path, notice: "Successfully approved this user!"
 end
 
 def create
 	@user = User.new(user_params)
+
 	if @user.save
 		if logged_in? and current_user.role?(:admin)
 			# user created by admin, redirect_to user profile

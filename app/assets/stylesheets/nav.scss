@@ -1,130 +1,171 @@
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4em;
-    min-width: 100%;
-    background: $orange;
-    padding: 0 1em;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    z-index: 999;
-    a {
-        text-decoration: none;
-        color: $grey;
-        padding-bottom: 2px;
-        margin: 0;
-        border-bottom: 2px solid transparent;
-        vertical-align: middle;
-        &:hover {
-            border-color: inherit;
-        }
-    }
+// Navigation Variables
+$content-width: 1000px;
+$breakpoint: 799px;
+$nav-height: 5em;
 
-    .logo {
-        border: none;
-        margin: 0;
-        img {
-            width: 40px;
-        }
-    }
 
-    ul {
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        list-style-type: none;
-        width: 60%;
-        > li {
-            display: inline-block;
-            position: relative;
-            > ul {
-                position: absolute;
-                left: 0;
-                width: 100%;
-                text-align: left;
-                background: white;
-                padding: 0;
-                display: inline-table;
-                border: 1px solid #eee;
-                visibility: hidden; 
-                opacity: 0; // for transition
-                transition: all 0.3s ease;
-                li {
-                    position: static;
-                    display: block;
-                    text-align: left;
-                    width: 100%;
-                    padding: 15px;
-                    border-bottom: 1px solid #eee;
-                }
-            }
-        }
-
-        li:hover ul {
-            visibility: visible;
-            z-index: 999 !important;
-            opacity: 1;
-        }
-    }
-    #menu-toggle, #label-toggle {
-        display: none;
-    }
+// Outer navigation wrapper
+.navigation {
+  height: $nav-height;
+  background: $orange;
 }
 
-@media screen and (max-width: 768px) {
-    nav {
+// Logo and branding
+.brand {
+  img{
+    width: 50px;
+    vertical-align: text-bottom;
+    height: $nav-height*0.5;
+  }
+  position: absolute;
+  padding-left: 20px;
+  float: left;
+  line-height: $nav-height;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  a,
+  a:visited {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+// Container with no padding for navbar
+.nav-container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+// Navigation 
+nav {
+  float: right;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      float: left;
+      position: relative;
+      a,
+      a:visited {
         display: block;
-        height: auto;
-        min-height: 3em;
-        padding: 0 1vw;
-        .logo {
-            margin-top: 5px;
+        padding: 0 1em;
+        line-height: $nav-height;
+        background: $orange;
+        color: $grey;
+        text-decoration: none;
+        &:hover {
+          background: $mid-orange;
+          color: $grey;
         }
-        ul, li {
-            display: block !important;
-            width: 100%;
+        &:not(:only-child):after {
+          padding-left: 4px;
+          content: ' ▾';
         }
-        ul {
-            margin: 0;
-            background: $orange;
-            left: 0;
-            height: 0;
-            opacity: 0; 
-            text-align: center;
-            transition: all 0.5s ease;
-            visibility: hidden;
+      } // Dropdown list
+      ul li {
+        background: $mid-orange;
+        min-width: 190px;
+        a {
+          background: $mid-orange !important;
+          padding: 15px;
+          line-height: 20px;
         }
-        li {
-            padding: 4vh !important;
-            background: white;
-            text-align: center !important;
-            border-bottom: 3px solid $orange !important;
-        }
-        #label-toggle {
-            background: linear-gradient(to bottom, white 0%, white 20%, 
-                                           transparent 20%, transparent 40%, 
-                                           white 40%, white 60%, 
-                                           transparent 60%, transparent 80%, 
-                                           white 80%, white 100%); 
-                                           // Gradient Hamburger
-            cursor: pointer;
-            display: block;
-            height: 30px;
-            min-width: 30px;
-            position: absolute;
-            top: 5px;
-            right: 20px;
-        }
-        #menu-toggle:checked ~ ul {
-            opacity: 1;
-            height: 100vh;
-            visibility: visible !important;
-            > li > ul {
-                visibility: visible;
-                opacity: 1;
-            }
-        }
+      }
     }
+  }
+}
+
+// Dropdown list binds to JS toggle event
+.nav-dropdown {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile navigation */
+
+// Binds to JS Toggle
+.nav-mobile {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: $orange;
+  height: $nav-height;
+  width: $nav-height;
+}
+@media only screen and (max-width: 798px) {
+  // Hamburger nav visible on mobile only
+  .nav-mobile {
+    display: block;
+  }
+  nav {
+   width: 100%;
+   padding: $nav-height 0 15px;
+    ul {
+      display: none;
+      li {
+        float: none;
+        a {
+          padding: 15px;
+          line-height: 20px;
+        }
+        ul li {
+          a {
+          padding-left: 30px;
+          }
+        }
+      }
+    }
+  }
+  .nav-dropdown {
+    position: static;
+  }
+}
+@media screen and (min-width: $breakpoint) {
+  .nav-list {
+    display: block !important;
+  }
+}
+
+#nav-toggle {
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
+  span,
+  span:before,
+  span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 5px;
+    width: 35px;
+    background: $grey;
+    position: absolute;
+    display: block;
+    content: '';
+    transition: all 300ms ease-in-out;
+  }
+  span:before {
+    top: -10px;
+  }
+  span:after {
+    bottom: -10px;
+  }
+  &.active span {
+    background-color: transparent;
+    &:before,
+    &:after {
+      top: 0;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
 }

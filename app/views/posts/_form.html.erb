@@ -2,7 +2,8 @@
 
     <h1>Submit a Request</h1>
     <p id="address-preview"></p>
-    <small>Click or tap the map to select a location.</small>
+    <small>Click or tap the map to select a location. Tap in the search box to search for a location</small>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map-canvas"></div>
 
     <% if logged_in? && !current_user.nil?%>
@@ -44,4 +45,4 @@
     <% end %>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=initPostFormMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places&callback=initPostFormMap" async defer></script>

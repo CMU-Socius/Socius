@@ -76,7 +76,7 @@
 					label {
 						margin-top: 0;
 						font-size: 1.3em;
-						width: 15%;
+						width: 30%;
 					}
 				}
 				small {
@@ -103,7 +103,7 @@
 }
 
 #post-info-container {
-	padding: 5%;
+	padding: 2% 5%;
 	> div {
 		display: inline-block;
 	}
@@ -115,6 +115,14 @@
 		}
 		h2 {
 			margin: 0;
+		}
+		.claim {
+			color: $orange;
+			font-size: 1em;
+			border-color: $orange;
+			padding: 0.2em 0.3em;
+			border-radius: 5px;
+			border-style: solid;
 		}
 		h5 {
 			display: inline-block;
@@ -150,4 +158,38 @@
 		}
 	}
 }
+
+.filter_form{
+	width: 100%;
+	margin:auto;
+
+	form {
+		width: 90%;
+		margin-left: auto;
+        margin-right: auto;
+		.filter_element{
+			font-size: 0.8em;
+			width: 30%;
+			padding: 2%;
+			display:inline-block;
+			.filter{
+				background: $light-orange;
+				color: black;
+			}
+		}
+
+
+		input[type="submit"], button{
+			color: $orange;
+			font-size: 0.8em;
+			display: block;
+			width: 10%;
+			border: 2px solid $orange;
+			margin: auto 10px auto auto !important;
+		}
+	}
+	
+
+}
+
 

@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
   get 'approve' => 'users#approve', :as => :approve_user
 
+  get 'posts' => 'posts#index', :as => :submit_filter
+
   #Set the root url
   root :to => 'home#home'
   get '*any', via: :all, to: 'application#page_not_found'
