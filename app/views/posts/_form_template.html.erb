@@ -1,4 +1,4 @@
-<div>&nbsp</div>
+
 
     <% @all_needs.each do |category, needs| %>
 	    <div class = "needblock">
@@ -9,7 +9,7 @@
 		    <div class = "need-category">
 		        <%= collection_check_boxes :needs, :id, needs, :id, :name do |need| %>
 		            <div>
-		                <%= need.label %>&nbsp&nbsp&nbsp
+		                <%= need.label %>
 		                <%= need.check_box %>
 		            </div>
 		        <% end %>
@@ -17,7 +17,3 @@
 		    </div>
 	    </div>
 	<%end%>
-
-<div>&nbsp</div>
-<div>&nbsp</div>
-<div>&nbsp</div>
