@@ -32,7 +32,7 @@ $nav-height: 5em;
 
 // Container with no padding for navbar
 .nav-container {
-  max-width: 90%;
+  max-width: 96%;
   margin: 0 auto;
 }
 
@@ -54,22 +54,19 @@ nav {
         background: $orange;
         color: $grey;
         text-decoration: none;
-        &:hover {
-          background: $mid-orange;
-          color: $grey;
-        }
         &:not(:only-child):after {
           padding-left: 4px;
           content: ' ▾';
         }
       } // Dropdown list
       ul li {
-        background: $mid-orange;
+        background: white;
         min-width: 190px;
+        border: 1px solid $lighter-grey;
         a {
-          background: $mid-orange !important;
+          background: white !important;
           padding: 15px;
-          line-height: 20px;
+          line-height: 2em;
         }
       }
     }
@@ -109,8 +106,10 @@ nav {
       li {
         float: none;
         a {
-          padding: 15px;
-          line-height: 20px;
+          background: white !important;
+          width: 100%;
+          padding: 1em 1em;
+          line-height: 3.5em;
         }
         ul li {
           a {

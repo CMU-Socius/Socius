@@ -53,7 +53,7 @@ a:not(.filterlink){
   border-bottom: 2px solid transparent;
   margin-bottom: 3px;
   cursor: pointer;
-  &:hover {
+  &:hover :not(.nav-link) {
       border-color: inherit;
   }
 }
