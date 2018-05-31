@@ -8,7 +8,7 @@ def index
 	if current_user.role? :admin
 		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_all_alliances(current_user.organization).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
@@ -23,12 +23,15 @@ def show
 	@poster = @post.poster
 	@post_details = Post.get_post_details([@post])
 	@post_needs = @post.post_needs.alphabetical
+	@sharings = @post.alliances.map(&:name)
 end
 
 def new
 	@post = Post.new
 	@all_needs = Need.by_category
+	@alliances = current_user.organization.alliances
 	@post_need = @post.post_needs.build
+	@sharings = @post.sharings.build
 end
 
 def edit
@@ -60,6 +63,12 @@ def create
 			unless need_id.empty?
 				pn = PostNeed.new(:need_id => need_id, :post_id => @post.id)
 				pn.save!
+			end
+		end
+		params[:alliances][:ids].each do |sharing_id|
+			unless sharing_id.empty?
+				s = Sharing.new(:post_id => @post.id,:alliance_id => sharing_id)
+				s.save!
 			end
 		end
 		UserNotifier.send_post_notification(@post).deliver_later
@@ -134,7 +143,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :claimer_id, :date_posted, :date_completed, :needs, :comment)
+		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :claimer_id, :date_posted, :date_completed, :needs, :alliances,:comment)
 	end
 
 end

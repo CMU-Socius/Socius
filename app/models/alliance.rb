@@ -1,6 +1,7 @@
 class Alliance < ActiveRecord::Base
 	has_many :org_alliances
 	has_many :organizations, :through => :org_alliances
+	# has_many :sharings
 
 	#Scopes
 	scope :alphabetical,  -> { order(:name) }
@@ -13,6 +14,10 @@ class Alliance < ActiveRecord::Base
 			end
 		end
 		return choices
+	end
+
+	def in?(org)
+		return self.all_org_ids.include?(org.id)
 	end
 
 	def all_org_ids

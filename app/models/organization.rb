@@ -23,11 +23,11 @@ class Organization < ActiveRecord::Base
     end
 
     def all_user_ids
-      ids = Array.new()
-      self.users.each do |u|
-      	ids.push(u.id)
-      end
-      ids
+      return self.users.map(&:id)
+    end
+
+    def all_alliance_ids
+    	return self.alliances.map(&:id)
     end
 
 

@@ -9,7 +9,7 @@
 			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/green-dot.png" %> = Completed
 		</div>
 		<div class="key">
-			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" %> = Claimed / In Progress
+			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" %> = Claimed / Inxp Progress
 		</div>
 		<div class="key">
 			<%= image_tag "grey-pin" %> = Cancelled
@@ -50,7 +50,7 @@
 		   <%if current_user.role?(:admin)%>
 			<p>* You have access to all the posts. </p>
 			<%else %>
-			<p><%="* You have access to all the requests posted by alliances of #{current_user.organization.name}"%></p>
+			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
 			<%end%>
 
 		<%else%>
@@ -58,7 +58,7 @@
 			<%if current_user.role?(:admin) and current_user.id == @user.id %>
 			<p>You have access to all the posts. </p>
 			<%elsif current_user.id == @user.id%>
-			<p><%="* You have access to all the requests posted by alliances of #{current_user.organization.name}"%></p>
+			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
 			<%end%>
 
 		<%end%>

@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
 	belongs_to :claimer, class_name: :User, foreign_key: :claimer_id
 	has_many :post_needs
 	has_many :needs, through: :post_needs
+	has_many :sharings
+	has_many :alliances,through: :sharings
 
 	#Virtual Attributes
 	attr_accessor :need_name
@@ -56,6 +58,19 @@ class Post < ActiveRecord::Base
 			ids =ids+ o.all_org_ids
 		end
 		Post.joins(:poster).where('organization_id in (?)',ids)
+	end
+
+	def self.for_sharings(org)
+		ids = Array.new()
+		ids = ids+Post.for_organization(org.id).map(&:id)
+		all_alliance_ids = org.all_alliance_ids
+		Post.all.each do |p|
+			alliance_list = p.alliances.map(&:id)
+			if(alliance_list & all_alliance_ids)!=[] and !ids.include?(p.id)
+				ids.push(p.id)
+			end
+		end
+		Post.where('posts.id in (?)',ids)
 	end
 
 	#Methods
@@ -105,8 +120,6 @@ class Post < ActiveRecord::Base
 		if c.to_i !=0
 			Post.where(claimer_id: c)
 	    elsif !c.nil? and c[0..2] == "org"
-	    	puts("here")
-	    	puts(Organization.find(c[3..-1].to_i).all_user_ids)
 			Post.where('claimer_id in (?)', Organization.find(c[3..-1].to_i).all_user_ids )
 		elsif c == "unclaimed"
 			Post.where(claimer_id: nil)

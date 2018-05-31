@@ -28,13 +28,31 @@
                 <div id="needs-list">
                     <%= render :partial => "form_template" %>
                 </div>
-            <% end %>
+             <% end %>
 
+             
+             <% unless @alliances.empty? %>
+                 <div id="sharings-list">
+                    <div class = "title">* Sharing Option:<small> This post will be shared among the checked alliances</small></div>
+                    <div class = "needblock">
+                        <div class = "need-category">
+                            <%= collection_check_boxes :alliances, :ids, @alliances, :id, :name do |al| %>
+                                <div>
+                                    <%= al.label %>
+                                    <%= al.check_box %>
+                                </div>
+                            <% end %>
+                            <div class = "small">If no allianes are checked, then the post is private to your organizaiton</div>
+                        </div>
+                    </div>
+                </div>
+             <%end%>
 
 
             <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control" }, :required => true %>
 
             <%= f.input :comment, input_html: {class: "form-control", id: "comment"} %>
+
             <div id="submit" class="button-wrapper">
                 <input type="submit" class="button" value="Submit Request" />
             </div>

@@ -27,7 +27,7 @@
 		<h5>Current Status</h5>
 		<p>
 			<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
-				Unclaimed&nbsp
+				Unclaimed
 				<%= link_to 'Claim Request', claim_request_path(id: @post.id),class: "claim" %>
 			<% 	elsif @post.date_claimed %>
 				Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
@@ -43,6 +43,14 @@
 				<i>None</i>
 			<% else %>
 				<%= @post.comment %>
+			<% end %>
+		</p>
+		<h5>Sharing</h5>
+		<p>
+			<% if @post.sharings.size==0 %>
+				<p>This Post is private to your orgnaizaiton</p>
+			<% else %>
+				<p><%="This Post is shared with the following alliances: #{@sharings.join(", ")}"%></p>
 			<% end %>
 		</p>
 
