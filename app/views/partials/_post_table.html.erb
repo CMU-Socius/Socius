@@ -22,15 +22,15 @@
 								<p class="mobile-only table-heading">Posted By</p>
 								<%= link_to "#{p.poster.first_name} #{p.poster.last_name}", user_path(p.poster) %></br>
 								<small><%= format_time(p.date_posted.to_time) %></small>
-								<a class = "detail_link mobile-only"><i class=" material-icons">keyboard_arrow_down</i>VIEW DETAILS</a>
 							</td>
-							<td colspan="1" class = "detail_toggle">
+							<td colspan="1">
 								<p class="mobile-only table-heading">Address</p>
 								<%= p.street_1 %><br/>
 								<% unless p.street_2.empty? %>
 									<%= p.street_2 %><br/>
 								<% end %>
 								<%= p.city %>, <%= p.state %> <%= p.zip%>
+								<a class = "detail_link mobile-only"><i class=" material-icons">keyboard_arrow_down</i>VIEW DETAILS</a>
 							</td>
 							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Post Needs</p>

@@ -30,6 +30,7 @@ class Post < ActiveRecord::Base
 
 
 
+
 	# Validations
 	validates_presence_of :street_1, :number_people, :poster_id
 	validates_numericality_of :poster_id, only_integer: true
@@ -47,6 +48,15 @@ class Post < ActiveRecord::Base
 	#Gecoding
 	geocoded_by :full_street_address
 	after_validation :geocode
+
+	# class methods
+	def self.for_all_alliances(org)
+		ids = Array.new()
+		org.alliances.each do |o|
+			ids =ids+ o.all_org_ids
+		end
+		Post.joins(:poster).where('organization_id in (?)',ids)
+	end
 
 	#Methods
 	def complete
@@ -84,6 +94,8 @@ class Post < ActiveRecord::Base
 	def self.filter_posted(p)
 		if p.to_i !=0
 			Post.where(poster_id: p)
+		elsif !p.nil? and p[0..2] == "org"
+			Post.for_organization(p[3..-1].to_i)
 		else
 			Post.all
 		end
@@ -92,6 +104,10 @@ class Post < ActiveRecord::Base
 	def self.filter_claim(c)
 		if c.to_i !=0
 			Post.where(claimer_id: c)
+	    elsif !c.nil? and c[0..2] == "org"
+	    	puts("here")
+	    	puts(Organization.find(c[3..-1].to_i).all_user_ids)
+			Post.where('claimer_id in (?)', Organization.find(c[3..-1].to_i).all_user_ids )
 		elsif c == "unclaimed"
 			Post.where(claimer_id: nil)
 		else

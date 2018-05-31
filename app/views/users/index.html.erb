@@ -2,8 +2,8 @@
 		<h2>Users</h2>
 </div>
 
-<div id="user-tabs">
-	<div id="user-tabs-nav">
+<div class="general-tabs">
+	<div class="general-tabs-nav">
 		<table>
 			<tr>
 				<td><a data-target="active-users">Users</a></td>
@@ -12,11 +12,11 @@
 		</table>
 	</div>
 
-    <div id="user-tabs-content">
-    	<div id="user-active-users" class="post-index-table">
+    <div class="general-tabs-content">
+    	<div id="active-users" class="post-index-table">
 			<%= render partial: "active_users" %>
 		</div>
-		<div id="user-inactive-users" class="post-index-table inactive">
+		<div id="inactive-users" class="post-index-table inactive">
 			<%= render partial: "inactive_users" %>
 		</div>
     </div>

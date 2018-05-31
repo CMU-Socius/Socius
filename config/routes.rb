@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :needs
   resources :posts
   resources :sessions
+  resources :org_alliances
 
   # Semi-static page routes
   get 'home' => 'home#home', as: :home
@@ -27,6 +28,10 @@ Rails.application.routes.draw do
   get 'complete_post_need' => 'post_needs#complete', :as => :complete_post_need
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
   get 'approve' => 'users#approve', :as => :approve_user
+
+  get 'alliances/:id/orgs', to: 'alliances#orgs', as: :alliance_organizations
+  delete 'alliances/:id/organizations/:organization_id', to: 'org_alliances#destroy', as: :deletee_org_alliances
+  # post 'allinaces/:id', to: 'org_alliances#create', as: :create_org_alliances
 
   patch 'posts' => 'posts#index', :as => :submit_filter
 

@@ -2,6 +2,8 @@ class Organization < ActiveRecord::Base
 	#Relationships
 	has_many :users
 	belongs_to :alliance
+	has_many :org_alliances
+	has_many :alliances, through: :org_alliances
 
 	#Validations
 	validates :name, presence: true, uniqueness: { case_sensitive: false}
@@ -19,6 +21,15 @@ class Organization < ActiveRecord::Base
     def users
   	  User.where(organization_id: self.id)
     end
+
+    def all_user_ids
+      ids = Array.new()
+      self.users.each do |u|
+      	ids.push(u.id)
+      end
+      ids
+    end
+
 
 	
 	private

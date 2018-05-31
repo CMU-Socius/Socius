@@ -1,0 +1,22 @@
+<%if @alliances.size == 0%>
+<h4>There are no alliances in the system yet.</h4>
+<%else%>
+<div class = "user-table">
+<table>
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Members</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @alliances.each do |a| %>
+      <tr>
+           <td><p class="mobile-only table-heading">Name</p><%=link_to a.name,a%></td>
+           <td><p class="mobile-only table-heading">Members</p><%=a.organizations.size%></td>
+      </tr>
+      <%end%>
+    </tbody>
+</table>
+</div>
+<%end%>

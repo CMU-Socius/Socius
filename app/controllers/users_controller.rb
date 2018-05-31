@@ -22,12 +22,8 @@ def show
 	set_user
 	@claimed_posts = Post.not_cancelled.claimed_by(@user).paginate(:page => params[:page])
 	@posts = Post.not_cancelled.posted_by(@user).paginate(:page => params[:page])
-	if @user.organization_id
-		@organization = Organization.find(@user.organization_id)
-		if @organization.alliance_id
-			@alliance = Alliance.find(@organization.alliance_id)
-		end
-	end
+	@organization = @user.organization
+	@alliances = @user.organization.alliances
 end
 
 def user_all_posts

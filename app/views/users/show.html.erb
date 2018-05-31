@@ -21,8 +21,8 @@
 </div>
 
 
-<div id="profile-tabs">
-	<div id="profile-tabs-nav">
+<div class="general-tabs">
+	<div class="general-tabs-nav">
 		<table>
 		<tr>
 			<%if logged_in? and (current_user.role?(:admin) or current_user.id!=@user.id)%>
@@ -39,23 +39,19 @@
 		</tr>
 		</table>
 	</div>
-	<div id="profile-tabs-content">
-		<div id="profile-posts" class="post-index-table">
+	<div class="general-tabs-content">
+		<div id="posts" class="post-index-table">
 			<%= render partial: "partials/post_table", locals: { posts: @posts} %>
 		</div>
-		<div id="profile-claims" class="post-index-table inactive">
+		<div id="claims" class="post-index-table inactive">
 			<%= render partial: "partials/post_table", locals: { posts: @claimed_posts } %>
 		</div>
-		<div id="profile-org" class="inactive">
+		<div id="org" class="inactive">
 			<h3><%=@organization.name%></h3>
 			<%= render partial: "organizations/details" %>
 		</div>
-		<div id="profile-alliance" class="inactive">
-			<% unless @alliance.nil? %>
-				<%= render partial: "alliances/org_list" %>
-			<% else %>
-				<i>This user is not in an alliance.</i>
-			<% end %>
+		<div id="alliance" class="inactive">
+				<%= render partial: "alliances/index_details" %>
 		</div>
 	</div>
 

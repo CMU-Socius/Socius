@@ -2,9 +2,7 @@
 <div class="index-table">
 
 
-	<% if @alliance %>
-		Alliance: <%= link_to @alliance.name, @alliance %>
-	<% end %>
+	
 	<%if @organization.users.count == 0%>
 	<%="This organization has no users now."%>
 	<%else%>
@@ -46,3 +44,5 @@
 
 
 </div>
+
+

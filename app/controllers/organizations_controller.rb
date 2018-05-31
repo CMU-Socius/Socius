@@ -8,14 +8,11 @@ class OrganizationsController < ApplicationController
 
 	def show
 		set_organization
-		if @organization.alliance_id
-			@alliance = Alliance.find(@organization.alliance_id)
-		end	
+		@alliances = @organization.alliances
 	end
 
 	def edit
 		set_organization
-		@alliances = Alliance.alphabetical
 	end
 
 	def update
@@ -29,7 +26,6 @@ class OrganizationsController < ApplicationController
 
 	def new
 		@organization = Organization.new
-		@alliances = Alliance.alphabetical
 	end
 
 	def create
@@ -47,7 +43,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def organization_params
-		params.require(:organization).permit(:name, :active, :alliance_id)
+		params.require(:organization).permit(:name, :active)
 	end
 
 end

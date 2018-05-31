@@ -181,11 +181,19 @@ form {
 
 .table_action{
 		text-align: center;
+		a{
+			margin-top: 2em;
+			color: $orange;
+			font-size: 1em;
+			border-color: $orange;
+
+		}
 		.button {
 			color: $orange;
 			font-size: 1em;
 			border-color: $orange;
 		}
+		margin-bottom: 3em;
 }
 .index-table {
 	padding: 3% 5%;
@@ -215,6 +223,12 @@ form {
 				// }
 				.detail_link{
 					display: none;
+				}
+				.delete{
+					color: $orange;
+					&:hover{
+						border-bottom: 2px solid $orange;
+					}
 				}
 				.green-text{
 				color: $green;}

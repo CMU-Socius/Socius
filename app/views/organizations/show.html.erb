@@ -4,10 +4,30 @@
 <div class = "go_back">
 	<%= link_to "< All Organizations", organizations_path %>
 </div>
-<%= render partial: "organizations/details", locals: { post_details: @organization } %>
-<div class = "table_action">
-		<%if logged_in? and current_user.role?(:admin)%>
-			<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
-			<%= link_to "Create New User", new_user_path, class: "button" %>
-		<%end%>
+
+<div class="general-tabs">
+	<div class="general-tabs-nav">
+		<table>
+		<tr>
+			<td><a data-target="org_details">Members</a></td>
+			<td><a class="inactive" data-target="alliance">Alliances</a></td>
+		</tr>
+		</table>
+	</div>
+	<div class="general-tabs-content">
+		<div id="org_details" class="post-index-table">
+			<%= render partial: "organizations/details", locals: { post_details: @organization } %>
+			<div class = "table_action">
+					<%if logged_in? and current_user.role?(:admin)%>
+						<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
+						<%= link_to "Create New User", new_user_path, class: "button" %>
+					<%end%>
+			</div>
+		</div>
+		<div id="alliance" class="post-index-table inactive">
+			<%= render partial: "alliances/index_details" %>
+		</div>
+	</div>
+
 </div>
+

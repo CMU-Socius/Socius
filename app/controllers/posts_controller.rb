@@ -8,7 +8,7 @@ def index
 	if current_user.role? :admin
 		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_all_alliances(current_user.organization).chronological.paginate(:page => params[:page])
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)

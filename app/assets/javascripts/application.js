@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require rails-ujs
 //= require jquery-readyselector
+//= require vue
 //= require posts
 //= require maps
 //= require_tree .
