@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>module SociusWebHomelessHelpers::Validations - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-is_active_in_system">#is_active_in_system</a>
+    
+    <li ><a href="#method-i-is_never_destroyable">#is_never_destroyable</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-SociusWebHomelessHelpers::Validations">
+  <h1 id="module-SociusWebHomelessHelpers::Validations" class="module">
+    module SociusWebHomelessHelpers::Validations
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-is_active_in_system" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_active_in_system</span><span
+            class="method-args">(attribute)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_active_in_system-source">
+            <pre><span class="ruby-comment"># File lib/helpers/validations.rb, line 3</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">is_active_in_system</span>(<span class="ruby-identifier">attribute</span>)
+                    <span class="ruby-comment"># This method tests to see if the value set for the attribute is</span>
+                    <span class="ruby-comment"># (a) in the system at all, and (b) is active, if the active flag</span>
+                    <span class="ruby-comment"># is applicable.  If that is not the case, it will add an error </span>
+                    <span class="ruby-comment"># to stop validation process.</span>
+                            
+                    <span class="ruby-comment"># determine the class and id we need to work with</span>
+                    <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>)
+                    <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{attribute.to_s}_id&quot;</span>
+                            
+                    <span class="ruby-comment"># assuming the presence of the id is checked earlier, so return true </span>
+                    <span class="ruby-comment"># if shoulda matchers are being used that might bypass that check</span>
+                    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">attr_id</span>.<span class="ruby-identifier">nil?</span>
+
+                    <span class="ruby-comment"># determine the set of ids that might be valid</span>
+                    <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:active</span>)
+                    <span class="ruby-comment"># if there is an active scope, take advantage of it</span>
+                    <span class="ruby-identifier">all_active</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">active</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">id</span>}
+                    <span class="ruby-keyword">else</span>
+                    <span class="ruby-comment"># if not, consider all the records as &#39;active&#39;</span>
+                    <span class="ruby-identifier">all_active</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">id</span>}
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># test to see if the id in question is in the set of valid ids </span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">all_active</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">attr_id</span>))
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">attr_id</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-string">&quot;is not active in the system&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_never_destroyable" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_never_destroyable</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Likewise multiple models do not allow for deletions, so we can  create a
+simple method here for callbacks to use as needed</p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_never_destroyable-source">
+            <pre><span class="ruby-comment"># File lib/helpers/validations.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_never_destroyable</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,26 @@
+
+<div id = 'alliances' class="index-table">
+
+  <%if @alliance.organizations.count == 0%>
+	<%="This alliance has no organizations now."%>
+  <%else%>
+    <table>
+		<thead>
+			<tr>
+				<th>Organization Name</th>
+				<th>Members</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<%@alliance.organizations.each do |a|%>
+		    <tr>
+		    	<td><%=a.name%></td>
+		    	<td><%=a.users.count%></td>
+		    </tr> 
+		    <%end%> 
+	     </tbody>
+	</table>
+   <%end%>
+</div>
+

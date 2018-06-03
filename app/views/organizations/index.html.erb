@@ -1,5 +1,14 @@
-<h1>Organizations</h1>
+<div class = "header">
+		<h2>Organizations</h2>
+</div>
 
-<% @organizations.each do |o| %>
-	<%= link_to o.name, o %>
-<% end %>
+
+<div id = "org_index">
+	<ul>
+	<% @organizations.each do |o| %>
+		<li>
+			<%= link_to o.name, o %>
+		</li>
+	<% end %>
+	<ul>
+</div>

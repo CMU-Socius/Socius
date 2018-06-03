@@ -1,14 +1,17 @@
 <div id="post-form-container">
+
+    <h1>Submit a Request</h1>
+    <p id="address-preview"></p>
+    <small>Click or tap the map to select a location. Tap in the search box to search for a location</small>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map-canvas"></div>
+
     <% if logged_in? && !current_user.nil?%>
         <%= simple_form_for @post, html: {class:'form-horizontal', multipart: true} do |f| %>
 
             <%= f.input :poster_id, :as => :hidden, :input_html => {:value => current_user.id} %>
 
-            <h1>Submit a Request</h1>
             <%= render 'partials/form_errors', record: @post %>
-            <p id="address-preview"></p>
-            <small>Click or tap the map to select a location.</small>
-            <div id="map-canvas"></div>
 
             <%= f.input :street_1, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
         
@@ -21,28 +24,35 @@
                 <%= f.input :zip, :as => :hidden, input_html: {class: "form-control", id: "zip"}, wrapper_html: { class: "inline"} %>
             </div>
 
-            <% unless @all_needs.empty? %>
+             <% unless @all_needs.empty? %>
                 <div id="needs-list">
-                    <%= fields_for(@post_need) do |pn| %>
-                        <% @all_needs.each do |category, needs| %>
-                            <div class="need-category">
-                                <h2><%= category %></h2>
-                                <%= collection_check_boxes :needs, :id, needs, :id, :name do |need| %>
-                                    <div>
-                                        <%= need.label %>
-                                        <%= need.check_box %>
-                                    </div>
-                                <% end %>
-                                <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
-                            </div>
-                        <% end %>
-                    <% end %>
+                    <%= render :partial => "form_template" %>
                 </div>
-            <% end %>
+             <% end %>
+
+             
+             <% unless @alliances.empty? %>
+                 <div id="sharings-list">
+                    <div class = "title">* Sharing Option:<small> This post will be shared among the checked alliances</small></div>
+                    <div class = "needblock">
+                        <div class = "need-category">
+                            <%= collection_check_boxes :alliances, :ids, @alliances, :id, :name do |al| %>
+                                <div>
+                                    <%= al.label %>
+                                    <%= al.check_box %>
+                                </div>
+                            <% end %>
+                            <div class = "small">If no alliances are checked, then the post is private to your organizaiton</div>
+                        </div>
+                    </div>
+                </div>
+             <%end%>
+
 
             <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control" }, :required => true %>
 
             <%= f.input :comment, input_html: {class: "form-control", id: "comment"} %>
+
             <div id="submit" class="button-wrapper">
                 <input type="submit" class="button" value="Submit Request" />
             </div>
@@ -53,4 +63,4 @@
     <% end %>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=initPostFormMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places&callback=initPostFormMap" async defer></script>

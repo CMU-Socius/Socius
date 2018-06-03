@@ -1,0 +1,19 @@
+
+
+    <% @all_needs.each do |category, needs| %>
+	    <div class = "needblock">
+		    <a class = "togglelink">
+		    <i class=" material-icons md-12">keyboard_arrow_down</i>
+		    <%=category%></a> 
+
+		    <div class = "need-category">
+		        <%= collection_check_boxes :needs, :id, needs, :id, :name do |need| %>
+		            <div>
+		                <%= need.label %>
+		                <%= need.check_box %>
+		            </div>
+		        <% end %>
+		        <small>If selecting 'Other', please be sure to specify further in the Comment section.</small>
+		    </div>
+	    </div>
+	<%end%>

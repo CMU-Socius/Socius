@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class Post - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="SociusWebHomelessHelpers/Validations.html">SociusWebHomelessHelpers::Validations</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-get_post_details">::get_post_details</a>
+    
+    <li ><a href="#method-i-address_is_valid">#address_is_valid</a>
+    
+    <li ><a href="#method-i-cancel">#cancel</a>
+    
+    <li ><a href="#method-i-claimed_by">#claimed_by</a>
+    
+    <li ><a href="#method-i-claimer_name">#claimer_name</a>
+    
+    <li ><a href="#method-i-complete">#complete</a>
+    
+    <li ><a href="#method-i-full_street_address">#full_street_address</a>
+    
+    <li ><a href="#method-i-post_needs">#post_needs</a>
+    
+    <li ><a href="#method-i-poster_name">#poster_name</a>
+    
+    <li ><a href="#method-i-set_datetime_posted_if_not_given">#set_datetime_posted_if_not_given</a>
+    
+    <li ><a href="#method-i-unclaim">#unclaim</a>
+    
+    <li ><a href="#method-i-update_post_needs">#update_post_needs</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Post">
+  <h1 id="class-Post" class="class">
+    class Post
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="STATES_LIST">STATES_LIST
+        
+        <dd><p>get an array of the states in U.S.</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-need_name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">need_name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Virtual Attributes</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-get_post_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_post_details</span><span
+            class="method-args">(posts)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_post_details-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_post_details</span>(<span class="ruby-identifier">posts</span>)
+        <span class="ruby-comment"># post_needs = posts.map { |p| p.post_needs.to_a }</span>
+        <span class="ruby-comment"># posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }</span>
+        <span class="ruby-comment"># claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }</span>
+        <span class="ruby-comment"># post_details = posts.zip(post_needs, posters, claimers)</span>
+        <span class="ruby-identifier">post_details</span> = <span class="ruby-identifier">posts</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> {
+                <span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">id</span>, 
+                <span class="ruby-string">&quot;poster_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">poster_id</span>, 
+                <span class="ruby-string">&quot;poster_name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">poster_id</span> <span class="ruby-operator">?</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">poster_id</span>).<span class="ruby-identifier">proper_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>,
+                <span class="ruby-string">&quot;created_at&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">created_at</span>, 
+                <span class="ruby-string">&quot;street_1&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">street_1</span>,
+                <span class="ruby-string">&quot;street_2&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">street_2</span>,
+                <span class="ruby-string">&quot;city&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">city</span>,
+                <span class="ruby-string">&quot;state&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">state</span>,
+                <span class="ruby-string">&quot;zip&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">zip</span>, 
+                <span class="ruby-string">&quot;lat&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">latitude</span>, 
+                <span class="ruby-string">&quot;lng&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">longitude</span>, 
+                <span class="ruby-string">&quot;claimer_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">claimer_id</span>, 
+                <span class="ruby-string">&quot;claimer_name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">claimer_id</span> <span class="ruby-operator">?</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">claimer_id</span>).<span class="ruby-identifier">proper_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>,
+                <span class="ruby-string">&quot;date_cancelled&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">date_cancelled</span>,
+                <span class="ruby-string">&quot;date_claimed&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">date_claimed</span>,
+                <span class="ruby-string">&quot;date_completed&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">date_completed</span>,
+        }}
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-address_is_valid" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">address_is_valid</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="address_is_valid-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">address_is_valid</span>
+              <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Geocoder</span>.<span class="ruby-identifier">coordinates</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">full_street_address</span>)
+              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:city</span>, <span class="ruby-string">&quot;Address was not found.&quot;</span>)
+      <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-cancel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cancel</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cancel-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cancel</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_cancelled</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_cancelled</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span> = <span class="ruby-keyword">nil</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_claimed</span> = <span class="ruby-keyword">nil</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-claimed_by" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">claimed_by</span><span
+            class="method-args">(user_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Methods for analytics all posts in the same location</p>
+          
+          
+
+          
+          <div class="method-source-code" id="claimed_by-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 102</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">claimed_by</span>(<span class="ruby-identifier">user_id</span>)
+              <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span>.<span class="ruby-identifier">nil?</span>
+                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span> = <span class="ruby-identifier">user_id</span>
+                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_cancelled</span> = <span class="ruby-keyword">nil</span>
+                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_claimed</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>
+                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+              <span class="ruby-keyword">else</span>
+                      <span class="ruby-keyword">false</span>
+              <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-claimer_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">claimer_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="claimer_name-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">claimer_name</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span> <span class="ruby-operator">?</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span>).<span class="ruby-identifier">proper_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-complete" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">complete</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Methods</p>
+          
+          
+
+          
+          <div class="method-source-code" id="complete-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">complete</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_completed</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-full_street_address" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">full_street_address</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="full_street_address-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_street_address</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">street_2</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-node">&quot;#{self.street_1}, #{self.city}, #{self.state} #{self.zip}&quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-node">&quot;#{self.street_1}, #{self.street_2}, #{self.city}, #{self.state} #{self.zip}&quot;</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-post_needs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">post_needs</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="post_needs-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_needs</span>
+        <span class="ruby-constant">PostNeed</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">post_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-poster_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">poster_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="poster_name-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">poster_name</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">poster_id</span> <span class="ruby-operator">?</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">poster_id</span>).<span class="ruby-identifier">proper_name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_datetime_posted_if_not_given" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_datetime_posted_if_not_given</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_datetime_posted_if_not_given-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 143</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_datetime_posted_if_not_given</span>
+               <span class="ruby-comment">#TO DO: make this account for non date inputs as well</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_posted</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_posted</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unclaim" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unclaim</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unclaim-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unclaim</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">claimer_id</span> = <span class="ruby-keyword">nil</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_claimed</span> = <span class="ruby-keyword">nil</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update_post_needs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_post_needs</span><span
+            class="method-args">(new_completed_ids)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_post_needs-source">
+            <pre><span class="ruby-comment"># File app/models/post.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_post_needs</span>(<span class="ruby-identifier">new_completed_ids</span>)
+        <span class="ruby-identifier">completed_ids</span> = <span class="ruby-identifier">new_completed_ids</span>.<span class="ruby-identifier">select</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span> }.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_i</span> }
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">post_needs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pn</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">completed_ids</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">id</span>
+                        <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">complete</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">undo_complete</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

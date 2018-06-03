@@ -1,32 +1,48 @@
 <!-- top navbar -->
-<nav>
-  <%= link_to home_path, class:"logo" do %>
-    <%= image_tag 'white_logo.png' %>
-  <% end %>
-  <input type="checkbox" id="menu-toggle">
-  <label for="menu-toggle" id="label-toggle"></label>
-  <ul>
-    <li>
-      <%= link_to("About", about_path) %>
-    </li>
-    <li>
-      <%= link_to("Requests", posts_path) %>
-    </li>
-    <li>
-      <%= link_to("New Request", new_post_path) %>
-    </li>
-    <% if logged_in? %>
-      <li>
-        <a>Welcome, <%=current_user.first_name %></a> ▼
-        <ul>
-          <li><%= link_to "My Profile", user_path(current_user) %></li>
-          <li><%= link_to("Log Out", logout_path) %></li>
-        </ul>
+<section class="navigation">
+  <div class="nav-container">
+    <div class = "brand">
+      <%= link_to home_path, class:"logo" do %>
+        <%= image_tag 'white_logo.png' %>
+        Socius
+      <% end %>
+    </div>
+    <nav>
+      <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+      <ul class="nav-list">
+           <li>
+        <%= link_to "About", about_path,:class => "nav-link"%>
       </li>
-    <% else %>
       <li>
-        <%= link_to "Log In", login_path %>
+        <%= link_to "Manage Requests", posts_path,:class => "nav-link" %>
       </li>
-    <% end %>
-  </ul>
-</nav>
+      <li>
+        <%= link_to "New Request", new_post_path,:class => "nav-link" %>
+      </li>
+      <%if logged_in? and current_user.role?(:admin)%>
+        <li>
+            <a class="nav-link">Management</a>
+            <ul class = "nav-dropdown">
+              <li><%= link_to("Organizations", organizations_path) %></li>
+              <li><%= link_to("Users", users_path) %></li>
+              <li><%= link_to("Alliances", alliances_path) %></li>
+            </ul>
+        </li>
+      <%end%>
+      <% if logged_in? %>
+        <li>
+          <a class = "nav-link">Welcome, <%=current_user.first_name %></a>
+          <ul class = "nav-dropdown">
+            <li><%= link_to "My Profile", user_path(current_user) %></li>
+            <li><%= link_to("Log Out", logout_path) %></li>
+          </ul>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "Log In", login_path ,:class => "nav-link" %>
+        </li>
+      <% end %>
+      </ul>
+    </nav>
+  </div>
+</section>

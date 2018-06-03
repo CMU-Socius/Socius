@@ -113,18 +113,52 @@ header {
 	}
 }
 
+#heading {
+	text-align: center;
+	background: $orange;
+	padding: 2% 8% 5% 8%;
+	color: white;
+	p {
+		font-weigth: bold;
+		width: 90%;
+		margin: 0 auto;
+		font-size: 4em;
+	}
+}
+
+#newaccount {
+	padding: 5% 10%;
+	text-align: center;
+	p {
+		text-align: left;
+		color: #777;
+	}
+	h2{
+		text-align: left !important;
+	}
+
+	a{
+		margin-top: 2vw;
+		font-size: 1.5em;
+	}
+
+}
+
 #process {
 	img {
 		width: 100%;
 	}
 }
 
-#login, #signup, #edit-profile {
+#login, #signup, #edit-profile,#change_password {
 	text-align: center;
 	background: $orange;
 	padding: 6% 0;
 	min-height: 100vh;
 	color: white;
+	.go_back_white{
+		text-align: left;
+	}
 	h2 {
 		text-transform: uppercase;
 		margin-bottom: 20px;

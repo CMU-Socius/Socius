@@ -30,9 +30,10 @@
 	}
 }
 
-#profile-tabs {
+
+.general-tabs{
 	padding: 3% 5%;
-	#profile-tabs-nav {
+	.general-tabs-nav{
 		table {
 			width: 100%;
 			table-layout: fixed;
@@ -51,7 +52,7 @@
 			}
 		}
 	}
-	#profile-tabs-content {
+	.general-tabs-content{
 		position: relative;
 		text-align: center;
 		> div {
@@ -63,9 +64,59 @@
 				display: none;
 			}
 		}
-		#profile-org {
+		#org {
 			h3 {
 				margin-bottom: 2em;
+			}
+		}
+	}
+}
+
+.user-table {
+	padding: 3% 5%;
+	margin: 0 auto;
+
+	.approve {
+		color: $orange;
+		font-size: 0.8em;
+		border-color: $orange;
+		padding: 0.5em 0.5em;
+		border-radius: 5px;
+		border-style: solid;
+	}
+
+	.table_action{
+		text-align: center;
+		.button {
+			color: $orange;
+			font-size: 1em;
+			border-color: $orange;
+		}
+	}
+
+	
+	table {
+		width: 100%;
+		table-layout: fixed;
+		thead {
+			text-transform: uppercase;
+			color: $orange;
+			text-align: left;
+		}
+		tr {
+			&:nth-of-type(even) {
+				background: #f8f8f8;
+			}
+			td {
+				// #viewpost a{
+				// 	color: $orange ;
+				// }
+				.green-text{
+				color: $green;}
+				.red-text{
+				color: $red;}
+				text-align: left;
+				padding: 1em;
 			}
 		}
 	}
