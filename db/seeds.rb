@@ -65,6 +65,7 @@ end
 Organization.create(name: 'Allegheny Center Alliance Church', active: true)
 Organization.create(name: 'Allegheny Link', active: true)
 Organization.create(name: 'Blankets Over Pittsburgh', active: true)
+Organization.create(name: 'Bridge to the Mountains', active: true)
 Organization.create(name: 'Church Union (New Hope Church)', active: true)
 Organization.create(name: 'City of Pittsburgh', active: true)
 Organization.create(name: 'CityReach Church', active: true)

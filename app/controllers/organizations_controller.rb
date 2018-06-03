@@ -26,7 +26,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def new
-		@organization = Organization.new
+		redirect_to organizations_path
 	end
 
 	def create
@@ -34,7 +34,9 @@ class OrganizationsController < ApplicationController
 		if @organization.save
 			redirect_to organizations_path, notice: "Successfully added new organization: #{@organization.name}."
 		else
-			render action: 'new'
+			@organizations = Organization.all.alphabetical
+			flash[:notice] = "Already Exists or invalid organization name."
+			render action: 'index'
 		end
 	end
 

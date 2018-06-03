@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'user/:id/change_password' => 'users#change_password', :as => :change_password
   post 'user/:id/change_password' => 'users#change_password', :as => :update_password
 
+
   # AJAX Routes
   get 'claim_request' => 'posts#claim', :as => :claim_request
   get 'unclaim_request' => 'posts#unclaim', :as => :unclaim_request

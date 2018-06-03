@@ -2,6 +2,20 @@
 		<h2>Organizations</h2>
 </div>
 
+<div class = "new_organization">
+		    <a class = "new_link">
+		    <i class=" material-icons md-12">keyboard_arrow_down</i>
+		    <%="Add New Organization"%></a> 
+
+		    <div class = "org-form">
+		       <% @organization = Organization.new %>
+			<!-- now the form template itself -->
+			  <%= simple_form_for @organization do |f| %>
+			        <%= f.input :name,  placeholder: 'New Organization',input_html: {class: "input"}, wrapper_html: {class: 'wrapper'} %>
+			        <%= f.button :submit %>
+			  <% end %>
+		    </div>
+</div>
 
 <div id = "org_index">
 	<ul>
@@ -12,3 +26,4 @@
 	<% end %>
 	<ul>
 </div>
+
