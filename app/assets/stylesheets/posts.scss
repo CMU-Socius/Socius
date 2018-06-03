@@ -188,10 +188,13 @@
 		input[type='submit'] {
 			border-color: $orange;
 			color: $orange;
-			font-size: 0.8em;
+			font-size: 0.7em;
 		}
 		.update-post-need-wrapper {
 			padding: 10px;
+			label{
+				width: 70%;
+			}
 		}
 		small {
 			color: $light-grey;

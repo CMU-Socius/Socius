@@ -67,17 +67,21 @@ def create
 				pn.save!
 			end
 		end
-		params[:alliances][:ids].each do |sharing_id|
-			unless sharing_id.empty?
-				s = Sharing.new(:post_id => @post.id,:alliance_id => sharing_id)
-				s.save!
+		unless @alliances.nil?
+			params[:alliances][:ids].each do |sharing_id|
+				unless sharing_id.empty?
+					s = Sharing.new(:post_id => @post.id,:alliance_id => sharing_id)
+					s.save!
+				end
 			end
-		end
+	    end
 		UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
 		@all_needs = Need.by_category
+		@alliances = current_user.organization.alliances
 		@post_need = @post.post_needs.build
+		@sharings = @post.sharings.build
 		render action: 'new'
 	end
 end

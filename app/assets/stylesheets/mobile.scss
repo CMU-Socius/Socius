@@ -84,10 +84,12 @@
 		}
 
 		tr{
+		display: block;
 		.detail_toggle{
 			display: none;
 			background: $lighter-orange;
 			td {
+				width: 100% !important;
 				.green-text{
 				color: $green;}
 				.red-text{
