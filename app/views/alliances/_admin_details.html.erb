@@ -26,14 +26,13 @@
    <%end%>
 
    <div class = "new_organization">
-		    <a class = "new_org_link">
+		    <a class = "new_link">
 		    <i class=" material-icons md-12">keyboard_arrow_down</i>
 		    <%="Add New Organization"%></a> 
 
-		    <div class = "alliance-org-form">
+		    <div class = "org-form">
 		       <% @org_alliance = OrgAlliance.new %>
 			<!-- now the form template itself -->
-			  <h3>New organization for this alliance:</h3>
 			  <%= simple_form_for @org_alliance do |f| %>
 			        <%= f.input :alliance_id, as: :hidden, input_html: { value: @alliance.id } %>
 			        <%= f.input :organization_id, collection: @org_choices,  input_html: {class: "input"}, wrapper_html: {class: "wrapper"},include_blank: false %>

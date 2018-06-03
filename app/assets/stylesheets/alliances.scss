@@ -2,13 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.new_organization{
-	margin: 2em 0;
-	.new_org_link:{
+.new_organization,.new_alliance{
+	margin: 2em auto 1em auto;
+	.new_link:{
 
 
 	}
-	.alliance-org-form{
+	.org-form{
 		background: $lighter-orange;
 		padding: 2vw;
 
@@ -36,4 +36,25 @@
 			
 
 	}
+}
+
+.new_alliance{
+	width: 90%;
+	.org-form{
+		display:none;
+		form {
+			label{
+				font-size: 1em;
+				display: inline-block;
+			}
+			.input{
+				font-size: 1em;
+				width: 90%;
+				color: black;
+			}
+			.wrapper{
+				border-bottom: 2px solid $orange;
+			}
+		}
+    }
 }
