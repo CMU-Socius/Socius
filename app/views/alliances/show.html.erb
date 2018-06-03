@@ -1,14 +1,15 @@
-<p id="notice"><%= notice %></p>
+<div class = "header">
+	<h2><%= @alliance.name %></h2>
+</div>
+<%if current_user.role?(:admin)%>
+<div class = "go_back">
+	<%= link_to "< All Alliances", alliances_path %>
+</div>
+<%= render partial: "admin_details"%>
+<%else%>
+<div class = "go_back">
+	<%= link_to "< My Profile", user_path(current_user) %>
+</div>
+<%= render partial: "details"%>
+<%end%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @alliance.name %>
-</p>
-
-<ul>
-	<% @organizations.each do |org| %>
-		<li><%= link_to org.name, org %></li>
-	<% end %>
-</ul>
-
-<%= link_to 'Edit Alliance', edit_alliance_path(@alliance) %>

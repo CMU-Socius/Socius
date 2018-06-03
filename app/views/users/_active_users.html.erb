@@ -1,0 +1,32 @@
+
+<%if @active_users.count!=0%>
+	<div class = "user-table">
+			<table>
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Organization</td>
+						<td>Email</td>
+						<td>Contact</td>
+					</tr>
+				</thead>
+				<tbody>
+					<% @active_users.each do |u| %>
+					<tr>
+					     <td><p class="mobile-only table-heading">Name</p><%=link_to u.proper_name,u%></td>
+					     <td><p class="mobile-only table-heading">Organization</p><%=link_to u.organization.name, u.organization%></td>
+					     <td><p class="mobile-only table-heading">Email</p><%=u.email%></td>
+					     <td><p class="mobile-only table-heading">Phone</p><%=u.phone%></td>
+					</tr>
+					<%end%>
+				</tbody>
+		    </table>
+		
+	</div>
+
+	<div class = "apple_pagination">
+		<%=will_paginate @active_users%>
+	</div>
+<%else%>
+    There are no users in the system now. 
+<%end%>

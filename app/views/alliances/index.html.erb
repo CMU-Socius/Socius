@@ -1,27 +1,5 @@
-<p id="notice"><%= notice %></p>
+<div class = "header">
+    <h2>Alliances</h2>
+</div>
 
-<h1>Listing Alliances</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @alliances.each do |alliance| %>
-      <tr>
-        <td><%= alliance.name %></td>
-        <td><%= link_to 'Show', alliance %></td>
-        <td><%= link_to 'Edit', edit_alliance_path(alliance) %></td>
-        <td><%= link_to 'Destroy', alliance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Alliance', new_alliance_path %>
+<%= render :partial => "index_details"%>

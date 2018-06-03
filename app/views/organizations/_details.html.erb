@@ -1,9 +1,11 @@
-<div class="index-table">
-	<h3><%= @organization.name %> Roster</h3>
 
-	<% if @alliance %>
-		Alliance: <%= link_to @alliance.name, @alliance %>
-	<% end %>
+<div class="index-table">
+
+
+	
+	<%if @organization.users.count == 0%>
+	<%="This organization has no users now."%>
+	<%else%>
 	<table>
 		<thead>
 			<tr>
@@ -17,7 +19,11 @@
 			<tr>
 				<td>
 					<p class="mobile-only table-heading">Member</p>
+					<%if current_user.role?(:admin)%>
 					<%= link_to user.proper_name, user_path(user) %>
+					<%else%>
+					<%=user.proper_name%>
+					<%end%>
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Email</p>
@@ -25,7 +31,11 @@
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Phone</p>
-					<%= user.phone %>
+					<%if !user.phone.empty?%>
+						<%= user.phone %>
+					<%else%>
+						<%="Not Available"%>
+					<%end%>
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Title</p>
@@ -34,6 +44,9 @@
 			</tr>
 		<% end %>
 	</table>
+	<%end%>
 
-	<%= link_to "Edit", edit_organization_path(@organization), class: "button" %>
+
 </div>
+
+

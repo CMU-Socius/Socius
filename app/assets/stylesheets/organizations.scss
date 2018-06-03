@@ -1,3 +1,32 @@
 // Place all the styles related to the Organizations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#org_index{
+	width: 80%;
+	margin: auto; 
+	padding: 5%;
+	ul {
+		list-style-position: outside;
+		font-size: 1.5em;
+	}
+
+}
+
+
+@media screen and (max-width: 768px) {
+	#org_index{
+		width: 100%;
+		margin: auto; 
+		padding: 5%;
+		ul {
+			list-style-position: outside;
+			font-size: 1.3em;
+		}
+
+
+	}
+
+
+}
+
+

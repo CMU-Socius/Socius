@@ -12,4 +12,5 @@ module Contexts
   include Contexts::Posts
   include Contexts::Needs
   include Contexts::PostNeeds
+
 end

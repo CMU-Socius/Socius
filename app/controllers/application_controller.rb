@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "You have no access to this page"
+    redirect_to home_path
+  end
+
   # @@firebase = Firebase::Client.new('https://socius2-1254.firebaseio.com/')
 
   private

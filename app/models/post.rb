@@ -2,26 +2,35 @@ class Post < ActiveRecord::Base
 
 	# get module to help with some functionality
   include SociusWebHomelessHelpers::Validations
+
+    self.per_page = 10
 	
 	#Relationships
 
 	
 	belongs_to :poster, class_name: :User, foreign_key: :poster_id
-  has_many :post_needs
-  has_many :needs, through: :post_needs
+	belongs_to :claimer, class_name: :User, foreign_key: :claimer_id
+	has_many :post_needs
+	has_many :needs, through: :post_needs
+	has_many :sharings
+	has_many :alliances,through: :sharings
 
 	#Virtual Attributes
 	attr_accessor :need_name
 	
 	# get an array of the states in U.S.
-  STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
-
+    STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
+    
 	#Scope
 	scope :chronological, -> { order(date_posted: :desc) }
 	scope :incomplete,    -> { where(date_completed: nil)}
 	scope :completed,     -> { where.not(date_completed: nil)}
 	scope :posted_by,   -> (poster) { where(poster_id: poster.id) }
 	scope :claimed_by,   -> (claimer) { where(claimer_id: claimer.id) }
+	scope :for_organization, ->(organization_id) {joins(:poster).where('organization_id = ?',organization_id )}
+	scope :not_cancelled, ->{where(date_cancelled: nil)}
+
+
 
 
 	# Validations
@@ -32,15 +41,37 @@ class Post < ActiveRecord::Base
 	validates_format_of :zip, with: /\A\d{5}\z/, message: "should be five digits long"
 	validates_inclusion_of :state, in: STATES_LIST.map{|key, value| value}, message: "is not an option"
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
-  validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
-  validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
-  validate :address_is_valid
+    validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
+    validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
+    validate :address_is_valid, on:  :create
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given
 	#Gecoding
 	geocoded_by :full_street_address
 	after_validation :geocode
+
+	# class methods
+	def self.for_all_alliances(org)
+		ids = Array.new()
+		org.alliances.each do |o|
+			ids =ids+ o.all_org_ids
+		end
+		Post.joins(:poster).where('organization_id in (?)',ids)
+	end
+
+	def self.for_sharings(org)
+		ids = Array.new()
+		ids = ids+Post.for_organization(org.id).map(&:id)
+		all_alliance_ids = org.all_alliance_ids
+		Post.all.each do |p|
+			alliance_list = p.alliances.map(&:id)
+			if(alliance_list & all_alliance_ids)!=[] and !ids.include?(p.id)
+				ids.push(p.id)
+			end
+		end
+		Post.where('posts.id in (?)',ids)
+	end
 
 	#Methods
 	def complete
@@ -69,6 +100,42 @@ class Post < ActiveRecord::Base
 
 	def claimer_name
 		self.claimer_id ? User.find(self.claimer_id).proper_name : nil
+	end
+
+	def self.filter(posted_by, claim_status,complete_status)
+		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status)
+	end
+
+	def self.filter_posted(p)
+		if p.to_i !=0
+			Post.where(poster_id: p)
+		elsif !p.nil? and p[0..2] == "org"
+			Post.for_organization(p[3..-1].to_i)
+		else
+			Post.all
+		end
+	end
+
+	def self.filter_claim(c)
+		if c.to_i !=0
+			Post.where(claimer_id: c)
+	    elsif !c.nil? and c[0..2] == "org"
+			Post.where('claimer_id in (?)', Organization.find(c[3..-1].to_i).all_user_ids )
+		elsif c == "unclaimed"
+			Post.where(claimer_id: nil)
+		else
+			Post.all
+		end
+	end
+
+	def self.filter_complete(c)
+		if c == "incomplete"
+			Post.incomplete
+		elsif c == "completed"
+			Post.completed
+		else
+			Post.all
+		end
 	end
 
 	def self.get_post_details(posts)
@@ -108,7 +175,17 @@ class Post < ActiveRecord::Base
 		else
 			false
 		end
-  end
+    end
+
+    def all_completed?
+		self.post_needs.each do |n|
+				if !n.complete? 
+					return false
+				end
+	    end
+	    return true
+
+    end
 
 	def unclaim
 		if !self.claimer_id.nil?

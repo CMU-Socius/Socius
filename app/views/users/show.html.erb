@@ -10,39 +10,51 @@
 
 	<small>
 		<%= @user.email %> | <%= @user.phone %><br/>
-		<% if logged_in? && (current_user.role?(:admin) or current_user.id == @user.id) %>
+		<% if can? :update, @user %>
 			<%= link_to "Edit Profile", edit_user_path(@user) , class: "button" %>
 		<% end %>
+		<%if current_user.id == @user.id%>
+		    <%= link_to "Change Password", change_password_path(@user) , class: "button" %>
+		<%end%>
 	</small>
+
+	<%if logged_in? and current_user.role?(:admin) and !@user.active%>
+	    <%= link_to "APPROVE", approve_user_path(id: @user['id']) , class: "button" %>
+	<%end%>
 </div>
 
-<div id="profile-tabs">
-	<div id="profile-tabs-nav">
+
+<div class="general-tabs">
+	<div class="general-tabs-nav">
 		<table>
 		<tr>
-			<td><a data-target="posts">My Posts</a></td>
-			<td><a class="inactive" data-target="claims">My Claims</a></td>
-			<td><a class="inactive" data-target="org">My Organization</a></td>
-			<td><a class="inactive" data-target="alliance">My Alliance</a></td>
+			<%if logged_in? and (current_user.role?(:admin) or current_user.id!=@user.id)%>
+				<td><a data-target="posts">Posts</a></td>
+				<td><a class="inactive" data-target="claims">Claims</a></td>
+				<td><a class="inactive" data-target="org">Organization</a></td>
+				<td><a class="inactive" data-target="alliance">Alliance</a></td>
+			<%else%>
+				<td><a data-target="posts">My Posts</a></td>
+				<td><a class="inactive" data-target="claims">My Claims</a></td>
+				<td><a class="inactive" data-target="org">My Organization</a></td>
+				<td><a class="inactive" data-target="alliance">My Alliance</a></td>
+			<%end%>
 		</tr>
 		</table>
 	</div>
-	<div id="profile-tabs-content">
-		<div id="profile-posts" class="post-index-table">
-			<%= render partial: "partials/post_table", locals: { post_details: @post_details } %>
+	<div class="general-tabs-content">
+		<div id="posts" class="post-index-table">
+			<%= render partial: "partials/post_table", locals: { posts: @posts} %>
 		</div>
-		<div id="profile-claims" class="post-index-table inactive">
-			<%= render partial: "partials/post_table", locals: { post_details: @claimed_post_details } %>
+		<div id="claims" class="post-index-table inactive">
+			<%= render partial: "partials/post_table", locals: { posts: @claimed_posts } %>
 		</div>
-		<div id="profile-org" class="inactive">
+		<div id="org" class="inactive">
+			<h3><%=@organization.name%></h3>
 			<%= render partial: "organizations/details" %>
 		</div>
-		<div id="profile-alliance" class="inactive">
-			<% unless @alliance.nil? %>
-				<%= render partial: "alliances/org_list" %>
-			<% else %>
-				<i>This user is not in an alliance.</i>
-			<% end %>
+		<div id="alliance" class="inactive">
+				<%= render partial: "alliances/index_details" %>
 		</div>
 	</div>
 

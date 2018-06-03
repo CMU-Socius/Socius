@@ -1,4 +1,7 @@
 /*
+*= require material_icons
+*/
+/*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -21,6 +24,7 @@
 @import "posts";
 @import "users";
 @import "alliances";
+@import "pagination";
 @import "mobile";
 
 body {
@@ -33,8 +37,8 @@ body {
 }
 
 main {
-	margin-top: 3em;
-  padding: 0;
+	margin-top: 0em;
+    padding: 0;
 }
 
 * {
@@ -42,17 +46,18 @@ main {
 	box-sizing: border-box;
 }
 
-a {
+a:not(.filterlink){
   text-decoration: none;
   display: inline-block;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
   margin-bottom: 3px;
   cursor: pointer;
-  &:hover {
+  &:hover  {
       border-color: inherit;
   }
 }
+
 
 h1 {
 	text-transform: uppercase;
@@ -142,10 +147,12 @@ select {
 	padding: 0 1em;
 }
 
+
+
 input[type='checkbox'] {
 	-webkit-appearance:none;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	background: white;
 	padding: 0;
 	margin: -2px;
@@ -153,9 +160,6 @@ input[type='checkbox'] {
 	font-size: 15px;
 	line-height: 20px;
 	text-align: center;
-	&:after {
-		content: '_';
-	}
 	&:checked {
 		opacity: 0.5;
 		&:after {
@@ -170,11 +174,27 @@ textarea {
 
 form {
 	width: 60%;
-	input[type="submit"], button {
+	input[type="submit"], button :not(.filter_element){
 		margin: 2em 0 !important;
 	}
 }
 
+.table_action{
+		text-align: center;
+		a{
+			margin-top: 2em;
+			color: $orange;
+			font-size: 1em;
+			border-color: $orange;
+
+		}
+		.button {
+			color: $orange;
+			font-size: 1em;
+			border-color: $orange;
+		}
+		margin-bottom: 3em;
+}
 .index-table {
 	padding: 3% 5%;
 	margin: 0 auto;
@@ -191,14 +211,33 @@ form {
 		thead {
 			text-transform: uppercase;
 			color: $orange;
+			text-align: left;
 		}
 		tr {
 			&:nth-of-type(even) {
 				background: #f8f8f8;
 			}
 			td {
+				// #viewpost a{
+				// 	color: $orange ;
+				// }
+				.detail_link{
+					display: none;
+				}
+				.delete{
+					color: $orange;
+					&:hover{
+						border-bottom: 2px solid $orange;
+					}
+				}
+				.green-text{
+				color: $green;}
+				.red-text{
+				color: $red;}
 				text-align: left;
 				padding: 1em;
+
+
 			}
 		}
 	}
@@ -222,3 +261,53 @@ form {
 		text-align: left;
 	}
 }
+
+.header {
+	background: $orange;
+	padding: 5%;
+
+
+	h2{
+		color: white;
+		text-align: center;
+		margin: 0;
+
+	}
+
+	.button {
+		margin: 0;
+	}
+
+}
+
+.go_back{
+	a{
+		font-size: 1.3em;
+		color: $orange;
+	}
+	padding: 1% 5%;
+	margin: 0 auto;
+
+}
+
+.go_back_white{
+	a{
+		font-size: 1.3em;
+		color: white;
+		background: transparent;
+	}
+	padding: 1% 5%;
+	margin: 0 auto;
+
+}
+
+#pac-input{
+	color: black !important;
+	background-color: white !important;
+}
+
+.alert{
+	color: red;
+}
+
+

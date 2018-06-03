@@ -1,9 +1,12 @@
 class AlliancesController < ApplicationController
-  before_action :set_alliance, only: [:show, :edit, :update, :destroy]
+  authorize_resource
+
+  before_action :set_alliance, only: [:show, :edit, :update, :destroy,:orgs]
 
   # GET /alliances
   # GET /alliances.json
   def index
+    authorize! :manage, :all
     @alliances = Alliance.all
   end
 
@@ -11,8 +14,10 @@ class AlliancesController < ApplicationController
   # GET /alliances/1.json
   def show
     set_alliance
-    @organizations = Organization.where(alliance_id: @alliance.id)
+    @organizations = @alliance.organizations
+    @org_choices = @alliance.org_choices
   end
+
 
   # GET /alliances/new
   def new
@@ -61,6 +66,10 @@ class AlliancesController < ApplicationController
       format.html { redirect_to alliances_url, notice: 'Alliance was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def orgs
+    @orgs = @alliance.organizations.alphabetical
   end
 
   private
