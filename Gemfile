@@ -79,7 +79,6 @@ group :development do
   gem 'spring'
 
   gem 'quiet_assets'
-  gem 'hirb'
   gem 'wirble'
   # gem 'thin'
   gem 'better_errors'
