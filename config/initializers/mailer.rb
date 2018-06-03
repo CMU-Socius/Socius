@@ -4,8 +4,8 @@ if Rails.env.development?
   ActionMailer::Base.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'socius.herokuapp.com',
-    user_name:            'cmusocius@gmail.com',
+    user_name:            ENV["GMAIL_USERNAME"],
+    password:             ENV["GMAIL_PASSWORD"],
     password:             'socius_secret123',
     authentication:       'plain',
     enable_starttls_auto: true 
