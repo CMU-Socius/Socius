@@ -31,8 +31,7 @@ Rails.application.routes.draw do
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
   get 'approve' => 'users#approve', :as => :approve_user
 
-  get 'alliances/:id/orgs', to: 'alliances#orgs', as: :alliance_organizations
-  delete 'alliances/:id/organizations/:organization_id', to: 'org_alliances#destroy', as: :deletee_org_alliances
+  get 'alliances/:id/organizations/:organization_id', to: 'org_alliances#destroy', as: :delete_org_alliances
   # post 'allinaces/:id', to: 'org_alliances#create', as: :create_org_alliances
 
   patch 'posts' => 'posts#index', :as => :submit_filter

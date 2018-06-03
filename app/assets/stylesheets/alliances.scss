@@ -2,32 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.new_organization{
+	margin: 2em 0;
+	.new_org_link:{
 
-.alliance-org-form{
-	background: $lighter-orange;
-	padding: 2vw;
 
-		form {
-			width: 90%;
-			.input{
-				font-size: 1em;
+	}
+	.alliance-org-form{
+		background: $lighter-orange;
+		padding: 2vw;
+
+			form {
 				width: 90%;
-				color: black;
+				.input{
+					font-size: 1em;
+					width: 90%;
+					color: black;
+				}
+				.wrapper{
+					color:black;
+				}
 			}
-			.wrapper{
-				color:black;
-			}
-		}
 
 
-			input[type="submit"], button{
-				color: $orange;
-				font-size: 1em;
-				display: block;
-				border: 2px solid $orange;
-				margin: 1em auto auto auto !important;
-				font-weight: bold;
-			}
-		
+				input[type="submit"], button{
+					color: $orange;
+					font-size: 1em;
+					display: block;
+					border: 2px solid $orange;
+					margin: 1em auto auto auto !important;
+					font-weight: bold;
+				}
+			
 
+	}
 }
