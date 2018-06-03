@@ -6,7 +6,6 @@ if Rails.env.development?
     port:                 587,
     user_name:            ENV["GMAIL_USERNAME"],
     password:             ENV["GMAIL_PASSWORD"],
-    password:             'socius_secret123',
     authentication:       'plain',
     enable_starttls_auto: true 
   }
