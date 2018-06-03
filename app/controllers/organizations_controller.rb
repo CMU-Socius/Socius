@@ -3,6 +3,7 @@ class OrganizationsController < ApplicationController
 	authorize_resource
 
 	def index
+		authorize! :manage, :all
 		@organizations = Organization.all.alphabetical
 	end
 

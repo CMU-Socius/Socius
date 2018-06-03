@@ -1,6 +1,5 @@
 
 <div id = 'alliances' class="index-table">
-  <%= hidden_field_tag 'aid', @alliance.id%>
 
   <%if @alliance.organizations.count == 0%>
 	<%="This alliance has no organizations now."%>
@@ -10,30 +9,18 @@
 			<tr>
 				<th>Organization Name</th>
 				<th>Members</th>
-				<th>Actions</th>
 			</tr>
 		</thead>
 
-		<tbody is='organization-row' 
-	           v-for="organization in organizations" 
-	           v-bind:organization="organization">  
+		<tbody>
+			<%@alliance.organizations.each do |a|%>
+		    <tr>
+		    	<td><%=a.name%></td>
+		    	<td><%=a.users.count%></td>
+		    </tr> 
+		    <%end%> 
 	     </tbody>
 	</table>
    <%end%>
-   <div class = "table_action">
-   <%= link_to "Add new organizations to this alliance", "#", {%s(v-on:click) => "switch_modal()"}%>
-   </div>
-
-    <div v-if="modal_open" class = "alliance-org-form">
-       <% @org_alliance = OrgAlliance.new %>
-	<!-- now the form template itself -->
-	  <h3>New organization for this alliance:</h3>
-	  <%= simple_form_for @org_alliance do |f| %>
-	        <%= f.input :alliance_id, as: :hidden, input_html: { value: @alliance.id } %>
-	        <%= f.input :organization_id, collection: @org_choices,  input_html: {class: "input"}, wrapper_html: {class: "wrapper"},include_blank: false %>
-	        <%= f.button :submit %>
-	  <% end %>
-    </div>
-
 </div>
 

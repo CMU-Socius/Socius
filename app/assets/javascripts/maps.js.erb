@@ -4,6 +4,7 @@ function initIndexMap() {
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
+        clickableIcons: false 
     });
 
     map.addListener('click', function() {

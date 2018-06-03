@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 	authorize_resource
 
 
-def index
+def index 
 	if current_user.role? :admin
 		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
@@ -37,7 +37,9 @@ end
 def edit
 	set_post
 	@all_needs = Need.by_category
+	@alliances = current_user.organization.alliances
 	@post_need = @post.post_needs
+	@sharings = @post.sharings.build
 end
 
 def create

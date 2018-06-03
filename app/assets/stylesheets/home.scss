@@ -150,12 +150,15 @@ header {
 	}
 }
 
-#login, #signup, #edit-profile {
+#login, #signup, #edit-profile,#change_password {
 	text-align: center;
 	background: $orange;
 	padding: 6% 0;
 	min-height: 100vh;
 	color: white;
+	.go_back_white{
+		text-align: left;
+	}
 	h2 {
 		text-transform: uppercase;
 		margin-bottom: 20px;

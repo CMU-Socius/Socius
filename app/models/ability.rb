@@ -7,9 +7,8 @@ class Ability
       can :manage, :all
 
     elsif user.role? :worker
-      can :manage, Post
       can :read, User do |u|
-        u.organization_id = user.organization_id
+        u.id == user.id
       end
       can :update, User do |u|
         u.id == user.id
@@ -17,9 +16,15 @@ class Ability
       can :read, Organization do |o|
         o.id == user.organization_id
       end
-      can :read, Post do |o|
-        o.poster.organization_id == user.organization_id
+      can :read, Alliance do |a|
+        a.all_org_ids.include?(user.organization_id)
       end
+      can :manage, Post do |p|
+        alliance_ids = p.sharings.map(&:alliance_id)
+        org_allies = user.organization.all_alliance_ids
+        p.poster.organization_id ==user.organization_id or ((alliance_ids & org_allies) != [])
+      end
+      # can :manage, Post
     else
       can :create, User
     end

@@ -19,7 +19,11 @@
 			<tr>
 				<td>
 					<p class="mobile-only table-heading">Member</p>
+					<%if current_user.role?(:admin)%>
 					<%= link_to user.proper_name, user_path(user) %>
+					<%else%>
+					<%=user.proper_name%>
+					<%end%>
 				</td>
 				<td>
 					<p class="mobile-only table-heading">Email</p>

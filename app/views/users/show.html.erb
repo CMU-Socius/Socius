@@ -13,6 +13,9 @@
 		<% if can? :update, @user %>
 			<%= link_to "Edit Profile", edit_user_path(@user) , class: "button" %>
 		<% end %>
+		<%if current_user.id == @user.id%>
+		    <%= link_to "Change Password", change_password_path(@user) , class: "button" %>
+		<%end%>
 	</small>
 
 	<%if logged_in? and current_user.role?(:admin) and !@user.active%>

@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'sessions#new', :as => :login
   get 'logout' => 'sessions#destroy', :as => :logout
+  get 'user/:id/change_password' => 'users#change_password', :as => :change_password
+  post 'user/:id/change_password' => 'users#change_password', :as => :update_password
 
   # AJAX Routes
   get 'claim_request' => 'posts#claim', :as => :claim_request

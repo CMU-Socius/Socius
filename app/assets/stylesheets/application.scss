@@ -53,7 +53,7 @@ a:not(.filterlink){
   border-bottom: 2px solid transparent;
   margin-bottom: 3px;
   cursor: pointer;
-  &:hover :not(.nav-link) {
+  &:hover  {
       border-color: inherit;
   }
 }
@@ -284,6 +284,17 @@ form {
 	a{
 		font-size: 1.3em;
 		color: $orange;
+	}
+	padding: 1% 5%;
+	margin: 0 auto;
+
+}
+
+.go_back_white{
+	a{
+		font-size: 1.3em;
+		color: white;
+		background: transparent;
 	}
 	padding: 1% 5%;
 	margin: 0 auto;

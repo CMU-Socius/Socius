@@ -6,6 +6,7 @@ class AlliancesController < ApplicationController
   # GET /alliances
   # GET /alliances.json
   def index
+    authorize! :manage, :all
     @alliances = Alliance.all
   end
 
