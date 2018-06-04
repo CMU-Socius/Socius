@@ -34,7 +34,7 @@ def approve
 
 	@user.active = true
 	@user.save!
-	UserNotifier.approved_notification(@user).deliver
+	# UserNotifier.approved_notification(@user).deliver
 	redirect_to users_path, notice: "Successfully approved this user!"
 end
 
@@ -47,7 +47,7 @@ def create
 			redirect_to user_path(@user), notice: "Successfully created account: #{@user.username}."
 		else
 			# user created by guest, needs authorization from the admin
-			UserNotifier.new_account_notification(@user).deliver
+			# UserNotifier.new_account_notification(@user).deliver
 			redirect_to newaccount_path, notice: "Successfully created account: #{@user.username}."
 		end
 	else 
@@ -57,9 +57,9 @@ def create
 end
 
 def update
-	if @user.update(user_params)
+	if @user.update(user_update_params)
     redirect_to user_path(@user), notice: "Successfully updated #{@user.username}"
-  else
+    else
   	@organizations = Organization.alphabetical
     render action: "edit"
   end
@@ -94,10 +94,14 @@ private
 	end
 
 	def user_params
-		if current_user.role?(:admin)
 		params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id)
+	end
+
+	def user_update_params
+		if logged_in? and current_user.role?(:admin)
+		  params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id)
 	    else
-	    params.require(:user).permit(:first_name,:last_name,:phone,:job_title)
+	      params.require(:user).permit(:first_name,:last_name,:phone,:job_title)
 	    end
 
 	end
