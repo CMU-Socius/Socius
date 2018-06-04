@@ -34,7 +34,7 @@ def approve
 
 	@user.active = true
 	@user.save!
-	# UserNotifier.approved_notification(@user).deliver
+	UserNotifier.approved_notification(@user).deliver
 	redirect_to users_path, notice: "Successfully approved this user!"
 end
 
@@ -47,7 +47,7 @@ def create
 			redirect_to user_path(@user), notice: "Successfully created account: #{@user.username}."
 		else
 			# user created by guest, needs authorization from the admin
-			# UserNotifier.new_account_notification(@user).deliver
+			UserNotifier.new_account_notification(@user).deliver
 			redirect_to newaccount_path, notice: "Successfully created account: #{@user.username}."
 		end
 	else 
