@@ -135,6 +135,21 @@
 	}
 
 	#post-form-container {
+		#sharings-list{
+			div{
+				.need-category {
+					small{
+						.dlink{
+							width: 100%;
+						}
+						.details{
+							width: 100%;
+						}
+					}
+				}
+			}
+
+		}
 		#needs-list {
 			div{
 			margin: 3vw 0vw;
@@ -195,6 +210,8 @@
 			}
 		}
 	}
+
+
 
 	#post-need-list {
 		display: block !important;

@@ -78,11 +78,24 @@
 					justify-content: left;
 					width: 100%;
 					padding: 0.5em;
-					margin-bottom: 0.8vw;
+					// margin-bottom: 0.8vw;
 					label {
 						margin-top: 0;
-						font-size: 1.3em;
+						font-size: 1.5em;
 						width: 30%;
+					}
+				}
+				small{
+					.dlink{
+						color: $light-orange;
+						display: inline-block;
+						text-decoration: underline;
+						width: 20%;
+					}
+					.details{
+						display: none;
+						width: 60%;
+						vertical-align: top;
 					}
 				}
 				.small {

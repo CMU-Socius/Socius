@@ -9,7 +9,8 @@ class Post < ActiveRecord::Base
 
 	
 	belongs_to :poster, class_name: :User, foreign_key: :poster_id
-	belongs_to :claimer, class_name: :User, foreign_key: :claimer_id
+	has_many :post_claims
+	has_many :claimers, through: :post_claims
 	has_many :post_needs
 	has_many :needs, through: :post_needs
 	has_many :sharings
