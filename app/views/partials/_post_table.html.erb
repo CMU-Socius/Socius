@@ -20,7 +20,11 @@
 						<tr>
 							<td>
 								<p class="mobile-only table-heading">Posted By</p>
+								<%if logged_in? and current_user.role?(:admin)%>
 								<%= link_to "#{p.poster.first_name} #{p.poster.last_name}", user_path(p.poster) %></br>
+								<%else%>
+								<%=p.poster.proper_name%>
+								<%end%>
 								<small><%= format_time(p.date_posted.to_time) %></small>
 							</td>
 							<td colspan="1">
@@ -56,7 +60,12 @@
 										<div class = "green-text">	Completed on <%= p.date_completed.to_date %></div>
 								
 								<% 	elsif p.date_claimed %>
-											Claimed by <%= link_to p.claimer.name, user_path(p.claimer) %> on <%= p.date_claimed.to_s %>
+											Claimed by 
+											<%if logged_in? and current_user.role?(:admin)%>
+											<%= link_to p.claimer.proper_name, user_path(p.claimer) %> on <%= p.date_claimed.to_s %>
+											<%else%>
+											<%=p.claimer.proper_name%>
+											<%end%>
 											</br>
 								<%	elsif p.date_cancelled %>
 											Cancelled on <%= p.date_cancelled.to_s %>

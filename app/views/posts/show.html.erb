@@ -53,8 +53,16 @@
 				<p><%="This Post is shared with the following alliances: #{@sharings.join(", ")}"%></p>
 			<% end %>
 		</p>
+		<h5>Poster Contact: <%="#{@poster.proper_name}"%></h5>
+	    <p class = "contact"><%unless @poster.phone.empty?%><%="Phone: #{@poster.phone}"%><%else%>Phone not available<%end%></p>
+	    <p class = "contact"><%="Email: #{@poster.email}"%></p>
 
-		<small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
+	    <%unless @post.claimer_id.nil?%>
+	    <h5>Claimer Contact: <%="#{@post.claimer.proper_name}"%></h5>
+	    <p class = "contact"><%unless @post.claimer.phone.empty?%><%="Phone: #{@post.claimer.phone}"%><%else%>Phone not available<%end%></p>
+	    <p class = "contact"><%="Email: #{@post.claimer.email}"%></p>
+	    <%end%>
+
 	</div>
 	<div id="post-need-list">
 			<% unless @post_needs.empty? %>

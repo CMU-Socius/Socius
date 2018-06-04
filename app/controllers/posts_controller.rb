@@ -44,6 +44,7 @@ end
 
 def create
 	@post = Post.new(post_params)
+	@alliances = current_user.organization.alliances
 
 	# check that there is a need selected
 	all_empty = true
@@ -67,7 +68,7 @@ def create
 				pn.save!
 			end
 		end
-		unless @alliances.nil?
+		unless @alliances.size == 0
 			params[:alliances][:ids].each do |sharing_id|
 				unless sharing_id.empty?
 					s = Sharing.new(:post_id => @post.id,:alliance_id => sharing_id)
