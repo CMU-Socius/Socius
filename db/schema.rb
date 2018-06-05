@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604152753) do
+ActiveRecord::Schema.define(version: 20180605040222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20180604152753) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.datetime "time_completed"
+    t.integer  "claim_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -73,7 +74,6 @@ ActiveRecord::Schema.define(version: 20180604152753) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.text     "comment"
-    t.date     "date_claimed"
     t.date     "date_cancelled"
   end
 
@@ -94,9 +94,10 @@ ActiveRecord::Schema.define(version: 20180604152753) do
     t.string   "role"
     t.integer  "organization_id"
     t.boolean  "active"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "job_title"
+    t.boolean  "email_notification", default: true
   end
 
 end

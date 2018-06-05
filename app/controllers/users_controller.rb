@@ -94,14 +94,14 @@ private
 	end
 
 	def user_params
-		params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id)
+		params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id,:email_notification)
 	end
 
 	def user_update_params
 		if logged_in? and current_user.role?(:admin)
-		  params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id)
+		  params.require(:user).permit(:first_name, :last_name, :email, :phone, :username, :password, :password_confirmation, :role, :active, :job_title, :organization_id,:email_notification)
 	    else
-	      params.require(:user).permit(:first_name,:last_name,:phone,:job_title)
+	      params.require(:user).permit(:first_name,:last_name,:phone,:job_title,:email_notification)
 	    end
 
 	end

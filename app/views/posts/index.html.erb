@@ -32,11 +32,15 @@
 		</div>
 		<div class = "filter_element">
 			<%= label_tag 'claim status' %>
-		    <%= select_tag(:claim_status, options_for_select( [["all","all"],["unclaimed","unclaimed"],["claimed by me",current_user.id],["claimed by my organization","org#{current_user.organization.id}"]], @default_c),{:class => "filter"}) %>
+		    <%= select_tag(:claim_status, options_for_select( [["all","all"],["unclaimed","unclaimed"],["claimed by me",current_user.id]], @default_c),{:class => "filter"}) %>
 		</div>
 		<div class = "filter_element">
 			<%= label_tag 'complete status' %>
+			<%if current_user.role?(:admin)%>
+		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"],["not cancelled","not cancelled"]],@default_o),{:class => "filter"}) %>
+		    <%else%>
 		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"]],@default_o),{:class => "filter"}) %>
+		    <%end%>
 		</div>
 		<div class = "filter_submit">
 			<%= submit_tag "Filter"%>

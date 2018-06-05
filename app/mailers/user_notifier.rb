@@ -8,7 +8,7 @@ class UserNotifier < ApplicationMailer
     @poster = post.poster
     @post_needs = @post.post_needs.alphabetical
     org = Organization.find(@poster.organization_id)
-    recipients = org.users.collect(&:email).join(',')
+    recipients = org.users.can_notify.collect(&:email).join(',')
     mail(:to => recipients, :subject => 'New Request at ' + post.street_1)
   end
 

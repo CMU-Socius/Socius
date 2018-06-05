@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get 'unclaim_request' => 'posts#unclaim', :as => :unclaim_request
   get 'cancel_request' => 'posts#cancel', :as => :cancel_request
   get 'update_needs' => 'posts#update_needs', :as => :update_needs
+  get 'update_claims' => 'posts#update_claims', :as => :update_claims
   get 'complete_post_need' => 'post_needs#complete', :as => :complete_post_need
   get 'undo_complete_post_need' => 'post_needs#undo_complete', :as => :undo_complete_post_need
   get 'approve' => 'users#approve', :as => :approve_user

@@ -42,8 +42,11 @@
 									<% post_needs.each do |pn| %>
 										<li>
 											<%= pn.need.name %>
+								
 											<% if pn.complete? %>
 												✓
+											<%elsif pn.claimed?%>
+											<small>(claimed)</small>
 											<% end %>
 										</li>
 									<% end %>
@@ -53,42 +56,46 @@
 							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Status</p>
 
-								<%  if p.date_cancelled.nil? and p.date_claimed.nil? %>
+								<%  if !p.cancelled? and p.claimers.size == 0 %>
 											<div class = "red-text">Unclaimed</div>
 							    
-								<%elsif !p.date_completed.nil? %>
+								<%elsif p.completed? %>
 										<div class = "green-text">	Completed on <%= p.date_completed.to_date %></div>
 								
-								<% 	elsif p.date_claimed %>
-											Claimed by 
-											<%if logged_in? and current_user.role?(:admin)%>
-											<%= link_to p.claimer.proper_name, user_path(p.claimer) %> on <%= p.date_claimed.to_s %>
-											<%else%>
-											<%=p.claimer.proper_name%>
-											<%end%>
-											</br>
-								<%	elsif p.date_cancelled %>
+								<%elsif p.claimers.size!=0 %>
+								    <div class = "yellow-text">
+								    Claimed by: 
+								    <%if p.claimers.size<3%>
+								    <%=p.all_claimer_names%>
+								    <%else%>
+								    multiple people
+								    <%end%>
+									</br>
+								    </div>
+								<%	elsif p.cancelled? %>
+							                <div class = "grey-text">
 											Cancelled on <%= p.date_cancelled.to_s %>
-
+										    </div>
 								<% end %>
 
-								<% if p.claimer_id %>
-									<% if logged_in? and p.claimer_id == current_user.id %>
+								<% if !p.cancelled? %>
+									<% if p.claimers.map(&:id).include?(current_user.id) and p.can_unclaim?(current_user.id)%>
 										<%if p.date_completed.nil?%><%= link_to 'Unclaim Request', unclaim_request_path(id: p.id),data: {confirm: "Are you sure you want to unclaim this request?"}%>
 										<%end%>
+
+									<%elsif !p.claimers.map(&:id).include?(current_user.id) and !p.needs_all_claimed%>
+										<%= link_to 'Claim Request', claim_request_path(id: p.id) %>
 									<% end %>
-								<% elsif logged_in? and p.date_cancelled.nil? %>
-									<%= link_to 'Claim Request', claim_request_path(id: p.id) %>
-								<% end %>
+								<%end%>
 
 
 							</td>
 							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Actions</p>
 
-								<%if !p.date_completed.nil? or p.claimer_id.nil? or p.claimer_id!=current_user.id%>
+								<%if p.completed? or !p.claimers.map(&:id).include?(current_user.id)%>
 
-								<div id ="viewpost"><%= link_to "View Post", post_path(p) %></div>
+									<div id ="viewpost"><%= link_to "View Post", post_path(p) %></div>
 
 								<%else%>
 
@@ -96,8 +103,8 @@
 
 								<%end%>
 
-								<% if logged_in? and current_user.id == p.poster_id and p.date_cancelled.nil? and p.date_completed.nil? %>
-									</br>
+								<% if logged_in? and current_user.id == p.poster_id and !p.cancelled? and !p.completed? %>
+									</br></br>
 									<small><%= link_to 'Cancel Request', cancel_request_path(id: p.id), data: {confirm: "Are you sure you want to cancel this request?"}%>
 									
 									</small>

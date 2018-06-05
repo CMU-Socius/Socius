@@ -93,6 +93,7 @@
 						width: 20%;
 					}
 					.details{
+						color: $light-orange;
 						display: none;
 						width: 60%;
 						vertical-align: top;
@@ -154,17 +155,24 @@
 	}
 }
 
+#post-heading{
+	width: 100%;
+	padding: 0 5%;
+	display: block;
+	#post-address {
+		#post-subaddress, small {
+			color: $light-grey;
+		}
+	}
+}
+
 #post-info-container {
 	padding: 2% 5%;
 	> div {
 		display: inline-block;
 	}
 	#post-data {
-		#post-address {
-			#post-subaddress, small {
-				color: $light-grey;
-			}
-		}
+		width: 55%;
 		h2 {
 			margin: 0;
 		}
@@ -190,27 +198,60 @@
 			margin-bottom: 10px;
 			color: $light-grey;
 		}
-	}
+
+		.delete{
+			margin: 1em 0;
+			border: 2px solid $orange;
+			padding: 0.7em 1em;
+			border-radius: 5px;
+			color: $orange;
+			}
+		.red{
+			color: red;
+		}
+		}
+
 	#post-need-list {
 		display: inline-block;
 		float: right;
-		min-width: 30vw;
-		label {
-			font-size: 1em;
-		}
-		input[type='submit'] {
-			border-color: $orange;
-			color: $orange;
-			font-size: 0.7em;
-		}
-		.update-post-need-wrapper {
-			padding: 10px;
-			label{
-				width: 70%;
+		width: 38%;
+		#need-info{
+			.update-post-need-wrapper {
+				padding: 10px;
 			}
+			small {
+				color: $light-grey;
+			}
+
 		}
-		small {
-			color: $light-grey;
+		#claim-list,#complete-list{
+			border-bottom: 1px solid $orange;
+			margin-bottom: 2em;
+			.red{
+				font-size: 0.8em;
+				color: red;
+			}
+
+			label {
+				font-size: 1em;
+			}
+			input[type='submit'] {
+				border-color: $orange;
+				border-bottom: 2px solid $orange !important;
+				color: $orange;
+				font-size: 0.7em;
+				display: block;
+			}
+			.update-post-need-wrapper {
+				padding: 10px;
+				label{
+					width: 65%;
+				}
+			}
+			small {
+				color: $light-grey;
+			}
+
 		}
 	}
 }
@@ -257,6 +298,7 @@
 				display: block;
 				width: 10%;
 				border: 2px solid $orange;
+				border-bottom: 2px solid $orange !important;
 				margin: auto 10px auto auto !important;
 				font-weight: bold;
 			}

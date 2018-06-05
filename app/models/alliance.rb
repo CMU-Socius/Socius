@@ -29,7 +29,7 @@ class Alliance < ActiveRecord::Base
 	end
 
 	def all_org_names
-		self.organizations.map(&:name).join(",")
+		self.organizations.map(&:name).join(", ")
 	end
 
 

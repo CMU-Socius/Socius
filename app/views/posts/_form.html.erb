@@ -39,7 +39,7 @@
                             <%= collection_check_boxes :alliances, :ids, @alliances, :id, :name do |al| %>
                                 <div>
                                     <%= al.label %>
-                                    <%= al.check_box %>
+                                    <%= al.check_box(checked: "") %>
                                 </div>
                                 <small>
                                     <div class = "dlink"><%= "Click to see members: "%></div>
