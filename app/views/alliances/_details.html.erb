@@ -15,8 +15,10 @@
 		<tbody>
 			<%@alliance.organizations.each do |a|%>
 		    <tr>
-		    	<td><%=a.name%></td>
-		    	<td><%=a.users.count%></td>
+		    	
+		    	<td><p class="mobile-only table-heading">Organization Name</p><%=a.name%></td>
+		    	
+		    	<td><p class="mobile-only table-heading">Members</p><%=a.users.count%></td>
 		    </tr> 
 		    <%end%> 
 	     </tbody>

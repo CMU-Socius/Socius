@@ -16,8 +16,11 @@
 		<tbody>
 			<%@alliance.organizations.each do |a|%>
 		    <tr>
-		    	<td><%=a.name%></td>
-		    	<td><%=a.users.count%></td>
+		    	<td><p class="mobile-only table-heading">Organization Name</p>
+		    		<%=a.name%></td>
+		    	
+		    	<td><p class="mobile-only table-heading">Members</p><%=a.users.count%></td>
+		    	
 		    	<td><%=link_to "DELETE", delete_org_alliances_path(id: @alliance.id,organization_id: a.id),class: "delete" %></td>
 		    </tr> 
 		    <%end%> 

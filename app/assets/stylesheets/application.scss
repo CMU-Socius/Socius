@@ -100,6 +100,7 @@ input[type="submit"], button, .button {
 	margin: 2em 1em;
 	border-radius: 5px;
 	border: 2px solid white;
+	border-bottom: 2px solid white !important;
 	background: none;
 	text-decoration: none;
 	color: white;
@@ -234,6 +235,12 @@ form {
 				color: $green;}
 				.red-text{
 				color: $red;}
+				.grey-text{
+				color: $mid-grey;
+				}
+				.yellow-text{
+			    color: $orange;
+				}
 				text-align: left;
 				padding: 1em;
 

@@ -9,8 +9,7 @@
 	<%= link_to "< All Posts", posts_path %>
 </div>
 
-<div id="post-info-container">
-	<div id="post-data">
+<div id = "post-heading">
 		<div id="post-address">
 			<h2><%= @post.street_1 %></h2>
 			<div id="post-subaddress">
@@ -21,18 +20,100 @@
 			</div>
 		</div>
 
-		<%if !@post.date_cancelled.nil?%>
+		<%if @post.cancelled?%>
 		<h4 class="alert">Note this post has been cancelled.</h4>
 		<%end%>
+</div>
+
+<div id="post-info-container">
+	<div id="post-need-list">
+			<% unless @post_needs.empty? %>
+			    <%if @post.is_claimer?(current_user) and !@post.cancelled?%>
+
+                    <div id = "claim-list">
+                    <h3>Claim Needs</h3>
+                    <p class = "red">Note that you need to claim needs before complete them </p>
+					<%= form_tag(update_claims_path, method: 'get') do %>
+						<%#= @post.post_needs.completed_ids.inspect %>
+						<%= hidden_field :post, :id, :value => @post.id %>
+						<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+						<%= collection_check_boxes :post_needs, :claim_ids, @post.post_needs, :id, :need_name do |pn| %>
+					      <div class="update-post-need-wrapper">
+					      	<%if pn.object.complete? or (pn.object.claimed? and pn.object.claim_id !=current_user.id)%>
+					      	   ✓
+					      	<%else%>
+					        <%= pn.check_box%>
+					        <%end%>
+					        <%= pn.label %>
+					      </div>
+					      <% if pn.object.claimed? %>
+				        	<small>
+				        		<i>Claimed by: <%= pn.object.claim.proper_name %>
+				        			<%if pn.object.complete?%>, Completed!<%end%>
+				        		</i>
+				        	</small>
+				          <% end %>
+					  	<% end %>
+				  	<%= submit_tag 'Update Claim' %>
+					<% end %>
+				    </div>
+
+				    <div id = "complete-list">
+					<h3>Complete Requests</h3>
+					<%if @post.post_needs.claimed_by(current_user).size == 0%>
+						<p>You have not claimed any needs. Please claim needs before complete the requests</p>
+					<%else%>
+						<%= form_tag(update_needs_path, method: 'get') do %>
+							<%#= @post.post_needs.completed_ids.inspect %>
+							<%= hidden_field :post, :id, :value => @post.id %>
+							<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
+							<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs.claimed_by(current_user), :id, :need_name do |pn| %>
+					      <div class="update-post-need-wrapper">
+					      	<%= pn.check_box  %>
+					        <%= pn.label %>
+					      </div>
+					      <% if pn.object.complete? %>
+				        	<small>
+				        		<i>Completed by <%= pn.object.claim.proper_name %></i>
+				        	</small>
+				           <% end %>
+					  	<% end %>
+					  	<%= submit_tag 'Update Complete Status' %>
+						<% end %>
+					<%end%>
+				    </div>
+
+
+				<%else%>
+				    <div id = "need-info">
+				    <h3>Reported Needs</h3>
+					<% @post.post_needs.each do |pn| %>
+					      <div class="update-post-need-wrapper">
+					        <%= pn.need.name %>
+					      </div>
+					      <% if pn.complete? %>
+				        	<small>
+				        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
+				        	</small>
+				          <%end%>
+				    <% end %>
+				    </div>
+
+				<%end%>
+			<% else %>
+				<p><i>No Needs Registered</i></p>
+			<% end %>
+	</div>
+	<div id="post-data">
 		<h5>Current Status</h5>
 		<p>
-			<%  if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
+			<%  if !@post.cancelled? and @post.claimers.size == 0 %>
 				Unclaimed
 				<%= link_to 'Claim Request', claim_request_path(id: @post.id),class: "claim" %>
-			<% 	elsif @post.date_claimed %>
-				Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
-			<%	elsif @post.date_cancelled %>
+			<%	elsif @post.cancelled? %>
 				Cancelled on <%= @post.date_cancelled.to_s %>
+			<% 	elsif @post.claimers.size!=0 %>
+				Claimed by <%= @post.all_claimer_names %>
 			<% end %>
 		</p>
 		<h5>Number of People</h5>
@@ -57,51 +138,26 @@
 	    <p class = "contact"><%unless @poster.phone.empty?%><%="Phone: #{@poster.phone}"%><%else%>Phone not available<%end%></p>
 	    <p class = "contact"><%="Email: #{@poster.email}"%></p>
 
-	    <%unless @post.claimer_id.nil?%>
-	    <h5>Claimer Contact: <%="#{@post.claimer.proper_name}"%></h5>
-	    <p class = "contact"><%unless @post.claimer.phone.empty?%><%="Phone: #{@post.claimer.phone}"%><%else%>Phone not available<%end%></p>
-	    <p class = "contact"><%="Email: #{@post.claimer.email}"%></p>
+	    <%if @post.claimers.size != 0%>
+		    <h5>Claimer Contact:</h5>
+		    <%@post.claimers.each do |claimer|%>
+		    <p class = "contact"><b><u><%="#{claimer.proper_name}"%></u></b></p>
+		    <p class = "contact"><%unless claimer.phone.empty?%><%="Phone: #{claimer.phone}"%><%else%>Phone not available<%end%></p>
+		    <p class = "contact"><%="Email: #{claimer.email}"%></p>
+		    <%end%>
 	    <%end%>
 
-	</div>
-	<div id="post-need-list">
-			<% unless @post_needs.empty? %>
-			    <%if @post.claimer_id == current_user.id and @post.date_cancelled.nil?%>
-					<h3>Reported Needs</h3>
-					<%= form_tag(update_needs_path, method: 'get') do %>
-						<%#= @post.post_needs.completed_ids.inspect %>
-						<%= hidden_field :post, :id, :value => @post.id %>
-						<%#= input_tag :id, :as => :hidden, :input_html => {:value => @post.id} %>
-						<%= collection_check_boxes :post_needs, :completed_ids, @post.post_needs, :id, :need_name do |pn| %>
-				      <div class="update-post-need-wrapper">
-				        <%= pn.check_box %>
-				        <%= pn.label %>
-				      </div>
-				      <% if pn.object.complete? %>
-			        	<small>
-			        		<i>Completed at: <%= format_time(pn.object.time_completed.to_time) %></i>
-			        	</small>
-			        <% end %>
-				  	<% end %>
-				  	<%= submit_tag 'Update' %>
-					<% end %>
-				<%else%>
-				    <h3>Reported Needs</h3>
-					<% @post.post_needs.each do |pn| %>
-					      <div class="update-post-need-wrapper">
-					        <%= pn.need.name %>
-					      </div>
-					      <% if pn.complete? %>
-				        	<small>
-				        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
-				        	</small>
-				          <%end%>
-				    <% end %>
+	     <% if current_user.role?(:admin) or current_user.id == @post.poster_id%>
+	     <%if !@post.completed? and !@post.cancelled?%>
+	     <%= link_to 'Cancel Request', cancell_request_path(id: @post.id), data: {confirm: "Are you sure you want to cancel this request?"},class:"delete"%>
+	     <%end%>
+	     <%if @post.can_delete?%>
+	    <%= link_to 'Delete Request', post_path(@post), method: 'delete', data: {confirm: "Are you sure you want to delete this request?"}, class:"delete"%>
+	    <%else%>
+	    <p class = "red">Note this post cannot be deleted due to some completed needs</p>
+	    <%end%>
+	    <%end%>
 
-				<%end%>
-			<% else %>
-				<p><i>No Needs Registered</i></p>
-			<% end %>
 	</div>
 </div>
 

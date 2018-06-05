@@ -28,5 +28,9 @@ class Alliance < ActiveRecord::Base
 		return ids
 	end
 
+	def all_org_names
+		self.organizations.map(&:name).join(", ")
+	end
+
 
 end

@@ -135,6 +135,21 @@
 	}
 
 	#post-form-container {
+		#sharings-list{
+			div{
+				.need-category {
+					small{
+						.dlink{
+							width: 100%;
+						}
+						.details{
+							width: 100%;
+						}
+					}
+				}
+			}
+
+		}
 		#needs-list {
 			div{
 			margin: 3vw 0vw;
@@ -196,9 +211,27 @@
 		}
 	}
 
+	#post-data{
+		width: 100% !important;
+	}
+
 	#post-need-list {
-		display: block !important;
-		float: none !important;
+		max-width: 100% !important;
+		width: 100% !important;
+		background: $lighter-orange;
+		#claim-list,#complete-list,#need-info{
+			padding: 2%;
+			display: block !important;
+			float: none !important;
+			form{
+					width: 100% !important;
+				}
+			input[type='submit'] {
+				margin-left:auto !important;
+				margin-right:auto !important;
+				font-size: 0.9em !important;
+			}
+	    }
 	}
 
 	.center-on-mobile {

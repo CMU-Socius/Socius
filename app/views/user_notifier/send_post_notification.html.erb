@@ -11,17 +11,6 @@
 	<%= "#{@post.city}, #{@post.state} #{@post.zip}" %>
 </p>
 
-<h5>Current Status</h5>
-<p>
-	<% if @post.date_cancelled.nil? and @post.date_claimed.nil? %>
-		Unclaimed
-	<% 	elsif @post.date_claimed %>
-		Claimed by <%= @post.claimer_name %> on <%= @post.date_claimed.to_s %>
-	<%	elsif @post.date_cancelled %>
-		Cancelled on <%= @post.date_cancelled.to_s %>
-	<% end %>
-</p>
-
 <h5>Number of People</h5>
 <p><%= @post.number_people %></p>
 

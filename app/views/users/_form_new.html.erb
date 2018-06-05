@@ -22,6 +22,7 @@
     
     <%= f.input :organization_id, collection: @organizations, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group'} %>
     <div>&nbsp</div>
+    <%= f.input :email_notification, :as => :hidden, :input_html => {:value => true} %>
 
     <% if logged_in? && current_user.role?(:admin) %>
         <%= f.input :role, collection: User::ROLES, wrapper_html: {class: 'form-group'}, prompt: true %>

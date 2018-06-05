@@ -6,9 +6,9 @@ class PostsController < ApplicationController
 
 def index 
 	if current_user.role? :admin
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
@@ -101,7 +101,7 @@ end
 def update_needs
 	post_id = params['post']['id'].to_i
 	@post = Post.find(post_id)
-	@post.update_post_needs(params['post_needs']['completed_ids'])
+	@post.update_post_needs(params['post_needs']['completed_ids'],current_user.id)
 	if @post.all_completed? 
 		@post.date_completed = DateTime.current
 	else
@@ -111,23 +111,38 @@ def update_needs
 	redirect_to post_path(post_id), notice: "Updated post!"
 end
 
+def update_claims
+	post_id = params['post']['id'].to_i
+	@post = Post.find(post_id)
+	@post.update_need_claims(params['post_needs']['claim_ids'],current_user.id)
+	@post.save!
+	redirect_to post_path(post_id), notice: "Updated post!"
+end
+
 def destroy
+	@post.destroy
+	redirect_to posts_path, notice: "This post is deleted."
 end
 
 def claim
 	set_post
-	@post.claimed_by(session[:user_id].to_i)
+	@post_claim = PostClaim.new
+	@post_claim.post_id = @post.id
+	@post_claim.claimer_id = session[:user_id].to_i
+	@post_claim.save
 	redirect_to post_path(@post), notice: "Claimed request!"
 end
 
 def unclaim
 	set_post
-	@post.unclaim
-	if current_user.role? :admin
-		posts = Post.where(date_cancelled: nil).chronological.paginate(:page => params[:page])
-	elsif current_user.role? :worker
-		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
+	if @post.can_unclaim?(current_user.id)
+		@post.unclaim_by(current_user.id)
 	end
+	# if current_user.role? :admin
+	# 	posts = Post.where(date_cancelled: nil).chronological.paginate(:page => params[:page])
+	# elsif current_user.role? :worker
+	# 	posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
+	# end
 	redirect_to posts_path, notice: "Unclaimed request!"
 end
 
@@ -142,6 +157,12 @@ def cancel
 	redirect_to posts_path, notice: "Cancelled request!"
 end
 
+def cancell
+	set_post
+	@post.cancel
+	redirect_to post_path(@post), notice: "Cancelled request!"
+end
+
 
 private
 	def set_post
@@ -150,7 +171,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :claimer_id, :date_posted, :date_completed, :needs, :alliances,:comment)
+		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed, :needs, :alliances,:comment)
 	end
 
 end

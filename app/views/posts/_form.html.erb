@@ -39,8 +39,12 @@
                             <%= collection_check_boxes :alliances, :ids, @alliances, :id, :name do |al| %>
                                 <div>
                                     <%= al.label %>
-                                    <%= al.check_box %>
+                                    <%= al.check_box(checked: "") %>
                                 </div>
+                                <small>
+                                    <div class = "dlink"><%= "Click to see members: "%></div>
+                                    <div class = "details"><%= al.object.all_org_names%></div>
+                                </small>
                             <% end %>
                             <div class = "small">If no alliances are checked, then the post is private to your organizaiton</div>
                         </div>

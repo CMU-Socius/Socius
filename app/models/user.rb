@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 	scope :workers,       -> { where(role: 'worker') }
 	scope :managers,      -> {where(role: 'manager')}
 	scope :admin,         -> {where(role: 'admin')}
+  scope :can_notify,    -> {where(email_notification: true)}
 
 	#Validations
   validates :first_name, presence: true
