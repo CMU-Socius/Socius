@@ -107,13 +107,13 @@
 	<div id="post-data">
 		<h5>Current Status</h5>
 		<p>
-			<%  if @post.date_cancelled.nil? and @post.claimers.nil? %>
+			<%  if !@post.cancelled? and @post.claimers.size == 0 %>
 				Unclaimed
 				<%= link_to 'Claim Request', claim_request_path(id: @post.id),class: "claim" %>
-			<% 	elsif @post.claimers %>
-				Claimed by <%= @post.all_claimer_names %>
-			<%	elsif @post.date_cancelled %>
+			<%	elsif @post.cancelled? %>
 				Cancelled on <%= @post.date_cancelled.to_s %>
+			<% 	elsif @post.claimers.size!=0 %>
+				Claimed by <%= @post.all_claimer_names %>
 			<% end %>
 		</p>
 		<h5>Number of People</h5>
@@ -148,6 +148,9 @@
 	    <%end%>
 
 	     <% if current_user.role?(:admin) or current_user.id == @post.poster_id%>
+	     <%if !@post.completed? and !@post.cancelled?%>
+	     <%= link_to 'Cancel Request', cancell_request_path(id: @post.id), data: {confirm: "Are you sure you want to cancel this request?"},class:"delete"%>
+	     <%end%>
 	     <%if @post.can_delete?%>
 	    <%= link_to 'Delete Request', post_path(@post), method: 'delete', data: {confirm: "Are you sure you want to delete this request?"}, class:"delete"%>
 	    <%else%>

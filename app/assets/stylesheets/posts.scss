@@ -200,12 +200,16 @@
 		}
 
 		.delete{
+			display: inline-block;
 			margin: 1em 0;
 			border: 2px solid $orange;
-			padding: 0.7em 1em;
+			padding: 0.7em 0.7em;
 			border-radius: 5px;
 			color: $orange;
+			&:active,&:hover{
+				background: $light-orange;
 			}
+		}
 		.red{
 			color: red;
 		}

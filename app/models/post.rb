@@ -269,12 +269,14 @@ class Post < ActiveRecord::Base
 
 
 	def cancel
-		if self.date_cancelled.nil? and !self.date_completed.nil?
+		if self.date_cancelled.nil? and self.date_completed.nil?
 			self.date_cancelled = Date.current
 			self.post_claims.destroy_all
 			self.post_needs.each do |pn|
-				pn.claim_id = nil
-				pn.save!
+				unless pn.complete?
+					pn.claim_id = nil
+					pn.save!
+				end
 			end
 			self.save!
 		else

@@ -8,7 +8,7 @@ def index
 	if current_user.role? :admin
 		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).not_cancelled.for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
@@ -155,6 +155,12 @@ def cancel
 		posts = Post.where(date_cancelled: nil).for_organization(current_user.organization_id).chronological.paginate(:page => params[:page])
 	end
 	redirect_to posts_path, notice: "Cancelled request!"
+end
+
+def cancell
+	set_post
+	@post.cancel
+	redirect_to post_path(@post), notice: "Cancelled request!"
 end
 
 

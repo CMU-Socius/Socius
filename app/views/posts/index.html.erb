@@ -36,11 +36,7 @@
 		</div>
 		<div class = "filter_element">
 			<%= label_tag 'complete status' %>
-			<%if current_user.role?(:admin)%>
 		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"],["not cancelled","not cancelled"]],@default_o),{:class => "filter"}) %>
-		    <%else%>
-		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"]],@default_o),{:class => "filter"}) %>
-		    <%end%>
 		</div>
 		<div class = "filter_submit">
 			<%= submit_tag "Filter"%>
