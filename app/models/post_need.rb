@@ -18,7 +18,7 @@ class PostNeed < ActiveRecord::Base
 
 	#Methods
 	def complete?
-		not self.time_completed.nil?
+		!self.time_completed.nil?
 	end
 
 	def complete
@@ -28,7 +28,7 @@ class PostNeed < ActiveRecord::Base
 	end
 
 	def claimed?
-		not self.claim_id.nil?
+		!self.claim_id.nil?
 	end
 
 

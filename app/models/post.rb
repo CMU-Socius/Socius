@@ -52,15 +52,15 @@ class Post < ActiveRecord::Base
 	after_validation :geocode
 
 
-	before_destroy do 
-	    check_if_anyneed_is_completed
-	    if errors.present?
-	      throw(:abort)
-	    else
-	      self.post_claims.each{|ci| ci.destroy}
-	      self.post_needs.each{|pn| pn.destroy}
-	    end
-	end
+	# before_destroy do 
+	#     check_if_anyneed_is_completed
+	#     if errors.present?
+	#       throw(:abort)
+	#     else
+	#       self.post_claims.each{|ci| ci.destroy}
+	#       self.post_needs.each{|pn| pn.destroy}
+	#     end
+	# end
 
 	# class methods
 	def self.for_all_alliances(org)
@@ -153,7 +153,7 @@ class Post < ActiveRecord::Base
 			if claimed_ids.include? pn.id and (pn.claim_id.nil? or pn.claim_id == user_id)
 				pn.claim_id = user_id
 				pn.save!
-			elsif (pn.claim_id == user_id and !pn.complete?) or !(!pn.claim_id.nil? and pn.claim_id != user_id)
+			elsif (!claimed_ids.include? pn.id) and pn.claim_id == user_id and pn.time_completed.nil?
 				pn.claim_id = nil
 				pn.save!
 			end
