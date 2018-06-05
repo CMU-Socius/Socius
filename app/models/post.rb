@@ -52,15 +52,15 @@ class Post < ActiveRecord::Base
 	after_validation :geocode
 
 
-	# before_destroy do 
-	#     check_if_anyneed_is_completed
-	#     if errors.present?
-	#       throw(:abort)
-	#     else
-	#       self.post_claims.each{|ci| ci.destroy}
-	#       self.post_needs.each{|pn| pn.destroy}
-	#     end
-	# end
+	before_destroy do 
+	    check_if_anyneed_is_completed
+	    if errors.present?
+	      throw(:abort)
+	    else
+	      self.post_claims.each{|ci| ci.destroy}
+	      self.post_needs.each{|pn| pn.destroy}
+	    end
+	end
 
 	# class methods
 	def self.for_all_alliances(org)
