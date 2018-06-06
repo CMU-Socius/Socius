@@ -78,7 +78,7 @@ def create
 				end
 			end
 	    end
-		UserNotifier.send_post_notification(@post).deliver_later
+		# UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
 		@all_needs = Need.by_category
