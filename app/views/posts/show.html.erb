@@ -170,6 +170,7 @@
 			<% end %>
 		</p>
 		<h5>Poster Contact: <%="#{@poster.proper_name}"%></h5>
+		<p class = "contact"><%="Organization: #{@poster.organization.name}"%></p>
 	    <p class = "contact"><%unless @poster.phone.empty?%><%="Phone: #{@poster.phone}"%><%else%>Phone not available<%end%></p>
 	    <p class = "contact"><%="Email: #{@poster.email}"%></p>
 
@@ -177,6 +178,7 @@
 		    <h5>Claimer Contact:</h5>
 		    <%@post.claimers.each do |claimer|%>
 		    <p class = "contact"><b><u><%="#{claimer.proper_name}"%></u></b></p>
+		    <p class = "contact"><%="Organization: #{claimer.organization.name}"%></p>
 		    <p class = "contact"><%unless claimer.phone.empty?%><%="Phone: #{claimer.phone}"%><%else%>Phone not available<%end%></p>
 		    <p class = "contact"><%="Email: #{claimer.email}"%></p>
 		    <%end%>
@@ -189,7 +191,7 @@
 	     <%if @post.can_delete?%>
 	    <%= link_to 'Delete Request', post_path(@post), method: 'delete', data: {confirm: "Are you sure you want to delete this request?"}, class:"delete"%>
 	    <%else%>
-	    <p class = "red">Note this post cannot be deleted due to some completed needs</p>
+	    <p class = "red">Note this post cannot be deleted because some needs have already been completed</p>
 	    <%end%>
 	    <%end%>
 
