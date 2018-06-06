@@ -43,7 +43,7 @@ function initIndexMap() {
         
         if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
         else if(post["date_cancelled"]) marker.setIcon("<%= asset_path('grey-pin.png') %>");
-        else if(post["date_claimed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+        else if(post["claimer"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
         else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
         bounds.extend(coords);

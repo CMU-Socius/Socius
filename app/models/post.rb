@@ -240,6 +240,7 @@ class Post < ActiveRecord::Base
 			"lng" => p.longitude, 
 			"date_cancelled" => p.date_cancelled,
 			"date_completed" => p.date_completed,
+			"claimer" => !p.claimers.size.zero?
 		}}
 	end
 
