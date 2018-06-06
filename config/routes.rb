@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :sessions
   resources :org_alliances
+  resources :comments
 
   # Semi-static page routes
   get 'home' => 'home#home', as: :home
