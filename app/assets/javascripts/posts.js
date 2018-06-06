@@ -17,3 +17,17 @@ $(document).on('ready', function(){
     });
 
 });
+
+$(document).on('ready', function(){
+  $(".comment_link").click(function(){
+        $(this).siblings('.comment_form').toggle();
+    });
+
+});
+
+$(document).on('ready', function(){
+  $(".hide_link").click(function(){
+        $(this).siblings('.comments').toggle();
+    });
+
+});

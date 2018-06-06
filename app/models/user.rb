@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 	#Relationships
 	belongs_to :organization
   has_many :posts, foreign_key: :poster_id
+  has_many :comments
 
 	#Scopes
 	scope :alphabetical,  -> { order(:last_name).order(:first_name) }
