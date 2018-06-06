@@ -98,13 +98,15 @@
 									<div id ="viewpost"><%= link_to "View Post", post_path(p) %></div>
 
 								<%else%>
+								<div>
 
 								<%= link_to "Complete Needs", post_path(p) %>
+							    </div>
 
 								<%end%>
 
 								<% if logged_in? and current_user.id == p.poster_id and !p.cancelled? and !p.completed? %>
-									</br></br>
+									</br>
 									<small><%= link_to 'Cancel Request', cancel_request_path(id: p.id), data: {confirm: "Are you sure you want to cancel this request?"}%>
 									
 									</small>
