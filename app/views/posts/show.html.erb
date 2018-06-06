@@ -118,14 +118,49 @@
 		</p>
 		<h5>Number of People</h5>
 		<p><%= @post.number_people %></p>
+
+
+		<div class = "comment_area">
 		<h5>Comment</h5>
-		<p>
-			<% if @post.comment.empty? %>
-				<i>None</i>
-			<% else %>
-				<%= @post.comment %>
-			<% end %>
-		</p>
+		
+		<div class = "comment_section">
+			<%if @post.comments.size>0%>
+			<a class = "hide_link">▾
+		    <%="hide comments"%></a>
+		    <%end%>
+
+
+			<%@post.comments.each do |comment| %>
+			   <div class = "comments">
+			   <small>
+			   	<b><% if @post.poster_id==current_user.id%>(Poster Comment)<%end%></b>
+			   	<%=format_time(comment.time_commented.to_time)%></small>
+			   <%="#{comment.poster}: "%>
+			   <div class= "content"><%=comment.content%></div>
+			   <%if comment.user_id == current_user.id%>
+			    <%= link_to 'delete', comment_path(comment), method: 'delete', data: {confirm: "Are you sure you want to delete this request?"}, class:"del"%>
+			    <%end%>
+			   </div>
+		    <%end%>
+
+		   
+		    <a class = "comment_link">
+		    <i class=" material-icons md-12">keyboard_arrow_down</i>
+		    <%="New Comment"%></a> 
+
+		    <div class = "comment_form">
+		       <% @comment = Comment.new %>
+			<!-- now the form template itself -->
+			  <%= simple_form_for @comment do |f| %>
+			        <%= f.input :post_id, as: :hidden, input_html: { value: @post.id } %>
+			        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+			        <%= f.input :content, :as => :text, :label => "Comment",input_html: {class: "input",:row => 4}, wrapper_html: {class: "wrapper"}%>
+			        <%= f.button :submit,"comment" %>
+			  <% end %>
+		    </div>
+	   </div>
+	   </div>
+	
 		<h5>Sharing</h5>
 		<p>
 			<% if @post.sharings.size==0 %>
@@ -135,6 +170,7 @@
 			<% end %>
 		</p>
 		<h5>Poster Contact: <%="#{@poster.proper_name}"%></h5>
+		<p class = "contact"><%="Organization: #{@poster.organization.name}"%></p>
 	    <p class = "contact"><%unless @poster.phone.empty?%><%="Phone: #{@poster.phone}"%><%else%>Phone not available<%end%></p>
 	    <p class = "contact"><%="Email: #{@poster.email}"%></p>
 
@@ -142,6 +178,7 @@
 		    <h5>Claimer Contact:</h5>
 		    <%@post.claimers.each do |claimer|%>
 		    <p class = "contact"><b><u><%="#{claimer.proper_name}"%></u></b></p>
+		    <p class = "contact"><%="Organization: #{claimer.organization.name}"%></p>
 		    <p class = "contact"><%unless claimer.phone.empty?%><%="Phone: #{claimer.phone}"%><%else%>Phone not available<%end%></p>
 		    <p class = "contact"><%="Email: #{claimer.email}"%></p>
 		    <%end%>
@@ -154,7 +191,7 @@
 	     <%if @post.can_delete?%>
 	    <%= link_to 'Delete Request', post_path(@post), method: 'delete', data: {confirm: "Are you sure you want to delete this request?"}, class:"delete"%>
 	    <%else%>
-	    <p class = "red">Note this post cannot be deleted due to some completed needs</p>
+	    <p class = "red">Note this post cannot be deleted because some needs have already been completed</p>
 	    <%end%>
 	    <%end%>
 

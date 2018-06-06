@@ -34,6 +34,9 @@
 }
 
 #post-form-container {
+	a:hover  {
+      border-color: inherit;
+    }
 	background: $orange;
 	padding: 3% 5%;
 	color: white;
@@ -176,14 +179,84 @@
 		h2 {
 			margin: 0;
 		}
+		.comment_area{
+			display: block;
+			.comment_section{
+			.hide_link{
+				font-size: 0.8em;
+				display: block;
+				margin-left: 1em;
+				text-align: right;
+			}
+			.comments{
+				display: block;
+				background: $oragne-yellow;
+				padding: 0.5em;
+				margin-bottom:0.5em;
+				.content{
+					display:inline-block;
+					vertical-align:top;
+				}
+				.del{
+					font-size:0.8em;
+					color:$red;
+					display: inline-block;
+					float: right;
+					&:hover{
+						border-bottom: 2px solid $red;
+					}
+				}
+			}
+
+			.comment_link{
+				margin-top: 0.5em;
+				color: $orange;
+			}
+
+			.comment_form{
+				display:none;
+				width: 100%;
+
+				form{
+					padding: 1em;
+					width: 100% !important;
+					background: $lighter-orange;
+
+					label{
+						font-size: 1em;
+					}
+					.input{
+						color: black;
+						font-size: 1em;
+					}
+					.wrapper{
+						
+						border-bottom: 2px solid $mid-orange;
+					}
+				}
+
+				input[type="submit"], button{
+					color: $orange;
+					font-size: 1em;
+					display: block;
+					border: 2px solid $orange;
+					margin: 1em auto auto auto !important;
+					font-weight: bold;
+				}
+			}
+
+		}
+
+		}
+		
 		.claim {
 			color: $orange;
 			font-size: 1em;
-			border-color: $orange;
+
 			margin-left: 1em;
 			padding: 0.2em 0.3em;
-			border-radius: 5px;
-			border-style: solid;
+
+			border-bottom: 2px solid $orange;
 		}
 		h5 {
 			display: inline-block;
@@ -194,9 +267,10 @@
 		}
 		small {
 			display: block;
-			opacity: 0.5;
+			opacity: 0.7;
 			margin-bottom: 10px;
 			color: $light-grey;
+
 		}
 
 		.delete{

@@ -55,7 +55,10 @@
 
             <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control" }, :required => true %>
 
-            <%= f.input :comment, input_html: {class: "form-control", id: "comment"} %>
+            <%= f.fields_for :comments do |c| %>
+                 <%= c.input :content,:as => :text,  :label => "Comment",input_html: {class: "form-control", id: "comment"} %>
+                 <%= c.input :user_id, :as => :hidden, :input_html => {:value => current_user.id} %>
+            <%end%>
 
             <div id="submit" class="button-wrapper">
                 <input type="submit" class="button" value="Submit Request" />

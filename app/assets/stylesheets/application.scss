@@ -53,9 +53,6 @@ a:not(.filterlink){
   border-bottom: 2px solid transparent;
   margin-bottom: 3px;
   cursor: pointer;
-  &:hover  {
-      border-color: inherit;
-  }
 }
 
 
@@ -100,7 +97,7 @@ input[type="submit"], button, .button {
 	margin: 2em 1em;
 	border-radius: 5px;
 	border: 2px solid white;
-	border-bottom: 2px solid white !important;
+	// border-bottom: 2px solid white !important;
 	background: none;
 	text-decoration: none;
 	color: white;
@@ -209,6 +206,9 @@ form {
 	table {
 		width: 100%;
 		table-layout: fixed;
+		a:hover  {
+		      border-color: inherit;
+		}
 		thead {
 			text-transform: uppercase;
 			color: $orange;

@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
 	# get module to help with some functionality
   include SociusWebHomelessHelpers::Validations
 
+
     self.per_page = 10
 	
 	#Relationships
@@ -15,6 +16,9 @@ class Post < ActiveRecord::Base
 	has_many :needs, through: :post_needs
 	has_many :sharings
 	has_many :alliances,through: :sharings
+	has_many :comments
+
+	accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
 
 	#Virtual Attributes
 	attr_accessor :need_name

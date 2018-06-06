@@ -32,6 +32,7 @@ def new
 	@alliances = current_user.organization.alliances
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
+	@comments = @post.comments.build
 end
 
 def edit
@@ -40,6 +41,7 @@ def edit
 	@alliances = current_user.organization.alliances
 	@post_need = @post.post_needs
 	@sharings = @post.sharings.build
+	@comments = @post.comments.build
 end
 
 def create
@@ -76,7 +78,6 @@ def create
 				end
 			end
 	    end
-	    #email the users
 		UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
@@ -172,7 +173,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed, :needs, :alliances,:comment)
+		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed, :needs, :alliances,comments_attributes:[:content,:user_id])
 	end
 
 end
