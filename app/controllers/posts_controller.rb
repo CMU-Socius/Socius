@@ -76,6 +76,7 @@ def create
 				end
 			end
 	    end
+	    #email the users
 		UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
