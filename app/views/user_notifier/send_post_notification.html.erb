@@ -16,11 +16,10 @@
 
 <h5>Comment</h5>
 <p>
-	<% if @post.comment.empty? %>
-		<i>None</i>
-	<% else %>
-		<%= @post.comment %>
-	<% end %>
+	<%@post.comments.each do |comment| %>
+	   <%="#{comment.poster}: "%>
+	   <%=comment.content%>
+    <%end%>
 </p>
 
 <small>Posted by: <%= link_to @poster.proper_name, @poster %></small>
