@@ -38,10 +38,10 @@
 								        <b>Claimed by you.</b>
 								   
 								<%elsif !p.needs_all_claimed %>
-								    <div class = "yellow-text-inline">(In Process)</div> Some Needs to be claimed</br>
+								    <div class = "yellow-text-inline">(In Progess)</div> Some Needs to be claimed</br>
 						
 								<%elsif p.needs_all_claimed %>
-								    <div class = "yellow-text-inline">(In Process)</div> All Needs claimed
+								    <div class = "yellow-text-inline">(In Progess)</div> All Needs claimed
 								<%	elsif p.cancelled? %>
 							                <div class = "grey-text">
 											Cancelled on <%= p.date_cancelled.to_s %>
