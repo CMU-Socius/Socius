@@ -12,7 +12,13 @@ header {
 		margin-top: 0;
 		font-weight: 500;
 	}
-	.button {
+	.loginbm{
+			color: white !important;
+			display: block;
+			&:hover{
+				text-decoration: underline;
+			}
+			
 	}
 }
 
