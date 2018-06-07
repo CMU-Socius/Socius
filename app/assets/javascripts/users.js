@@ -18,5 +18,17 @@ $(function(){
 	});
 });
 
+$(window).ready(function () {
+    $div = $('.member-photo');
+    $div.height($div.width() * 1);
+    $div.siblings(".link").height($div.width() * 1)
+    $div.siblings(".link").width($div.width() * 1)
+    $(window).bind('resize', function() { 
+    	 $div.height($div.width() * 1);
+         $div.siblings(".link").height($div.width() * 1)
+         $div.siblings(".link").width($div.width() * 1)
+    });
+});
+
 
 

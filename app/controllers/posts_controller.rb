@@ -131,8 +131,11 @@ def claim
 	@post_claim = PostClaim.new
 	@post_claim.post_id = @post.id
 	@post_claim.claimer_id = session[:user_id].to_i
-	@post_claim.save
-	redirect_to post_path(@post), notice: "Claimed request!"
+	if @post_claim.save
+	   redirect_to post_path(@post), notice: "Claimed request!"
+	else
+	   redirect_to post_path(@post), notice: "Duplicate claim"
+	end
 end
 
 def unclaim

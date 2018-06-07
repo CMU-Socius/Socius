@@ -172,6 +172,10 @@ class Post < ActiveRecord::Base
 		return self.claimers.map(&:proper_name).join(", ")
 	end
 
+	def two_claimer_names
+		return self.claimers.map(&:proper_name).take(2).join(", ")
+	end
+
 	def post_needs
 		PostNeed.where(post_id: self.id)
 	end

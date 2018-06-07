@@ -11,12 +11,12 @@
 	</p>
 	<h2>The Team</h2>
 	<table>
-	<% @team.each_slice(4) do |row| %>
+	<% @team.each_slice(5) do |row| %>
 		<tr>
 			<% row.each do |member| %>
 				<td>
 				  <%= image_tag "team/" + member[:name].partition(" ").first + ".jpg", class: "member-photo" %>
-				  <div>
+				  <div class = "link">
 				  	<%= link_to member[:name], member[:link], :target => "_blank" %>
 				  </div>
 				</td>

@@ -27,6 +27,27 @@
 								<%end%>
 								<small><%= format_time(p.date_posted.to_time) %></small>
 							</td>
+							<td class = "mobile-only">
+								<p class="table-heading">Status</p>
+								<%  if !p.cancelled? and p.claimers.size == 0 %>
+											<div class = "red-text">Unclaimed</div>
+											
+								<%elsif p.completed? %>
+										<div class = "green-text">Completed on <%= p.date_completed.to_date %></div>
+								<%elsif p.claimers.map(&:id).include?(current_user.id) %>
+								        <b>Claimed by you.</b>
+								   
+								<%elsif !p.needs_all_claimed %>
+								    <div class = "yellow-text-inline">(In Process)</div> Some Needs to be claimed</br>
+						
+								<%elsif p.needs_all_claimed %>
+								    <div class = "yellow-text-inline">(In Process)</div> All Needs claimed
+								<%	elsif p.cancelled? %>
+							                <div class = "grey-text">
+											Cancelled on <%= p.date_cancelled.to_s %>
+										    </div>
+								<% end %>
+							</td>
 							<td colspan="1">
 								<p class="mobile-only table-heading">Address</p>
 								<%= p.street_1 %><br/>
@@ -54,13 +75,21 @@
 								
 							</td>
 							<td class = "detail_toggle">
-								<p class="mobile-only table-heading">Status</p>
+								<p class="mobile-only table-heading">Status Details</p>
 
 								<%  if !p.cancelled? and p.claimers.size == 0 %>
 											<div class = "red-text">Unclaimed</div>
 							    
 								<%elsif p.completed? %>
-										<div class = "green-text">	Completed on <%= p.date_completed.to_date %></div>
+										<div class = "green-text">
+										Completed by: 
+									    <%if p.claimers.size<3%>
+									    <%=p.all_claimer_names%>
+									    <%else%>
+									    <%="#{p.two_claimer_names} and #{p.claimers.size-2} other people"%>
+									    <%end%>
+										</br>
+										</div>
 								
 								<%elsif p.claimers.size!=0 %>
 								    <div class = "yellow-text">
@@ -68,7 +97,7 @@
 								    <%if p.claimers.size<3%>
 								    <%=p.all_claimer_names%>
 								    <%else%>
-								    multiple people
+								    <%="#{p.two_claimer_names} and #{p.claimers.size-2} other people"%>
 								    <%end%>
 									</br>
 								    </div>

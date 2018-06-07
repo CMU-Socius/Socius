@@ -32,7 +32,7 @@
 
                     <div id = "claim-list">
                     <h3>Claim Needs</h3>
-                    <p class = "red">Note that you need to claim needs before complete them </p>
+                    <p class = "red">Note that you need to claim needs before you complete them </p>
 					<%= form_tag(update_claims_path, method: 'get') do %>
 						<%#= @post.post_needs.completed_ids.inspect %>
 						<%= hidden_field :post, :id, :value => @post.id %>
