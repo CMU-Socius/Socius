@@ -119,6 +119,7 @@ function initPostFormMap() {
     // init elements
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
+        clickableIcons: false,
         center: initialCoords
     });
 
@@ -154,11 +155,11 @@ function initPostFormMap() {
         setNewPostLocation(latLng);
 
       }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+        // handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
       // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
+      // handleLocationError(false, infoWindow, map.getCenter());
     }
 
     map.addListener('click', function(event) {
