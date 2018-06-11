@@ -23,11 +23,16 @@
 		<%if @post.cancelled?%>
 		<h4 class="alert">Note this post has been cancelled.</h4>
 		<%end%>
+		<%if @post.check_in?%>
+		<h4 class="alert">Note this post is a check-in post. No needs are posted</h4>
+		<h4>Camp status: <%=@post.status%></h4>
+		<%end%>
 </div>
 
 <div id="post-info-container">
+	<% unless @post_needs.empty? %>
 	<div id="post-need-list">
-			<% unless @post_needs.empty? %>
+			
 			    <%if @post.is_claimer?(current_user) and !@post.cancelled?%>
 
                     <div id = "claim-list">
@@ -100,10 +105,10 @@
 				    </div>
 
 				<%end%>
-			<% else %>
-				<p><i>No Needs Registered</i></p>
-			<% end %>
+			
+			
 	</div>
+	<% end %>
 	<div id="post-data">
 		<h5>Current Status</h5>
 		<p>
@@ -174,7 +179,7 @@
 	    <p class = "contact"><%unless @poster.phone.empty?%><%="Phone: #{@poster.phone}"%><%else%>Phone not available<%end%></p>
 	    <p class = "contact"><%="Email: #{@poster.email}"%></p>
 
-	    <%if @post.claimers.size != 0%>
+	    <%if @post.claimers.size != 0 and !@post.check_in?%>
 		    <h5>Claimer Contact:</h5>
 		    <%@post.claimers.each do |claimer|%>
 		    <p class = "contact"><b><u><%="#{claimer.proper_name}"%></u></b></p>

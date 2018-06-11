@@ -146,6 +146,12 @@
 	}
 
 	#post-form-container {
+		form{
+		 	#comment{
+				border: 2px solid $light-orange;
+
+			}
+		}
 		#sharings-list{
 			div{
 				.need-category {
@@ -175,7 +181,6 @@
 				      border: none ;
 				  }
 			 }
-
 			 .need-category {
 				display:none;
 				margin-bottom: 5em;

@@ -6,16 +6,16 @@ class PostsController < ApplicationController
 
 def index 
 	if current_user.role? :admin
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological.paginate(:page => params[:page])
 	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
 	@default_p = params[:posted_by].nil? ? "anyone" : params[:posted_by]
 	@default_c = params[:claim_status].nil? ? "all" : params[:claim_status]
 	@default_o = params[:complete_status].nil? ? "all" : params[:complete_status]
-
+	@default_t = params[:post_type].nil? ? "all" : params[:post_type]
 	
 end
 
@@ -33,6 +33,7 @@ def new
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
 	@comments = @post.comments.build
+	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
 end
 
 def edit
@@ -55,15 +56,29 @@ def create
 			all_empty = false
 		end
 	end
-	if all_empty
+	# puts("debug here")
+	# puts(params[:camp_status])
+
+	if all_empty and @post.camp_status == "requests"
 		@post.errors.add(:no_needs, "were selected.")
 		@all_needs = Need.by_category
 		@post_need = @post.post_needs.build
+		@sharings = @post.sharings.build
+		@comments = @post.comments.build
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
+		render action: 'new' and return
+	elsif @post.number_people==0 and @post.camp_status == "requests"
+		@post.errors.add(:number_of_people, "should be greater than 0.")
+		@all_needs = Need.by_category
+		@post_need = @post.post_needs.build
+		@sharings = @post.sharings.build
+		@comments = @post.comments.build
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new' and return
 	end
 
 	# then try to save the post
-	if @post.save
+	if @post.save 
 		params[:needs][:id].each do |need_id|
 			unless need_id.empty?
 				pn = PostNeed.new(:need_id => need_id, :post_id => @post.id)
@@ -78,13 +93,21 @@ def create
 				end
 			end
 	    end
-		UserNotifier.send_post_notification(@post).deliver_later
+	    if @post.post_needs.size == 0
+	    	#this is a checkin post
+	    	PostClaim.create(post_id: @post.id,claimer_id:@post.poster_id)
+	    	@post.date_completed = DateTime.current
+	    	@post.save!
+	    end
+		# UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
 		@all_needs = Need.by_category
 		@alliances = current_user.organization.alliances
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
+		@comments = @post.comments.build
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests  (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new'
 	end
 end
@@ -176,7 +199,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed, :needs, :alliances,comments_attributes:[:content,:user_id])
+		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed,:camp_status, :needs, :alliances,comments_attributes:[:content,:user_id])
 	end
 
 end

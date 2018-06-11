@@ -23,17 +23,34 @@
 
                 <%= f.input :zip, :as => :hidden, input_html: {class: "form-control", id: "zip"}, wrapper_html: { class: "inline"} %>
             </div>
+            &nbsp
 
+            <%= f.input :camp_status, collection: @status, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group status'} ,include_blank: false %>
+
+            &nbsp
+            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control",value: 0},wrapper_html: {class: 'form-group status'}, :required => true %>
+
+            <h2 id = "needs-requested">Needs Requested</h2>
+            <p><u>If this a check-in post, please do not check any needs.</u></p>
              <% unless @all_needs.empty? %>
                 <div id="needs-list">
                     <%= render :partial => "form_template" %>
                 </div>
              <% end %>
 
+
+            
+
+            <%= f.fields_for :comments do |c| %>
+                 <%= c.input :content,:as => :text,  :label => "Comment",input_html: {class: "form-control", id: "comment"} %>
+                 <%= c.input :user_id, :as => :hidden, :input_html => {:value => current_user.id} %>
+            <%end%>
+
+
              
              <% unless @alliances.empty? %>
                  <div id="sharings-list">
-                    <div class = "title">* Sharing Option:<small> This post will be shared among the checked alliances</small></div>
+                    <div class = "title">* Sharing Option:<div class = "small"> This post will be shared among the checked alliances</div></div>
                     <div class = "needblock">
                         <div class = "need-category">
                             <%= collection_check_boxes :alliances, :ids, @alliances, :id, :name do |al| %>
@@ -46,19 +63,12 @@
                                     <div class = "details"><%= al.object.all_org_names%></div>
                                 </small>
                             <% end %>
-                            <div class = "small">If no alliances are checked, then the post is private to your organizaiton</div>
+                            <div class = "small ">If no alliances are checked, then the post is private to your organizaiton</div>
                         </div>
                     </div>
                 </div>
              <%end%>
 
-
-            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control" }, :required => true %>
-
-            <%= f.fields_for :comments do |c| %>
-                 <%= c.input :content,:as => :text,  :label => "Comment",input_html: {class: "form-control", id: "comment"} %>
-                 <%= c.input :user_id, :as => :hidden, :input_html => {:value => current_user.id} %>
-            <%end%>
 
             <div id="submit" class="button-wrapper">
                 <input type="submit" class="button" value="Submit Request" />
