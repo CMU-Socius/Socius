@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
 
 
     self.per_page = 10
+
+    STATUS = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment boxes)', 'other']]
 	
 	#Relationships
 
@@ -35,19 +37,21 @@ class Post < ActiveRecord::Base
 	scope :for_organization, ->(organization_id) {joins(:poster).where('organization_id = ?',organization_id )}
 	scope :not_cancelled, ->{where(date_cancelled: nil)}
 	scope :unclaimed, -> { joins("left join post_claims on posts.id=post_claims.post_id").where("post_claims.claimer_id is null") }
-
+    scope :checkin, -> {joins("left join post_needs on posts.id = post_needs.post_id").where("post_needs.need_id is null")}
+    scope :not_checkin, ->{joins("left join post_needs on posts.id = post_needs.post_id").where.not("post_needs.need_id is null")}
 
 
 	# Validations
-	validates_presence_of :street_1, :number_people, :poster_id
+	validates_presence_of :street_1, :number_people, :poster_id,:camp_status
 	validates_numericality_of :poster_id, only_integer: true
-	validates_numericality_of :number_people, only_integer: true, greater_than: 0, message: "should be an integer"
+	validates_numericality_of :number_people, only_integer: true, greater_than_or_equal_to: 0, message: "should be an integer"
 	validates_format_of :zip, with: /\A\d{5}\z/, message: "should be five digits long"
 	validates_inclusion_of :state, in: STATES_LIST.map{|key, value| value}, message: "is not an option"
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
     validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
     validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
     validate :address_is_valid, on:  :create
+    # validate :requests_selected
 
 	#Callbacks
 	before_create :set_datetime_posted_if_not_given
@@ -65,6 +69,9 @@ class Post < ActiveRecord::Base
 	      self.post_needs.each{|pn| pn.destroy}
 	    end
 	end
+
+
+
 
 	# class methods
 	def self.for_all_alliances(org)
@@ -93,6 +100,15 @@ class Post < ActiveRecord::Base
 		self.date_completed = DateTime.current
 		self.save!
 	end
+
+	def check_in?
+		return self.needs.size==0
+	end
+
+	def status
+		return STATUS.to_h.key(self.camp_status)
+	end
+
 
 	def completed?
 		return !self.date_completed.nil?
@@ -193,8 +209,8 @@ class Post < ActiveRecord::Base
 	end
 
 
-	def self.filter(posted_by, claim_status,complete_status)
-		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status)
+	def self.filter(posted_by, claim_status,complete_status,post_type)
+		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status).filter_check(post_type)
 	end
 
 	def self.filter_posted(p)
@@ -229,6 +245,16 @@ class Post < ActiveRecord::Base
 		end
 	end
 
+	def self.filter_check(c)
+		if c == "check in"
+			Post.checkin
+		elsif c == "requests"
+			Post.not_checkin
+		else
+			Post.all
+		end
+	end
+
 	def self.get_post_details(posts)
 		# post_needs = posts.map { |p| p.post_needs.to_a }
 		# posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
@@ -248,7 +274,8 @@ class Post < ActiveRecord::Base
 			"lng" => p.longitude, 
 			"date_cancelled" => p.date_cancelled,
 			"date_completed" => p.date_completed,
-			"claimer" => !p.claimers.size.zero?
+			"claimer" => !p.claimers.size.zero?,
+			"checkin" => p.check_in?
 		}}
 	end
 
@@ -309,9 +336,18 @@ class Post < ActiveRecord::Base
     end
   end
   
-  def address_is_valid
+    def address_is_valid
 		return true if Geocoder.coordinates(self.full_street_address)
 		self.errors.add(:city, "Address was not found.")
 	end
+
+	# def requests_selected
+	# 	return true if self.camp_status!="requests"
+	# 	if self.post_needs.size == 0 
+	# 		self.errors.add(:post,"has no request selected")
+	# 	elsif self.number_people == 0 
+	# 		self.error.add(:post,": number of people has to be greater than 0.")
+	# 	end
+	# end
 end
 

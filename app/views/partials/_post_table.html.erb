@@ -29,7 +29,10 @@
 							</td>
 							<td class = "mobile-only">
 								<p class="table-heading">Status</p>
-								<%  if !p.cancelled? and p.claimers.size == 0 %>
+								<%if p.check_in?%>
+								    <div class = "blue-text">Check-in Posts</div>
+								    <%="Camp Status: #{p.status}"%>
+								<% elsif !p.cancelled? and p.claimers.size == 0 %>
 											<div class = "red-text">Unclaimed</div>
 											
 								<%elsif p.completed? %>
@@ -59,6 +62,9 @@
 							</td>
 							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Post Needs</p>
+								<%if p.check_in?%>
+								<%="Checked-in: #{p.status}"%>
+								<%else%>
 								<ul>
 									<% post_needs.each do |pn| %>
 										<li>
@@ -72,12 +78,15 @@
 										</li>
 									<% end %>
 								</ul>
+								<%end%>
 								
 							</td>
 							<td class = "detail_toggle">
 								<p class="mobile-only table-heading">Status Details</p>
+								<% if p.check_in?%>
+								<div class = "blue-text"><%="Checked-in by: #{p.poster.proper_name}"%></div>
 
-								<%  if !p.cancelled? and p.claimers.size == 0 %>
+								<%  elsif !p.cancelled? and p.claimers.size == 0 %>
 											<div class = "red-text">Unclaimed</div>
 							    
 								<%elsif p.completed? %>
