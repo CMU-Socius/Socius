@@ -25,7 +25,7 @@
 		<%end%>
 		<%if @post.check_in?%>
 		<h4 class="alert">Note this post is a check-in post. No needs are posted</h4>
-		<h3 >Camp status: <%=@post.status%></h3>
+		<h3 >Camp status: <%=@post.status%>  <small>(by <%=format_time(@post.date_posted.to_time)%>)</small></h3>
 		<%end%>
 </div>
 

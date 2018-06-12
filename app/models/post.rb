@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 
     self.per_page = 10
 
-    STATUS = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment boxes)', 'other']]
+    STATUS = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Specified in the comment box)', 'other']]
 	
 	#Relationships
 
