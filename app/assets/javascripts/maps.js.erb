@@ -65,6 +65,7 @@ function initIndexMap() {
 function initPostMap() {
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
+        clickableIcons: false 
     });
 
     map.addListener('click', function() {
@@ -95,6 +96,13 @@ function initPostMap() {
         label: "",
         info: infoContent
     });
+
+    if (post["checkin"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+    else if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    else if(post["date_cancelled"]) marker.setIcon("<%= asset_path('grey-pin.png') %>");
+    else if(post["claimer"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+    else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+
 
     marker.setMap(map);
     infowindow.setContent(marker.info);
