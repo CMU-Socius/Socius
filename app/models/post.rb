@@ -67,6 +67,7 @@ class Post < ActiveRecord::Base
 	    else
 	      self.post_claims.each{|ci| ci.destroy}
 	      self.post_needs.each{|pn| pn.destroy}
+	      self.sharings.each{|s| s.destroy}
 	    end
 	end
 

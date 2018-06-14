@@ -8,7 +8,7 @@ class Alliance < ActiveRecord::Base
 
 	def org_choices
 		choices = Array.new()
-		Organization.all.each do |o|
+		Organization.alphabetical.each do |o|
 			if !self.organizations.include?(o)
 				choices.push([o.name,o.id])
 			end

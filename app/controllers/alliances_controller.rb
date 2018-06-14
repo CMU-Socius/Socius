@@ -14,7 +14,7 @@ class AlliancesController < ApplicationController
   # GET /alliances/1.json
   def show
     set_alliance
-    @organizations = @alliance.organizations
+    @organizations = @alliance.organizations.alphabetical
     @org_choices = @alliance.org_choices
   end
 

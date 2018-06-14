@@ -12,6 +12,7 @@
 			<!-- now the form template itself -->
 			  <%= simple_form_for @organization do |f| %>
 			        <%= f.input :name,  placeholder: 'New Organization',input_html: {class: "input"}, wrapper_html: {class: 'wrapper'} %>
+			        <%= f.input :active, :as => :hidden, :input_html => {:value => true} %>
 			        <%= f.button :submit %>
 			  <% end %>
 		    </div>

@@ -21,10 +21,10 @@ end
 
 def show
 
-	@claimed_posts = Post.not_cancelled.claimed_by(@user).paginate(:page => params[:page])
-	@posts = Post.not_cancelled.posted_by(@user).paginate(:page => params[:page])
+	@claimed_posts = Post.not_cancelled.claimed_by(@user).chronological.paginate(:page => params[:page])
+	@posts = Post.not_cancelled.posted_by(@user).chronological.paginate(:page => params[:page])
 	@organization = @user.organization
-	@alliances = @user.organization.alliances
+	@alliances = @user.organization.alliances.alphabetical
 end
 
 def user_all_posts

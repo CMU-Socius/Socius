@@ -1,7 +1,7 @@
 
 <div id = 'alliances' class="index-table">
 
-  <%if @alliance.organizations.count == 0%>
+  <%if @organizations.count == 0%>
 	<%="This alliance has no organizations now."%>
   <%else%>
     <table>
@@ -13,7 +13,7 @@
 		</thead>
 
 		<tbody>
-			<%@alliance.organizations.each do |a|%>
+			<%@organizations.each do |a|%>
 		    <tr>
 		    	
 		    	<td><p class="mobile-only table-heading">Organization Name</p><%=a.name%></td>

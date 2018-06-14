@@ -98,7 +98,11 @@
 					      </div>
 					      <% if pn.complete? %>
 				        	<small>
-				        		<i>Completed at: <%= format_time(pn.time_completed.to_time) %></i>
+				        		<i>Completed by <%=pn.claim.proper_name%> at: <%= format_time(pn.time_completed.to_time) %></i>
+				        	</small>
+				          <%elsif pn.claimed?%>
+				          <small>
+				        		<i>Claimed by: <%=pn.claim.proper_name%></i>
 				        	</small>
 				          <%end%>
 				    <% end %>

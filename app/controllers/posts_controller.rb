@@ -33,7 +33,7 @@ def new
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
 	@comments = @post.comments.build
-	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
+	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 end
 
 def edit
@@ -65,7 +65,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
-		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new' and return
 	elsif @post.number_people==0 and @post.camp_status == "requests"
 		@post.errors.add(:number_of_people, "should be greater than 0.")
@@ -73,7 +73,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
-		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new' and return
 	end
 
@@ -107,7 +107,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
-		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests  (Please specify the interaction details in the comment box)', 'met'], ['Other (Please specify in the comment box)', 'other']]
+		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new'
 	end
 end
