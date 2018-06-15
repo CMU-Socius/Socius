@@ -1,7 +1,7 @@
 class Need < ActiveRecord::Base
 	include SociusWebHomelessHelpers::Validations
 
-	CATEGORIES = [['Food', :food],['Clothing', :clothing],['Toiletries', :toiletries],['Camp Supplies', :camp], ['Transportation', :transportation], ['Medical Supplies', :medical],['Other', :other]]
+	CATEGORIES = [['Food', :food],['Clothing', :clothing],['Toiletries', :toiletries],['Camp Supplies', :camp], ['Transportation', :transportation], ['Medical Supplies', :medical],['Camp Service',:service],['Other', :other]]
 
 	#Relationships
 	has_many :post_needs
@@ -29,6 +29,7 @@ class Need < ActiveRecord::Base
 		end
 		needs
 	end
+
 
 	private
 	def reformat_name
