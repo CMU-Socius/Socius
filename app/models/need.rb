@@ -1,7 +1,7 @@
 class Need < ActiveRecord::Base
 	include SociusWebHomelessHelpers::Validations
 
-	CATEGORIES = [['Food', :food],['Clothing', :clothing],['Toiletries', :toiletries],['Camp Supplies', :camp], ['Transportation', :transportation], ['Medical Supplies', :medical],['Camp Service',:service],['Other', :other]]
+	CATEGORIES = [['Food', :food],['Clothing', :clothing],['Toiletries', :toiletries],['Camp Supplies', :camp], ['Transportation', :transportation], ['Medical Supplies', :medical],['Information and Service Requests',:service],['Other', :other]]
 
 	#Relationships
 	has_many :post_needs

@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
 	    @comment = Comment.new(comment_params)
 	    if @comment.save
 	    	redirect_to post_path(@comment.post_id),notice:"Successfully added comment"
+	    	UserNotifier.comment_notification(@comment.post,@comment).deliver_later
 	    else
 	    	redirect_to post_path(@comment.post_id),notice:"No blank comment!"
 	    end

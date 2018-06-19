@@ -1,0 +1,19 @@
+<h3>New Comment For Post at <%=@post.street_1%></h3>
+
+<h5>Comment</h5>
+<p>
+	<%=@comment.user.proper_name%>:
+	<%=@comment.content%>
+</p>
+
+<h5>Address</h5>
+<p><%= @post.street_1 %></p>
+<% unless @post.street_2.empty? %>
+	<p><%= @post.street_2 %></p>
+<% end %>
+<p>
+	<%= "#{@post.city}, #{@post.state} #{@post.zip}" %>
+</p>
+
+
+<%= link_to 'View Post', @post %>
