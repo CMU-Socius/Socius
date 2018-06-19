@@ -156,6 +156,7 @@ def claim
 	@post_claim.claimer_id = session[:user_id].to_i
 	if @post_claim.save
 	   redirect_to post_path(@post), notice: "Claimed request!"
+	   UserNotifier.claim_notification(@post,@post_claim.claimer).deliver_later
 	else
 	   redirect_to post_path(@post), notice: "Duplicate claim"
 	end

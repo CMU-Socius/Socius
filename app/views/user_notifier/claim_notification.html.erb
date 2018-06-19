@@ -1,7 +1,7 @@
 
 
-<h3>A new request was posted to Socius!</h3>
-<small>Posted by: <%= @poster.proper_name%>, (<%=@poster.organization.name%>)</small>
+<h3><%=@claimer.proper_name%> claimed your request at <%=@post.street_1%></h3>
+
 
 <h5>Address</h5>
 <p><%= @post.street_1 %></p>
@@ -11,11 +11,6 @@
 <p>
 	<%= "#{@post.city}, #{@post.state} #{@post.zip}" %>
 </p>
-
-
-<h5>Camp Status</h5>
-<p><%=@post.status%></p>
-
 
 <h5>Number of People</h5>
 <p><%= @post.number_people %></p>
@@ -27,7 +22,6 @@
 	   <%=comment.content%>
     <%end%>
 </p>
-
 
 
 <h5>Reported Needs</h5>

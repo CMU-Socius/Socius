@@ -16,49 +16,57 @@ function initIndexMap() {
     var infowindow = new google.maps.InfoWindow();
 
     var post_details = $('.map_info').data('postDetails');
-    for(var i = 0; i < post_details.length; i++) {
-
-        var post = post_details[i];
-
-        var lat = post["lat"];
-        var lng = post["lng"];
+    if (post_details.length == 0){
+        var lat = 40.440624;
+        var lng = -79.995888;
         var coords = new google.maps.LatLng(lat, lng);
-        if(i == 0) map.setCenter(coords);
+        map.setCenter(coords);
+    } else{
+        for(var i = 0; i < post_details.length; i++) {
 
-        var infoContent = 
-        '<div class="infoWindow">'+
-            '<div id="content">'+
-                '<h4>'+ post["street_1"] + '</h4>' +
-                '<a href="/posts/' + post["id"] + '">View Post</a>' +
-            '</div>' +
-        '</div>';
+            var post = post_details[i];
 
-        marker = new google.maps.Marker({
-            position: coords,
-            label: "",
-            info: infoContent,
-        });
+            var lat = post["lat"];
+            var lng = post["lng"];
+            var coords = new google.maps.LatLng(lat, lng);
+            if(i == 0) map.setCenter(coords);
 
-        marker.setMap(map);
+            var infoContent = 
+            '<div class="infoWindow">'+
+                '<div id="content">'+
+                    '<h4>'+ post["street_1"] + '</h4>' +
+                    '<a href="/posts/' + post["id"] + '">View Post</a>' +
+                '</div>' +
+            '</div>';
 
-        if (post["checkin"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-        else if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-        else if(post["date_cancelled"]) marker.setIcon("<%= asset_path('grey-pin.png') %>");
-        else if(post["claimer"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
-        else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+            marker = new google.maps.Marker({
+                position: coords,
+                label: "",
+                info: infoContent,
+            });
 
-        bounds.extend(coords);
+            marker.setMap(map);
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(marker.info);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
+            if (post["checkin"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+            else if(post["date_completed"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            else if(post["date_cancelled"]) marker.setIcon("<%= asset_path('grey-pin.png') %>");
+            else if(post["claimer"]) marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+            else marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
+            bounds.extend(coords);
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(marker.info);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+
+        }
+        map.fitBounds(bounds);
     }
 
-    map.fitBounds(bounds);
+    
 
 }
 
@@ -117,6 +125,42 @@ function initPostMap() {
 
 }
 
+ function CenterControl(controlDiv, map,marker,pos,latLng) {
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to pin the current location';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '1em';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = 'Current Location';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function() {
+    
+        marker.setPosition(latLng);
+        map.setCenter(pos);
+        setNewPostLocation(latLng);
+
+    });
+
+  }
+
 function initPostFormMap() {
 
     // default to Pittsburgh
@@ -158,10 +202,16 @@ function initPostFormMap() {
         infoWindow.setContent('Current Location Found.');
         infoWindow.open(map);
 
-        var latLng = new google.maps.LatLng(la, ln);
-        marker.setPosition(latLng);
+        var latLngCurrent = new google.maps.LatLng(la, ln);
+        marker.setPosition(latLngCurrent);
         map.setCenter(pos);
-        setNewPostLocation(latLng);
+        setNewPostLocation(latLngCurrent);
+        
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }, function() {
         // handleLocationError(true, infoWindow, map.getCenter());
@@ -178,6 +228,10 @@ function initPostFormMap() {
         marker.setPosition(latLng);
         setNewPostLocation(latLng);
     });
+
+    
+
+   
 
 }
 

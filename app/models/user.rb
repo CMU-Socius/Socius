@@ -66,6 +66,10 @@ class User < ActiveRecord::Base
     self.update_attribute(:active, true)
   end
 
+  def can_notify?
+    return self.email_notification
+  end
+
 
 # Callbacks
   before_destroy :is_never_destroyable
