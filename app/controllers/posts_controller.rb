@@ -33,6 +33,7 @@ def new
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
 	@comments = @post.comments.build
+	@camp_details = Camp.get_camp_details(Camp.all)
 	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 end
 
@@ -200,7 +201,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed,:camp_status, :needs, :alliances,comments_attributes:[:content,:user_id])
+		params.require(:post).permit(:street_1, :street_2, :latitude, :camp_id,:longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed,:camp_status, :needs, :alliances,comments_attributes:[:content,:user_id])
 	end
 
 end

@@ -14,6 +14,7 @@ class Camp < ActiveRecord::Base
     validate :area_is_valid
 
 
+
     geocoded_by :full_street_address
 	after_validation :geocode
 
@@ -50,6 +51,8 @@ class Camp < ActiveRecord::Base
 			"longs" => p.long
 		}}
 	end
+	
+
 
 	def area_is_valid
 		return true if self.lat.split(",").size == 0 and self.long.split(",").size == 0

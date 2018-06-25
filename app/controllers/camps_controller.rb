@@ -18,16 +18,12 @@ class CampsController < ApplicationController
 	end
 
 	def update
-		puts("valid camp?")
-		puts(@camp.area_is_valid)
-		puts(@camp.valid?)
+
 		if @camp.update(camp_params)
-			puts("this is debug")
-			puts(@camp.lat.split(",").size)
+
 		    redirect_to camp_path(@camp), notice: "Successfully updated #{@camp.name}"
 		else
-			puts("this is debug2")
-			puts(@camp.lat.split(",").size)
+
 		    @camp_details = Camp.get_camp_details([@camp])
 		    redirect_to draw_area_path(id: @camp.id)
 		end		

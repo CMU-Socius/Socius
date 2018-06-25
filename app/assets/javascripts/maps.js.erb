@@ -66,7 +66,8 @@ function initIndexMap() {
         map.fitBounds(bounds);
     }
 
-    
+
+
 
 }
 
@@ -125,7 +126,7 @@ function initPostMap() {
 
 }
 
- function CenterControl(controlDiv, map,marker,pos,latLng) {
+ function CenterControl(controlDiv, map,marker,pos,latLng,camp_choices) {
 
     // Set CSS for the control border.
     var controlUI = document.createElement('div');
@@ -156,6 +157,8 @@ function initPostMap() {
         marker.setPosition(latLng);
         map.setCenter(pos);
         setNewPostLocation(latLng);
+        map.setZoom(18);
+        checkCamp(map,latLng,camp_choices);
 
     });
 
@@ -167,6 +170,9 @@ function initPostFormMap() {
     var lat = 40.440624;
     var lng = -79.995888;
     var initialCoords = new google.maps.LatLng(lat, lng);
+    var camp_details = $('.camp_info').data('campDetails');
+    var polygons = [];
+    var camp_choices = [];
     setNewPostLocation(initialCoords);
 
     // init elements
@@ -205,10 +211,14 @@ function initPostFormMap() {
         var latLngCurrent = new google.maps.LatLng(la, ln);
         marker.setPosition(latLngCurrent);
         map.setCenter(pos);
+        map.setZoom(18);
         setNewPostLocation(latLngCurrent);
+        theFunc();
+        checkCamp(map,latLngCurrent,camp_choices);
+
         
         var centerControlDiv = document.createElement('div');
-        var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent);
+        var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent,camp_choices);
 
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
@@ -227,12 +237,100 @@ function initPostFormMap() {
         var latLng = new google.maps.LatLng(lat, lng);
         marker.setPosition(latLng);
         setNewPostLocation(latLng);
+        checkCamp(map,latLng,camp_choices)
     });
+
+
+    function theFunc(){
+        var bounds = map.getBounds()
+         if(map.getZoom() >= 18){
+            drawPolygons(polygons,null)
+            polygons = [];
+            camp_choices = [];
+            for(var i = 0; i < camp_details.length; i++) {
+
+                var camp = camp_details[i];
+
+                var lat = camp["lat"];
+                var lng = camp["lng"];
+                var coords = new google.maps.LatLng(lat, lng);
+                if(bounds.contains(coords)){
+                    camp_choices.push(camp)
+                    var infoContent = 
+                    '<div class="infoWindow">'+
+                        '<div id="content">'+
+                            '<h4>'+ camp["street_1"] + '</h4>' +
+                        '</div>' +
+                    '</div>';
+
+                    campmarker = new google.maps.Marker({
+                        position: coords,
+                        label: "",
+                        info: infoContent,
+                    });
+
+                    campmarker.setMap(map);
+
+                    campmarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                    if (camp["lats"]!=null){
+                        var lats = camp["lats"].split(",");
+                        var longs = camp["longs"].split(",");
+                        var edges = [];
+                        for(var i = 0; i < lats.length; i++) {
+                            var pos = {
+                              lat: parseFloat(lats[i]),
+                              lng: parseFloat(longs[i])
+                            };
+                            edges.push(pos);
+                        }
+                        var bermudaTriangle = new google.maps.Polygon({
+                          paths: edges,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 0.8,
+                          strokeWeight: 2,
+                          fillColor: '#FF0000',
+                          fillOpacity: 0.35,
+                          clickable:false
+                        });
+                        // bermudaTriangle.setMap(map);
+                        polygons.push(bermudaTriangle)
+                    }
+
+
+                }
+
+            }
+        } else{
+            drawPolygons(polygons,null)
+            polygons = [];
+            camp_choices = [];
+        }
+
+        drawPolygons(polygons,map)
+        
+    }
+
+
+    map.addListener('bounds_changed', function() {
+        theFunc();
+    });
+
+    // map.addListener('center_changed',function(){
+    //     console.log(map.getCenter())
+    //     console.log(marker.getPosition())
+    //     console.log(map.getCenter() == marker.getPosition())
+    // });
 
     
 
    
 
+}
+
+function drawPolygons(polygons,map){
+    for(var i = 0; i < polygons.length; i++) {
+        polygons[i].setMap(map);
+    }
 }
 
 function initCampFormMap() {
@@ -300,7 +398,7 @@ function initCampFormMap() {
         lng = event.latLng.lng();
         var latLng = new google.maps.LatLng(lat, lng);
         marker.setPosition(latLng);
-        setNewPostLocation(latLng);
+        setNewCampLocation(initialCoords);
     });
 }
 
@@ -310,6 +408,31 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
+}
+
+function checkCamp(map,latLng,camp_choices){
+    for(var i = 0; i < camp_choices.length; i++) {
+        var camp = camp_choices[i];
+        if(camp["lats"]!=null){
+            var lats = camp["lats"].split(",");
+            var longs = camp["longs"].split(",");
+            var edges = [];
+            for(var i = 0; i < lats.length; i++) {
+                var pos = {
+                  lat: parseFloat(lats[i]),
+                  lng: parseFloat(longs[i])
+                };
+                edges.push(pos);
+            }
+            var polygon = new google.maps.Polygon({paths: edges});
+            if(google.maps.geometry.poly.containsLocation(latLng,polygon)){
+                console.log(camp["id"])
+                $("input[name='post[camp_id]']").val(camp["id"]);
+                console.log("here")
+                console.log($("input[name='post[camp_id]']").val())
+            }
+        }    
+    }
 }
 
 function setNewPostLocation(latLng) {
@@ -337,6 +460,7 @@ function setNewPostLocation(latLng) {
             $("input[name='post[city]']").val(city);
             $("input[name='post[state]']").val(state);
             $("input[name='post[zip]']").val(zip);
+
 
             // set value of label
             $("#address-preview").html(street_1);
@@ -481,7 +605,8 @@ function setNewCampLocation(latLng) {
                   strokeOpacity: 0.8,
                   strokeWeight: 2,
                   fillColor: '#FF0000',
-                  fillOpacity: 0.35
+                  fillOpacity: 0.35,
+                  clickable:false
                 });
                 bermudaTriangle.setMap(map);
             }
@@ -606,15 +731,13 @@ function showCampMap() {
                   strokeOpacity: 0.8,
                   strokeWeight: 2,
                   fillColor: '#FF0000',
-                  fillOpacity: 0.35
+                  fillOpacity: 0.35,
+                  clickable:false
                 });
                 bermudaTriangle.setMap(map);
         }
 
 
-        map.addListener('bounds_changed', function() {
-         console.log(map.getZoom());
-        });
 
 }
 

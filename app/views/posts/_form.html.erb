@@ -1,4 +1,6 @@
 <div id="post-form-container">
+    <%= content_tag :div, class: "camp_info", data: {camp_details: @camp_details} do %>
+    <% end %>
 
     <h1>Submit a Post</h1>
     <p id="address-preview"></p>
@@ -16,6 +18,9 @@
             <%= f.input :street_1, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
         
             <%= f.input :street_2, :as => :hidden, input_html: {class: "form-control", id: "street-2"} %>
+
+            <%= f.input :camp_id, :as => :hidden, input_html: {class: "form-control", id: "camp_id"} %>
+
             <div>
                 <%= f.input :city, :as => :hidden, input_html: {class: "form-control", id: "city" }, wrapper_html: { class: "inline"} %>
 
@@ -81,4 +86,4 @@
     <% end %>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places&callback=initPostFormMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places,geometry&callback=initPostFormMap" async defer></script>
