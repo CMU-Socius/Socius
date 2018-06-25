@@ -1,0 +1,38 @@
+<div id="camp-form-container">
+
+    <h1>Create A Camp</h1>
+    <p id="address-preview"></p>
+    <small>Click or tap the map to select a location. </small>
+<!--     <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
+    <div id="map-canvas"></div>
+
+    <% if logged_in? && !current_user.nil?%>
+        <%= simple_form_for @camp, html: {class:'form-horizontal', multipart: true} do |f| %>
+
+            <%= render 'partials/form_errors', record: @camp %>
+
+            <%= f.input :street_1, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
+        
+            <%= f.input :street_2, :as => :hidden, input_html: {class: "form-control", id: "street-2"} %>
+            <div>
+                <%= f.input :city, :as => :hidden, input_html: {class: "form-control", id: "city"}, wrapper_html: { class: "inline"} %>
+
+                <%= f.input :state, :as => :hidden, input_html: {class: "form-control", id: "state"}, wrapper_html: { class: "inline"} %>
+
+                <%= f.input :zip, :as => :hidden, input_html: {class: "form-control", id: "zip"}, wrapper_html: { class: "inline"} %>
+            </div>
+            &nbsp
+
+            <%= f.input :name,  input_html: {class:"form-control"},wrapper_html: {class: 'form-group'}, :required => true %>
+
+            <div id="submit" class="button-wrapper">
+                <input type="submit" class="button" value="Create Camp" />
+            </div>
+        <% end %>
+
+    <% else %>
+        <p>Please <%= link_to "login", login_path %> to create a new request!</p>
+    <% end %>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places&callback=initCampFormMap" async defer></script>

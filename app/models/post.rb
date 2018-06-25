@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
 	has_many :alliances,through: :sharings
 	has_many :comments
 
+
 	accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
 
 	#Virtual Attributes

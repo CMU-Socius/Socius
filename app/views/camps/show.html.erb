@@ -1,0 +1,27 @@
+
+<%= content_tag :div, class: "map_info", data: {camp_details: @camp_details} do %>
+<% end %>
+
+
+<div id="map-container">
+	<h1><%=@camp.name%></h1>
+	<p id="camp-address">
+		Camp Address: <%= @camp.street_1 %>
+		<%if !@camp.street_2.empty?%>
+		<%=", #{@camp.street_2}," %>
+		<%end%>
+		&nbsp
+		<%=" #{@camp.city}, #{@camp.state} #{@camp.zip}"%>
+	</p>
+	<!-- <small>Click or tap the map to select a location.</small> -->
+	<div id="map-canvas"></div>
+</div>
+
+<%= render partial: "partials/post_table", locals: { posts: @camp_posts } %>
+
+
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=showCampMap" async defer></script>
