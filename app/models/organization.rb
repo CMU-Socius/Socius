@@ -5,6 +5,9 @@ class Organization < ActiveRecord::Base
 	has_many :org_alliances
 	has_many :alliances, through: :org_alliances
 
+	has_many :camp_orgs
+	has_many :camps, through: :camp_orgs
+
 	#Validations
 	validates :name, presence: true, uniqueness: { case_sensitive: false}
 	validate :organization_is_not_a_duplicate, on: :create

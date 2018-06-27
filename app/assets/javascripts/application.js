@@ -29,3 +29,20 @@
 // $("#post-form-container").ready(function() {
 //     initPostFormMap();
 // });
+
+// $("#camp-form-container").ready(function() {
+//     initCampFormMap();
+// });
+
+
+// $("#camp-area-container").ready(function() {
+//     initAreaMap();
+// });
+
+// $(".posts.show").ready(function() {
+//     showCampMap();
+// });
+
+// $(".camps.index").ready(function() {
+//     indexCampMap();
+// });

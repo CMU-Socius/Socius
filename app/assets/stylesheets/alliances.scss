@@ -4,9 +4,10 @@
 
 .new_organization,.new_alliance,.new_organization{
 	margin: 2em auto 1em auto;
-	.new_link:{
-
-
+	.new_link{
+		&:hover{
+			opacity:0.5;
+		}
 	}
 	.org-form{
 		background: $lighter-orange;

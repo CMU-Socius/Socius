@@ -1,0 +1,35 @@
+
+
+<div id="camp-area-container">
+	<%= content_tag :div, class: "camp_info", data: {post_details: @camp_details} do %>
+    <% end %>
+
+
+    <h2>Please select the area of the camp.</h2>
+    <p id="address-preview"></p>
+    <small>Click on the map to select the area of the camp. </small>
+
+	<div id="map-canvas"></div>
+
+	<% if logged_in? && !current_user.nil?%>
+        <%= simple_form_for @camp, html: {class:'form-horizontal', multipart: true} do |f| %>
+
+            <%= render 'partials/form_errors', record: @camp %>
+
+            <%= f.input :lat, :as => :hidden, input_html: {class: "form-control", id: "street-1"} %>
+        
+            <%= f.input :long, :as => :hidden, input_html: {class: "form-control", id: "street-2"} %>
+
+            <div id="submit" class="button-wrapper">
+                <input type="submit" class="button" value="Create Camp" />
+            </div>
+        <% end %>
+
+    <% else %>
+        <p>Please <%= link_to "login", login_path %> to create a new request!</p>
+    <% end %>
+
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&libraries=places,drawing&callback=initAreaMap" async defer></script>

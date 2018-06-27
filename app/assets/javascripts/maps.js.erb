@@ -66,7 +66,8 @@ function initIndexMap() {
         map.fitBounds(bounds);
     }
 
-    
+
+
 
 }
 
@@ -125,7 +126,7 @@ function initPostMap() {
 
 }
 
- function CenterControl(controlDiv, map,marker,pos,latLng) {
+ function CenterControl(controlDiv, map,marker,pos,latLng,camp_choices) {
 
     // Set CSS for the control border.
     var controlUI = document.createElement('div');
@@ -156,6 +157,8 @@ function initPostMap() {
         marker.setPosition(latLng);
         map.setCenter(pos);
         setNewPostLocation(latLng);
+        map.setZoom(18);
+        checkCamp(map,latLng,camp_choices);
 
     });
 
@@ -167,7 +170,199 @@ function initPostFormMap() {
     var lat = 40.440624;
     var lng = -79.995888;
     var initialCoords = new google.maps.LatLng(lat, lng);
+    var camp_details = $('.camp_info').data('campDetails');
+    var polygons = [];
+    var camp_choices = [];
+    var camp_ids = [];
     setNewPostLocation(initialCoords);
+
+    // init elements
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 15,
+        clickableIcons: false,
+        center: initialCoords
+    });
+
+    var infoWindow = new google.maps.InfoWindow;
+    var campInfo = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+    
+
+    var marker = new google.maps.Marker({
+        position: initialCoords,
+        label: "",
+    });
+
+    // set props
+    marker.setMap(map);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var la = position.coords.latitude
+        var ln = position.coords.longitude
+        var pos = {
+          lat: la,
+          lng: ln
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Current Location Found.');
+        infoWindow.open(map);
+
+        var latLngCurrent = new google.maps.LatLng(la, ln);
+        marker.setPosition(latLngCurrent);
+        map.setCenter(pos);
+        map.setZoom(18);
+        setNewPostLocation(latLngCurrent);
+        theFunc();
+        checkCamp(map,latLngCurrent,camp_choices);
+
+        
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent,camp_choices);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+      }, function() {
+        // handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      // handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+
+
+    map.addListener('click', function(event) {
+        lat = event.latLng.lat();
+        lng = event.latLng.lng();
+        var latLng = new google.maps.LatLng(lat, lng);
+        marker.setPosition(latLng);
+        setNewPostLocation(latLng);
+        checkCamp(map,latLng,camp_choices)
+    });
+
+
+    function theFunc(){
+        var bounds = map.getBounds()
+         if(map.getZoom() >= 18){
+            drawPolygons(polygons,null)
+            polygons = [];
+            camp_choices = [];
+            // console.log("getins")
+            for(var i = 0; i < camp_details.length; i++) {
+
+                var camp = camp_details[i];
+
+                var lat = camp["lat"];
+                var lng = camp["lng"];
+                var coords = new google.maps.LatLng(lat, lng);
+
+                if(bounds.contains(coords)){
+                    camp_choices.push(camp)
+
+                    if (!camp_ids.includes(camp["id"])){
+                        camp_ids.push(camp["id"])
+                        var infoC = 
+                        '<div class="infoWindow">'+
+                            '<div id="content">'+
+                                '<h4>'+'camp: ' +camp["name"] + '</h4>' +
+                                '<h4>' +camp["street_1"] + '</h4>' +
+                            '</div>' +
+                        '</div>';
+
+                        var campmarker = new google.maps.Marker({
+                            position: coords,
+                            label: "",
+                            info: infoC,
+                        });
+
+                        campmarker.setMap(map);
+                        campmarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
+                        campmarker.addListener('click', function() {
+                            campInfo.setPosition(campmarker.getPosition());
+                            campInfo.setContent(campmarker.info);
+                            campInfo.open(map);
+                        });
+
+                    }
+
+
+
+
+                    if (camp["lats"]!=null){
+                        var lats = camp["lats"].split(",");
+                        var longs = camp["longs"].split(",");
+                        var edges = [];
+                        for(var k = 0; k < lats.length; k++) {
+                            var pos = {
+                              lat: parseFloat(lats[k]),
+                              lng: parseFloat(longs[k])
+                            };
+                            edges.push(pos);
+                        }
+                        var bermudaTriangle = new google.maps.Polygon({
+                          paths: edges,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 0.8,
+                          strokeWeight: 2,
+                          fillColor: '#FF0000',
+                          fillOpacity: 0.35,
+                          clickable:false
+                        });
+                        // bermudaTriangle.setMap(map);
+                        polygons.push(bermudaTriangle)
+                    }
+
+
+                }
+
+            }
+        } else{
+            drawPolygons(polygons,null)
+            polygons = [];
+            camp_choices = [];
+        }
+
+        // console.log(polygons.length)
+
+        drawPolygons(polygons,map)
+        
+    }
+
+
+    map.addListener('bounds_changed', function() {
+        theFunc();
+    });
+
+    // map.addListener('center_changed',function(){
+    //     console.log(map.getCenter())
+    //     console.log(marker.getPosition())
+    //     console.log(map.getCenter() == marker.getPosition())
+    // });
+
+    
+
+   
+
+}
+
+function drawPolygons(polygons,map){
+    for(var j = 0; j < polygons.length; j++) {
+        polygons[j].setMap(map);
+    }
+}
+
+function initCampFormMap() {
+
+    // default to Pittsburgh
+    var lat = 40.440624;
+    var lng = -79.995888;
+    var initialCoords = new google.maps.LatLng(lat, lng);
+    setNewCampLocation(initialCoords);
 
     // init elements
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -205,13 +400,13 @@ function initPostFormMap() {
         var latLngCurrent = new google.maps.LatLng(la, ln);
         marker.setPosition(latLngCurrent);
         map.setCenter(pos);
-        setNewPostLocation(latLngCurrent);
+        setNewCampLocation(latLngCurrent);
         
-        var centerControlDiv = document.createElement('div');
-        var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent);
+        // var centerControlDiv = document.createElement('div');
+        // var centerControl = new CenterControl(centerControlDiv, map,marker,pos,latLngCurrent);
 
-        centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        // centerControlDiv.index = 1;
+        // map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }, function() {
         // handleLocationError(true, infoWindow, map.getCenter());
@@ -226,21 +421,43 @@ function initPostFormMap() {
         lng = event.latLng.lng();
         var latLng = new google.maps.LatLng(lat, lng);
         marker.setPosition(latLng);
-        setNewPostLocation(latLng);
+        setNewCampLocation(latLng);
     });
-
-    
-
-   
-
 }
 
- function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
+}
+
+function checkCamp(map,latLng,camp_choices){
+    $("#camp-preview").html("No camp founded")
+    for(var i = 0; i < camp_choices.length; i++) {
+        var camp = camp_choices[i];
+        if(camp["lats"]!=null){
+            var lats = camp["lats"].split(",");
+            var longs = camp["longs"].split(",");
+            var edges = [];
+            for(var i = 0; i < lats.length; i++) {
+                var pos = {
+                  lat: parseFloat(lats[i]),
+                  lng: parseFloat(longs[i])
+                };
+                edges.push(pos);
+            }
+            var polygon = new google.maps.Polygon({paths: edges});
+            if(google.maps.geometry.poly.containsLocation(latLng,polygon)){
+                console.log(camp["id"])
+                $("input[name='post[camp_id]']").val(camp["id"]);
+                $("#camp-preview").html("This post will be recorded under the camp: "+camp["name"]);
+                console.log("here")
+                console.log($("input[name='post[camp_id]']").val())
+            }
+        } 
+    }
 }
 
 function setNewPostLocation(latLng) {
@@ -269,6 +486,7 @@ function setNewPostLocation(latLng) {
             $("input[name='post[state]']").val(state);
             $("input[name='post[zip]']").val(zip);
 
+
             // set value of label
             $("#address-preview").html(street_1);
 
@@ -278,5 +496,373 @@ function setNewPostLocation(latLng) {
             return;
         }
     });
+}
+
+function setNewCampLocation(latLng) {
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({"location": latLng}, function(results, status) {
+        if(status === "OK" && results[0] !== null) {
+            // find address from latlng and break it down into components
+            var address_components = results[0].address_components;
+            var street_1 = "", // STREET 1: street_number.long_name + " " + route.long_name
+                street_2 = "", // STREET 2: 
+                city     = "", // CITY: locality.long_name 
+                state    = "", // STATE: administrative_area_level_1.short_name 
+                zip      = ""; // ZIP: postal_code.long_name
+            for(var i = 0; i < address_components.length; i++) {
+                var types = address_components[i].types;
+                if(types.indexOf("street_number") >= 0)               street_1 =  address_components[i].long_name + " " + street_1;
+                if(types.indexOf("route") >= 0)                       street_1 += address_components[i].long_name;
+                if(types.indexOf("locality") >= 0)                    city     =  address_components[i].long_name;
+                if(types.indexOf("administrative_area_level_1") >= 0) state    =  address_components[i].short_name;
+                if(types.indexOf("postal_code") >= 0)                 zip      =  address_components[i].long_name;
+            }
+            // set values of hidden address inputs
+            $("input[name='camp[street_1]']").val(street_1);
+            $("input[name='camp[street_2]']").val(street_2);
+            $("input[name='camp[city]']").val(city);
+            $("input[name='camp[state]']").val(state);
+            $("input[name='camp[zip]']").val(zip);
+
+            // set value of label
+            $("#address-preview").html(street_1);
+
+        } else {
+            // alert user and don't do anything
+            alert("Google Maps failed to find an address for this point. Try another point.");
+            return;
+        }
+    });
+}
+
+
+ function initAreaMap() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 15,
+          clickableIcons: false 
+        });
+
+        var marker;
+        var infowindow = new google.maps.InfoWindow();
+        var lats = [];
+        var longs = [];
+
+        var camp_details = $('.camp_info').data('postDetails');
+        
+        var camp = camp_details[0];
+
+        var lat = camp["lat"];
+        var lng = camp["lng"];
+        $("#address-preview").html("Camp Address: "+camp["street_1"]);
+
+        var coords = new google.maps.LatLng(lat, lng);
+        var bermudaTriangle;
+        var markers = [];
+        map.setCenter(coords);
+
+        var infoContent = 
+        '<div class="infoWindow">'+
+            '<div id="content">'+
+                '<h4>'+ camp["name"] + '</h4>' +
+                '<h4>'+ camp["street_1"] + '</h4>' +
+            '</div>' +
+        '</div>';
+
+        marker = new google.maps.Marker({
+            position: coords,
+            label: "",
+            info: infoContent
+        });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+        marker.setMap(map);
+        infowindow.setContent(marker.info);
+        infowindow.open(map, marker);
+
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+                infowindow.setContent(marker.info);
+                infowindow.open(map, marker);
+            }
+        })(marker));
+
+
+
+        var image = {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new google.maps.Size(10, 25),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32)
+        };
+
+        map.addListener('click', function(e) {
+            var element = new google.maps.Marker({
+              position: e.latLng,
+              map: map,
+              icon: image
+            });
+
+
+            markers.push(element);
+            lats.push(e.latLng.lat());
+            longs.push(e.latLng.lng());
+            setNewCampArea(lats,longs)
+
+
+            if (bermudaTriangle!=null){
+                bermudaTriangle.setMap(null);
+            }
+            
+            if (lats.length >= 3){
+                var coords = [];
+                for(var i = 0; i < lats.length; i++) {
+                    var pos = {
+                      lat: lats[i],
+                      lng: longs[i]
+                    };
+                    coords.push(pos);
+                }
+                bermudaTriangle = new google.maps.Polygon({
+                  paths: coords,
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: '#FF0000',
+                  fillOpacity: 0.35,
+                  clickable:false
+                });
+                bermudaTriangle.setMap(map);
+            }
+        });
+
+
+        var markerControlDiv = document.createElement('div');
+
+
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to redraw the area';
+        markerControlDiv.appendChild(controlUI);
+
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '1em';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Clear and Redraw';
+        controlUI.appendChild(controlText);
+
+        controlUI.addEventListener('click', function() {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(null);
+            }
+
+            if (bermudaTriangle!=null){
+                bermudaTriangle.setMap(null);
+            }
+            lats = [];
+            longs = [];
+            markers = [];
+            setNewCampArea(lats,longs)
+        });
+
+
+
+        markerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(markerControlDiv);
+
+}
+
+function setNewCampArea(lats,longs) {
+
+    $("input[name='camp[lat]']").val(lats.toString());
+    $("input[name='camp[long]']").val(longs.toString());
+}
+
+
+function showCampMap() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 18,
+          clickableIcons: false 
+        });
+
+        var marker;
+        var infowindow = new google.maps.InfoWindow();
+
+        var camp_details = $('.map_info').data('campDetails');
+        
+        var camp = camp_details[0];
+
+        var lat = camp["lat"];
+        var lng = camp["lng"];
+
+
+
+        var coords = new google.maps.LatLng(lat, lng);
+        map.setCenter(coords);
+
+
+
+
+        var infoContent = 
+        '<div class="infoWindow">'+
+            '<div id="content">'+
+                '<h4>'+ camp["name"] + '</h4>' +
+                '<h4>'+ camp["street_1"] + '</h4>' +
+            '</div>' +
+        '</div>';
+
+        marker = new google.maps.Marker({
+            position: coords,
+            label: "",
+            info: infoContent
+        });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+        marker.setMap(map);
+        infowindow.setContent(marker.info);
+        infowindow.open(map, marker);
+
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+                infowindow.setContent(marker.info);
+                infowindow.open(map, marker);
+            }
+        })(marker));
+
+        if (camp["lats"]!=null){
+            var lats = camp["lats"].split(",");
+            var longs = camp["longs"].split(",");
+            if (lats.length >= 3){
+                var edges = [];
+                for(var i = 0; i < lats.length; i++) {
+                    var pos = {
+                      lat: parseFloat(lats[i]),
+                      lng: parseFloat(longs[i])
+                    };
+                    edges.push(pos);
+                }
+                var bermudaTriangle = new google.maps.Polygon({
+                  paths: edges,
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: '#FF0000',
+                  fillOpacity: 0.35,
+                  clickable:false
+                });
+                bermudaTriangle.setMap(map);
+            }
+        }
+
+
+
+
+}
+
+
+
+function indexCampMap() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 15,
+          clickableIcons: false 
+        });
+
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+        var camp_details = $('.map_info').data('campDetails');
+
+        if (camp_details.length == 0){
+            var lat = 40.440624;
+            var lng = -79.995888;
+            var coords = new google.maps.LatLng(lat, lng);
+            map.setCenter(coords);
+        } else{
+            for(var i = 0; i < camp_details.length; i++) {
+                var camp = camp_details[i];
+                var lat = camp["lat"];
+                var lng = camp["lng"];
+                // console.log(i);
+
+
+
+                var coords = new google.maps.LatLng(lat, lng);
+                if(i == 0) map.setCenter(coords);
+
+                var infoContent = 
+                '<div class="infoWindow">'+
+                    '<div id="content">'+
+                        '<h4>'+ camp["name"] + '</h4>' +
+                        '<h4>'+ camp["street_1"] + '</h4>' +
+                        '<a href="/camps/' + camp["id"] + '">View Camp</a>' +
+                    '</div>' +
+                '</div>';
+
+                var marker = new google.maps.Marker({
+                    position: coords,
+                    label: "",
+                    info: infoContent
+                });
+
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+                marker.setMap(map);
+                infowindow.setContent(marker.info);
+                // infowindow.open(map, marker);
+
+                bounds.extend(coords);
+
+                google.maps.event.addListener(marker, 'click', (function(marker) {
+                    return function() {
+                        infowindow.setContent(marker.info);
+                        infowindow.open(map, marker);
+                    }
+                })(marker,i));
+
+                if (camp["lats"]!=null){
+                    var lats = camp["lats"].split(",");
+                    var longs = camp["longs"].split(",");
+                    if (lats.length >= 3){
+                        var edges = [];
+                        for(var j = 0; j < lats.length; j++) {
+                            var pos = {
+                              lat: parseFloat(lats[j]),
+                              lng: parseFloat(longs[j])
+                            };
+                            edges.push(pos);
+                        }
+                        var bermudaTriangle = new google.maps.Polygon({
+                          paths: edges,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 0.8,
+                          strokeWeight: 2,
+                          fillColor: '#FF0000',
+                          fillOpacity: 0.35,
+                          clickable:false
+                        });
+                        bermudaTriangle.setMap(map);
+                    }
+                }
+
+            }
+        map.fitBounds(bounds);
+        }
+        
+       
+
+
+
 }
 

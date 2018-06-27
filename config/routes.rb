@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :sessions
   resources :org_alliances
   resources :comments
+  resources :camps
+  resources :camp_orgs
 
   # Semi-static page routes
   get 'home' => 'home#home', as: :home
@@ -39,6 +41,8 @@ Rails.application.routes.draw do
   # post 'allinaces/:id', to: 'org_alliances#create', as: :create_org_alliances
 
   patch 'posts' => 'posts#index', :as => :submit_filter
+
+  get 'camps/:id/area' => 'camps#draw_area', :as => :draw_area
 
   #Set the root url
   root :to => 'home#home'

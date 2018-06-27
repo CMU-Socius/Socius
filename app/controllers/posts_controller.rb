@@ -24,6 +24,9 @@ def show
 	@post_details = Post.get_post_details([@post])
 	@post_needs = @post.post_needs.alphabetical
 	@sharings = @post.alliances.map(&:name)
+	if !@post.camp_id.nil?
+		@camp = Camp.find(@post.camp_id)
+	end
 end
 
 def new
@@ -33,6 +36,7 @@ def new
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
 	@comments = @post.comments.build
+	@camp_details = Camp.get_camp_details(Camp.active.has_area)
 	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 end
 
@@ -65,6 +69,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
+		@camp_details = Camp.get_camp_details(Camp.active.has_area)
 		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new' and return
 	elsif @post.number_people==0 and @post.camp_status == "requests"
@@ -73,6 +78,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
+		@camp_details = Camp.get_camp_details(Camp.active.has_area)
 		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new' and return
 	end
@@ -107,6 +113,7 @@ def create
 		@post_need = @post.post_needs.build
 		@sharings = @post.sharings.build
 		@comments = @post.comments.build
+		@camp_details = Camp.get_camp_details(Camp.active.has_area)
 		@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 		render action: 'new'
 	end
@@ -200,7 +207,7 @@ private
 
 	def post_params
 
-		params.require(:post).permit(:street_1, :street_2, :latitude, :longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed,:camp_status, :needs, :alliances,comments_attributes:[:content,:user_id])
+		params.require(:post).permit(:street_1, :street_2, :latitude, :camp_id,:longitude, :zip, :city, :state, :number_people, :poster_id, :date_posted, :date_completed,:camp_status, :needs, :alliances,comments_attributes:[:content,:user_id])
 	end
 
 end
