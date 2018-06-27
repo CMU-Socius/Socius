@@ -31,7 +31,15 @@
 	}
 
 	#map-container {
-		.camp-address
+		#camp-address{
+			margin-left: 0.5em;
+			font-size:1em;
+		    display: block;
+		}
+		#sub-address{
+			font-size: 0.7em;
+			display: block;
+		}
 		#legend {
 			float: none;
 			display: block;

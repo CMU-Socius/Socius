@@ -11,9 +11,10 @@
 		<%if !@camp.street_2.empty?%>
 		<%=", #{@camp.street_2}," %>
 		<%end%>
-		&nbsp
-		<%=" #{@camp.city}, #{@camp.state} #{@camp.zip}"%>
 	</p>
+	<p id = "sub-address">
+	<%=" #{@camp.city}, #{@camp.state} #{@camp.zip}"%>
+    </p>
 	<!-- <small>Click or tap the map to select a location.</small> -->
 	<div id="map-canvas"></div>
 </div>
