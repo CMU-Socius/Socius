@@ -278,10 +278,11 @@ function initPostFormMap() {
                             position: coords,
                             label: "",
                             info: infoC,
+                            icon: image
                         });
 
                         campmarker.setMap(map);
-                        campmarker.setIcon(image);
+                        // campmarker.setIcon(image);
 
                         campmarker.addListener('click', function() {
                             campInfo.setPosition(campmarker.getPosition());
