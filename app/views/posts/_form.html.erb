@@ -31,11 +31,13 @@
             </div>
             &nbsp
 
-            <%= f.input :camp_status, collection: @status, input_html: {class: "form-control"}, wrapper_html: {class: 'form-group status'} ,include_blank: false %>
+            <%= f.input :camp_status, collection: @status, input_html: {class: "form-control",id: "status"}, wrapper_html: {class: 'form-group status'} ,include_blank: false %>
             <small><%="Specify the interaction details below in the comment box if needed."%></small>
 
             &nbsp
-            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control",value: 1},wrapper_html: {class: 'form-group status'}, :required => true %>
+            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control",value: 1,id: "number"},wrapper_html: {class: 'form-group status'}, :required => true %>
+
+            <div id = "needss">
 
             <h2 id = "needs-requested">Needs Requested</h2>
             <p><u>If this a check-in post, please do not check any needs.</u></p>
@@ -44,6 +46,7 @@
                     <%= render :partial => "form_template" %>
                 </div>
              <% end %>
+            </div>
 
 
             

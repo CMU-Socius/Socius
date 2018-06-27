@@ -31,3 +31,41 @@ $(document).on('ready', function(){
     });
 
 });
+
+
+$(document).on('ready', function(){
+  $( "#status")
+  .change(function () {
+    if ($("#status").val() == "requests"){
+    $("#needss").show()
+  } else{
+    console.log("getin")
+    $("#needss").hide()
+  }
+    
+  })
+  .change();
+
+
+  $( "#number")
+  .change(function () {
+    if ($("#status").val() == "requests"){
+      if ($("#number").val() <1){
+       $("#number").val(1)
+      }
+    } else{
+      if ($("#number").val() <0){
+       $("#number").val(0)
+      }
+    }
+    
+  })
+  .change();
+
+
+
+
+
+});
+
+
