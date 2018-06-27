@@ -105,6 +105,17 @@ def create
 	    	@post.date_completed = DateTime.current
 	    	@post.save!
 	    end
+
+	    if @post.post_needs.size != 0 and params[:complete]=="1"
+	    	PostClaim.create(post_id: @post.id,claimer_id:@post.poster_id)
+	    	@post.date_completed = DateTime.current
+	    	@post.save!
+	    	@post.post_needs.each do |pn|
+	    		pn.claim_id = current_user.id
+				pn.save!
+				pn.complete
+			end
+	    end
 		UserNotifier.send_post_notification(@post).deliver_later
 		redirect_to posts_path, notice: "Added post!"
 	else
