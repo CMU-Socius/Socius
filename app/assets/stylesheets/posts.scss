@@ -89,6 +89,29 @@
 		}
 		
 	}
+
+	.block{
+		display: block;
+		
+		font-size: 1em;
+		margin: auto auto;
+		input[type='checkbox'] {
+				width: 25px;
+	            height: 25px;
+	            &:checked {
+					&:after {
+						content: '✓';
+						font-size: 1.2em;
+					}
+			  }
+		}
+		p{
+			font-size: 0.9em;
+			text-align: left;
+			line-height: 1em;
+		}
+	}
+
 	#sharings-list{
 		margin-top: 5em;
 		width: 100%;
@@ -117,11 +140,12 @@
 					// margin-bottom: 0.8vw;
 					label {
 						margin-top: 0;
-						font-size: 1.5em;
+						font-size: 1.2em;
 						width: 30%;
 					}
 				}
 				small{
+					text-align: left;
 					.dlink{
 						color: $light-orange;
 						display: inline-block;
