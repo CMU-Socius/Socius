@@ -282,7 +282,7 @@ function initPostFormMap() {
                         });
 
                         campmarker.setMap(map);
-                        // campmarker.setIcon(image);
+                        marker.setIcon("<%= asset_path('grey-pin.png') %>")
 
                         campmarker.addListener('click', function() {
                             campInfo.setPosition(campmarker.getPosition());
