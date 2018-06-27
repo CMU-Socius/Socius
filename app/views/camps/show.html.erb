@@ -21,7 +21,7 @@
 	<%= link_to "< All Camps", camps_path %>
 </div>
 
-<div class = "camp_details">
+<div class = "topdetails camp_details">
 	<!-- <h4>Shared Organizations:&nbsp</h4> -->
 	<div class = "org_names">
 		Shared With:
@@ -57,6 +57,7 @@
 		<tr>
 				<td><a data-target="requests">Requests</a></td>
 				<td><a class="inactive" data-target="check">Check-in</a></td>
+				<td class = "mobile-only"><a class="inactive" data-target="details">Camp Details</a></td>
 		</tr>
 		</table>
 	</div>
@@ -67,6 +68,37 @@
 		<div id="check" class="post-index-table inactive">
 			<%= render partial: "partials/post_table", locals: { posts: @camp_checkin } %>
 		</div>
+		<div id="details" class="post-index-table inactive">
+			
+			<div class = "camp_details">
+				<!-- <h4>Shared Organizations:&nbsp</h4> -->
+				<div class = "org_names">
+					Shared With:
+				<%if @organizations.size != 0%>
+				   <%=@camp.all_org_names%>
+				<%else%>
+				no organization shared 
+				<%end%>
+			    </div>
+
+				<div class = "new_organization">
+					    <a class = "new_link">
+					    <i class=" material-icons md-12">keyboard_arrow_down</i>
+					    <%="Shared With New Organization"%></a> 
+
+					    <div class = "org-form">
+					       <% @camp_org = CampOrg.new %>
+						<!-- now the form template itself -->
+						  <%= simple_form_for @camp_org do |f| %>
+						        <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
+						        <%= f.input :organization_id, collection: @org_choices,  input_html: {class: "input"}, wrapper_html: {class: "wrapper"},include_blank: false %>
+						        <%= f.submit "share"%>
+						  <% end %>
+					    </div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 </div>

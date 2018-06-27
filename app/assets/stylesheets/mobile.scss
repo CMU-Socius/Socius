@@ -31,6 +31,7 @@
 	}
 
 	#map-container {
+		.camp-address
 		#legend {
 			float: none;
 			display: block;
@@ -357,6 +358,10 @@
 				font-szie: 1em;
 			}
 		}
+
+	.topdetails{
+		display: none;
+	}
 
 	
 
