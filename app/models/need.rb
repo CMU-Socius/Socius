@@ -34,8 +34,8 @@ class Need < ActiveRecord::Base
 	private
 	def reformat_name
 		name = self.name.to_s  #in case not string input
-		self.name = name.capitalize    # reset self.name to new string
-  end
+		# self.name = name.capitalize    # reset self.name to new string
+    end
 
 
 
