@@ -1,7 +1,9 @@
 class Camp < ActiveRecord::Base
 	has_many :camp_orgs
-	has_many :organizations, through: :camp_orgs
+	has_many :organizations, :through => :camp_orgs
 	has_many :posts
+
+	self.per_page = 10
 
 	STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']].freeze
     
@@ -12,6 +14,9 @@ class Camp < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
     validate :address_is_valid, on:  :create
     validate :area_is_valid
+
+    scope :active,    -> { where(active: true)}
+    scope :has_area, ->{where.not(lat: nil)}
 
 
 
@@ -30,6 +35,14 @@ class Camp < ActiveRecord::Base
     def address_is_valid
 		return true if Geocoder.coordinates(self.full_street_address)
 		self.errors.add(:city, "Address was not found.")
+	end
+
+	def all_org_ids
+		ids = Array.new()
+		self.organizations.each do |o|
+			ids.push(o.id)
+		end
+		return ids
 	end
 
 	def self.get_camp_details(camps)
@@ -51,11 +64,25 @@ class Camp < ActiveRecord::Base
 			"longs" => p.long
 		}}
 	end
+
+	def org_choices
+		choices = Array.new()
+		Organization.alphabetical.each do |o|
+			if !self.organizations.include?(o)
+				choices.push([o.name,o.id])
+			end
+		end
+		return choices
+	end
+
+	def all_org_names
+		self.organizations.map(&:name).join(", ")
+	end
 	
 
 
 	def area_is_valid
-		return true if self.lat.split(",").size == 0 and self.long.split(",").size == 0
+		return true if self.lat.nil?
 		if self.lat.split(",").size <3 or self.long.split(",").size <3
 			self.errors.add(:camp,"area is not valid.")
 			return false

@@ -1,0 +1,52 @@
+<%= content_tag :div, class: "map_info", data: {camp_details: @camp_details} do %>
+<% end %>
+
+
+<div id="map-container">
+	<h1>All Camps</h1>
+	<%=link_to "New Camp",new_camp_path, class: "new_camp"%>
+	<div id="map-canvas"></div>
+</div>
+
+
+<div class="index-table">
+	<% unless @camps.empty? %>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Address</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% @camps.each do |c| %>
+						<tr>
+							<td>
+								<p class="mobile-only table-heading">Name</p>
+								<%=c.name%>
+							</td>
+							<td>
+								<p class="mobile-only table-heading">Name</p>
+								<%= c.street_1 %><br/>
+								<% unless c.street_2.empty? %>
+									<%= c.street_2 %><br/>
+								<% end %>
+								<%= c.city %>, <%= c.state %> <%= c.zip%>
+							</td>
+							<td>
+								<%= link_to "View Details", camp_path(c)%>
+							</td>
+						</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<div class ='apple_pagination'>
+				<%=will_paginate @camps%>
+		</div>
+	<% else %>
+		<p><i>There are no camps to display now.</i></p>
+	<% end %>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs_9i8wDJ_RJrk7ZiG2zi6oNh8X-1akSU&callback=indexCampMap" async defer></script>

@@ -26,6 +26,18 @@
 		display: inline-block;
 		margin: 5px 0;
 	}
+	.new_camp{
+		text-align: center;
+		margin: 0 auto 1em auto;
+		display: block;
+		color:white;
+		font-size: 1.2em;
+		// border-bottom: 1px solid white;
+		width: 20%;
+		&:hover{
+			opacity: 0.5;
+		}
+	}
 
 }
 #map-canvas {
@@ -52,6 +64,10 @@
 	
 	#address-preview {
 		font-size: 1.5em;
+	}
+	#camp-preview {
+		font-size: 1.5em;
+		text-decoration: underline;
 	}
 	small {
 		display: block;
@@ -175,6 +191,13 @@
 	padding: 0 5%;
 	display: block;
 	#post-address {
+		h2{
+			margin-bottom: 0.5em;
+		}
+		#camp-info{
+			padding-top: 0px;
+			font-size: 1.2em;
+		}
 		#post-subaddress, small {
 			color: $light-grey;
 		}

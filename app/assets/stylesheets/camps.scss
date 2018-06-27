@@ -1,6 +1,44 @@
 // Place all the styles related to the camps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.new_c{
+	width: 30%;
+	margin: 3% 6%;
+	.new_camp{
+		color: $orange;
+		font-size: 1.5em;
+		border: 2px solid $orange;
+		border-radius: 5px;
+		padding: 0.4em;
+		&:hover{
+			opacity: 0.5
+		}
+
+  }
+}
+
+.camp_details{
+	padding: 0.3em 5%;
+	text-align: center;
+	h4{
+		text-decoration: underline;
+		color: $orange;
+		font-size: 1.2em;
+		margin: auto auto;
+	}
+
+	.org_names{
+		margin: 0.5em auto;
+		font-weight: bold;
+		font-size: 1.3em;
+	}
+
+	.new_organization{
+		margin-top: 0;
+	}
+}
+
+
 #camp-form-container,#camp-area-container {
 	a:hover  {
       border-color: inherit;

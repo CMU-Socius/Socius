@@ -1,6 +1,7 @@
 <div id="camp-form-container">
 
     <h1>Create A Camp</h1>
+    <h3>Please select the exact location of the camp.</h3>
     <p id="address-preview"></p>
     <small>Click or tap the map to select a location. </small>
 <!--     <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
@@ -26,7 +27,7 @@
             <%= f.input :name,  input_html: {class:"form-control"},wrapper_html: {class: 'form-group'}, :required => true %>
 
             <div id="submit" class="button-wrapper">
-                <input type="submit" class="button" value="Create Camp" />
+                <input type="submit" class="button" value="Next >>" />
             </div>
         <% end %>
 

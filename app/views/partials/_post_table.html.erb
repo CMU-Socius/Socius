@@ -58,6 +58,10 @@
 									<%= p.street_2 %><br/>
 								<% end %>
 								<%= p.city %>, <%= p.state %> <%= p.zip%>
+							    </br>
+								<%if !p.camp_id.nil?%>
+								(Camp: <%= Camp.find(p.camp_id).name%>)
+								<%end %>
 								<a class = "detail_link mobile-only"><i class=" material-icons">keyboard_arrow_down</i>VIEW DETAILS</a>
 							</td>
 							<td class = "detail_toggle">

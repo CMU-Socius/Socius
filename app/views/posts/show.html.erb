@@ -18,7 +18,15 @@
 				<% end %>
 				<p><%= "#{@post.city}, #{@post.state} #{@post.zip}" %></p>
 			</div>
+
+			<div id="camp-info">
+			<%if !@post.camp_id.nil? and can? :manage, @camp%>
+			Related Camp: <%=link_to Camp.find(@post.camp_id).name, Camp.find(@post.camp_id)%>
+			<%end %>
+		    </div>
+
 		</div>
+
 
 		<%if @post.cancelled?%>
 		<h4 class="alert">Note this post has been cancelled.</h4>

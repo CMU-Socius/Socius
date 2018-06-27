@@ -42,3 +42,7 @@
 // $(".posts.show").ready(function() {
 //     showCampMap();
 // });
+
+// $(".camps.index").ready(function() {
+//     indexCampMap();
+// });

@@ -173,6 +173,7 @@ function initPostFormMap() {
     var camp_details = $('.camp_info').data('campDetails');
     var polygons = [];
     var camp_choices = [];
+    var camp_ids = [];
     setNewPostLocation(initialCoords);
 
     // init elements
@@ -182,7 +183,8 @@ function initPostFormMap() {
         center: initialCoords
     });
 
-    infoWindow = new google.maps.InfoWindow;
+    var infoWindow = new google.maps.InfoWindow;
+    var campInfo = new google.maps.InfoWindow;
 
         // Try HTML5 geolocation.
     
@@ -231,6 +233,8 @@ function initPostFormMap() {
       // handleLocationError(false, infoWindow, map.getCenter());
     }
 
+
+
     map.addListener('click', function(event) {
         lat = event.latLng.lat();
         lng = event.latLng.lng();
@@ -247,6 +251,7 @@ function initPostFormMap() {
             drawPolygons(polygons,null)
             polygons = [];
             camp_choices = [];
+            // console.log("getins")
             for(var i = 0; i < camp_details.length; i++) {
 
                 var camp = camp_details[i];
@@ -254,32 +259,48 @@ function initPostFormMap() {
                 var lat = camp["lat"];
                 var lng = camp["lng"];
                 var coords = new google.maps.LatLng(lat, lng);
+
                 if(bounds.contains(coords)){
                     camp_choices.push(camp)
-                    var infoContent = 
-                    '<div class="infoWindow">'+
-                        '<div id="content">'+
-                            '<h4>'+ camp["street_1"] + '</h4>' +
-                        '</div>' +
-                    '</div>';
 
-                    campmarker = new google.maps.Marker({
-                        position: coords,
-                        label: "",
-                        info: infoContent,
-                    });
+                    if (!camp_ids.includes(camp["id"])){
+                        camp_ids.push(camp["id"])
+                        var infoC = 
+                        '<div class="infoWindow">'+
+                            '<div id="content">'+
+                                '<h4>'+'camp: ' +camp["name"] + '</h4>' +
+                                '<h4>' +camp["street_1"] + '</h4>' +
+                            '</div>' +
+                        '</div>';
 
-                    campmarker.setMap(map);
+                        var campmarker = new google.maps.Marker({
+                            position: coords,
+                            label: "",
+                            info: infoC,
+                        });
 
-                    campmarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                        campmarker.setMap(map);
+                        campmarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
+                        campmarker.addListener('click', function() {
+                            campInfo.setPosition(campmarker.getPosition());
+                            campInfo.setContent(campmarker.info);
+                            campInfo.open(map);
+                        });
+
+                    }
+
+
+
+
                     if (camp["lats"]!=null){
                         var lats = camp["lats"].split(",");
                         var longs = camp["longs"].split(",");
                         var edges = [];
-                        for(var i = 0; i < lats.length; i++) {
+                        for(var k = 0; k < lats.length; k++) {
                             var pos = {
-                              lat: parseFloat(lats[i]),
-                              lng: parseFloat(longs[i])
+                              lat: parseFloat(lats[k]),
+                              lng: parseFloat(longs[k])
                             };
                             edges.push(pos);
                         }
@@ -306,6 +327,8 @@ function initPostFormMap() {
             camp_choices = [];
         }
 
+        // console.log(polygons.length)
+
         drawPolygons(polygons,map)
         
     }
@@ -328,8 +351,8 @@ function initPostFormMap() {
 }
 
 function drawPolygons(polygons,map){
-    for(var i = 0; i < polygons.length; i++) {
-        polygons[i].setMap(map);
+    for(var j = 0; j < polygons.length; j++) {
+        polygons[j].setMap(map);
     }
 }
 
@@ -398,7 +421,7 @@ function initCampFormMap() {
         lng = event.latLng.lng();
         var latLng = new google.maps.LatLng(lat, lng);
         marker.setPosition(latLng);
-        setNewCampLocation(initialCoords);
+        setNewCampLocation(latLng);
     });
 }
 
@@ -411,6 +434,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function checkCamp(map,latLng,camp_choices){
+    $("#camp-preview").html("No camp founded")
     for(var i = 0; i < camp_choices.length; i++) {
         var camp = camp_choices[i];
         if(camp["lats"]!=null){
@@ -428,10 +452,11 @@ function checkCamp(map,latLng,camp_choices){
             if(google.maps.geometry.poly.containsLocation(latLng,polygon)){
                 console.log(camp["id"])
                 $("input[name='post[camp_id]']").val(camp["id"]);
+                $("#camp-preview").html("This post will be recorded under the camp: "+camp["name"]);
                 console.log("here")
                 console.log($("input[name='post[camp_id]']").val())
             }
-        }    
+        } 
     }
 }
 
@@ -539,6 +564,7 @@ function setNewCampLocation(latLng) {
         var infoContent = 
         '<div class="infoWindow">'+
             '<div id="content">'+
+                '<h4>'+ camp["name"] + '</h4>' +
                 '<h4>'+ camp["street_1"] + '</h4>' +
             '</div>' +
         '</div>';
@@ -668,7 +694,7 @@ function setNewCampArea(lats,longs) {
 function showCampMap() {
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 15,
+          zoom: 18,
           clickableIcons: false 
         });
 
@@ -681,8 +707,6 @@ function showCampMap() {
 
         var lat = camp["lat"];
         var lng = camp["lng"];
-        var lats = camp["lats"].split(",");
-        var longs = camp["longs"].split(",");
 
 
 
@@ -695,6 +719,7 @@ function showCampMap() {
         var infoContent = 
         '<div class="infoWindow">'+
             '<div id="content">'+
+                '<h4>'+ camp["name"] + '</h4>' +
                 '<h4>'+ camp["street_1"] + '</h4>' +
             '</div>' +
         '</div>';
@@ -716,7 +741,10 @@ function showCampMap() {
             }
         })(marker));
 
-        if (lats.length >= 3){
+        if (camp["lats"]!=null){
+            var lats = camp["lats"].split(",");
+            var longs = camp["longs"].split(",");
+            if (lats.length >= 3){
                 var edges = [];
                 for(var i = 0; i < lats.length; i++) {
                     var pos = {
@@ -735,7 +763,104 @@ function showCampMap() {
                   clickable:false
                 });
                 bermudaTriangle.setMap(map);
+            }
         }
+
+
+
+
+}
+
+
+
+function indexCampMap() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 15,
+          clickableIcons: false 
+        });
+
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+        var camp_details = $('.map_info').data('campDetails');
+
+        if (camp_details.length == 0){
+            var lat = 40.440624;
+            var lng = -79.995888;
+            var coords = new google.maps.LatLng(lat, lng);
+            map.setCenter(coords);
+        } else{
+            for(var i = 0; i < camp_details.length; i++) {
+                var camp = camp_details[i];
+                var lat = camp["lat"];
+                var lng = camp["lng"];
+                // console.log(i);
+
+
+
+                var coords = new google.maps.LatLng(lat, lng);
+                if(i == 0) map.setCenter(coords);
+
+                var infoContent = 
+                '<div class="infoWindow">'+
+                    '<div id="content">'+
+                        '<h4>'+ camp["name"] + '</h4>' +
+                        '<h4>'+ camp["street_1"] + '</h4>' +
+                        '<a href="/camps/' + camp["id"] + '">View Camp</a>' +
+                    '</div>' +
+                '</div>';
+
+                var marker = new google.maps.Marker({
+                    position: coords,
+                    label: "",
+                    info: infoContent
+                });
+
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+                marker.setMap(map);
+                infowindow.setContent(marker.info);
+                // infowindow.open(map, marker);
+
+                bounds.extend(coords);
+
+                google.maps.event.addListener(marker, 'click', (function(marker) {
+                    return function() {
+                        infowindow.setContent(marker.info);
+                        infowindow.open(map, marker);
+                    }
+                })(marker,i));
+
+                if (camp["lats"]!=null){
+                    var lats = camp["lats"].split(",");
+                    var longs = camp["longs"].split(",");
+                    if (lats.length >= 3){
+                        var edges = [];
+                        for(var j = 0; j < lats.length; j++) {
+                            var pos = {
+                              lat: parseFloat(lats[j]),
+                              lng: parseFloat(longs[j])
+                            };
+                            edges.push(pos);
+                        }
+                        var bermudaTriangle = new google.maps.Polygon({
+                          paths: edges,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 0.8,
+                          strokeWeight: 2,
+                          fillColor: '#FF0000',
+                          fillOpacity: 0.35,
+                          clickable:false
+                        });
+                        bermudaTriangle.setMap(map);
+                    }
+                }
+
+            }
+        map.fitBounds(bounds);
+        }
+        
+       
 
 
 

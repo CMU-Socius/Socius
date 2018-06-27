@@ -4,6 +4,7 @@
 
     <h1>Submit a Post</h1>
     <p id="address-preview"></p>
+    <p id="camp-preview"></p>
     <small>Click or tap the map to select a location. </small>
 <!--     <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
     <div id="map-canvas"></div>
@@ -34,7 +35,7 @@
             <small><%="Specify the interaction details below in the comment box if needed."%></small>
 
             &nbsp
-            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control",value: 0},wrapper_html: {class: 'form-group status'}, :required => true %>
+            <%= f.input :number_people, label: "Number of People", input_html: {class:"form-control",value: 1},wrapper_html: {class: 'form-group status'}, :required => true %>
 
             <h2 id = "needs-requested">Needs Requested</h2>
             <p><u>If this a check-in post, please do not check any needs.</u></p>
