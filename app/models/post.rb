@@ -210,6 +210,11 @@ class Post < ActiveRecord::Base
 		self.poster_id ? User.find(self.poster_id).proper_name : nil
 	end
 
+	def camp
+		return nil if self.camp_id.nil?
+		return Camp.find(self.camp_id).name
+	end
+
 
 	def self.filter(posted_by, claim_status,complete_status,post_type)
 		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status).filter_check(post_type)
@@ -277,8 +282,23 @@ class Post < ActiveRecord::Base
 			"date_cancelled" => p.date_cancelled,
 			"date_completed" => p.date_completed,
 			"claimer" => !p.claimers.size.zero?,
-			"checkin" => p.check_in?
+			"checkin" => p.check_in?,
+			"camp" => p.camp
 		}}
+	end
+
+
+	def self.get_camps(posts,organization_id)
+		
+		camps = []
+		# puts("first put posts")
+		# puts(posts)
+		for post in posts
+			if !post.camp_id.nil? and !camps.include?(post.camp_id)
+			   camps.push(post.camp_id)
+		    end
+		end
+		return camps.map{|c| Camp.find(c)}.select{|camp| camp.can_see(organization_id) and !camp.lat.nil?}
 	end
 
 	#Methods for analytics

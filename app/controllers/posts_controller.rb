@@ -12,6 +12,11 @@ def index
 	end
 	@posts.current_page
 	@post_details = Post.get_post_details(@posts)
+	# @camps_details = Camp.get_camp_details(@post.select{|p| !p.camp_id.nil?}.map{|c| {Camp.find(p.camp_id)}})
+	# puts("here is the output")
+	@camps = Post.get_camps(@posts,current_user.organization_id)
+
+	@camp_details = Camp.get_camp_details(@camps)
 	@default_p = params[:posted_by].nil? ? "anyone" : params[:posted_by]
 	@default_c = params[:claim_status].nil? ? "all" : params[:claim_status]
 	@default_o = params[:complete_status].nil? ? "all" : params[:complete_status]
@@ -22,6 +27,8 @@ end
 def show
 	@poster = @post.poster
 	@post_details = Post.get_post_details([@post])
+	@camps = Post.get_camps([@post],current_user.organization_id)
+	@camp_details = Camp.get_camp_details(@camps)
 	@post_needs = @post.post_needs.alphabetical
 	@sharings = @post.alliances.map(&:name)
 	if !@post.camp_id.nil?

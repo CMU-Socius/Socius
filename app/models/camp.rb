@@ -45,11 +45,18 @@ class Camp < ActiveRecord::Base
 		return ids
 	end
 
-	def self.get_camp_details(camps)
+	def can_see(organization_id)
+		self.all_org_ids.include?(organization_id)
+	end
+
+	def self.get_camp_details(camps,organization_id = nil)
 		# post_needs = posts.map { |p| p.post_needs.to_a }
 		# posters = posts.map { |p| p.poster_id ? User.find(p.poster_id) : nil }
 		# claimers = posts.map { |p| p.claimer_id ? User.find(p.claimer_id) : nil }
 		# post_details = posts.zip(post_needs, posters, claimers)
+		# if(!organization_id.nil?){
+		# 	puts(camps.select{ |c|  c.can_see(organization_id)  } )
+		# }
 		camp_details = camps.map { |p| {
 			"id" => p.id, 
 			"name" => p.name,
