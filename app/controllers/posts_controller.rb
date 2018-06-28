@@ -5,29 +5,42 @@ class PostsController < ApplicationController
 
 
 def index 
-	if current_user.role? :admin
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological.paginate(:page => params[:page])
-	elsif current_user.role? :worker
-		@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+	# puts("hahahahahah")
+	# puts(params[:view_all] == "true")
+	if params[:view_all] == "true" or params[:view_all] == true
+		@view_all = true
+		if current_user.role? :admin
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological
+		elsif current_user.role? :worker
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological
+		end
+	else
+		@view_all = false
+		if current_user.role? :admin
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological.paginate(:page => params[:page])
+		elsif current_user.role? :worker
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+		end
 	end
-	@posts.current_page
+		# @posts.current_page
 	@post_details = Post.get_post_details(@posts)
 	# @camps_details = Camp.get_camp_details(@post.select{|p| !p.camp_id.nil?}.map{|c| {Camp.find(p.camp_id)}})
 	# puts("here is the output")
-	@camps = Post.get_camps(@posts,current_user.organization_id)
+	@camps = Post.get_camps(@posts,current_user.organization_id,current_user.role?(:admin))
 
 	@camp_details = Camp.get_camp_details(@camps)
 	@default_p = params[:posted_by].nil? ? "anyone" : params[:posted_by]
 	@default_c = params[:claim_status].nil? ? "all" : params[:claim_status]
 	@default_o = params[:complete_status].nil? ? "all" : params[:complete_status]
 	@default_t = params[:post_type].nil? ? "all" : params[:post_type]
-	
+
+		
 end
 
 def show
 	@poster = @post.poster
 	@post_details = Post.get_post_details([@post])
-	@camps = Post.get_camps([@post],current_user.organization_id)
+	@camps = Post.get_camps([@post],current_user.organization_id,current_user.role?(:admin))
 	@camp_details = Camp.get_camp_details(@camps)
 	@post_needs = @post.post_needs.alphabetical
 	@sharings = @post.alliances.map(&:name)

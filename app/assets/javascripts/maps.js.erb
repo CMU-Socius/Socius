@@ -90,10 +90,10 @@ function initIndexMap() {
                     var longs = camp["longs"].split(",");
                     if (lats.length >= 3){
                         var edges = [];
-                        for(var j = 0; j < lats.length; j++) {
+                        for(var k = 0; k < lats.length; k++) {
                             var pos = {
-                              lat: parseFloat(lats[j]),
-                              lng: parseFloat(longs[j])
+                              lat: parseFloat(lats[k]),
+                              lng: parseFloat(longs[k])
                             };
                             edges.push(pos);
                             bounds.extend(pos);
@@ -250,7 +250,7 @@ function initPostMap() {
         marker.setPosition(latLng);
         map.setCenter(pos);
         setNewPostLocation(latLng);
-        map.setZoom(18);
+        map.setZoom(17);
         checkCamp(map,latLng,camp_choices);
 
     });
@@ -341,7 +341,7 @@ function initPostFormMap() {
 
     function theFunc(){
         var bounds = map.getBounds()
-         if(map.getZoom() >= 17){
+         if(map.getZoom() >= 16){
             drawPolygons(polygons,null)
             polygons = [];
             camp_choices = [];
@@ -362,7 +362,7 @@ function initPostFormMap() {
                         var infoC = 
                         '<div class="infoWindow">'+
                             '<div id="content">'+
-                                '<h4>'+'camp: ' +camp["name"] + '</h4>' +
+                                '<h4>'+'Camp: ' +camp["name"] + '</h4>' +
                                 '<h4>' +camp["street_1"] + '</h4>' +
                             '</div>' +
                         '</div>';
@@ -912,7 +912,7 @@ function indexCampMap() {
                     info: infoContent
                 });
 
-                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+                marker.setIcon("<%= asset_path('flag.png') %>");
                 marker.setMap(map);
                 infowindow.setContent(marker.info);
                 // infowindow.open(map, marker);
@@ -940,10 +940,10 @@ function indexCampMap() {
                         }
                         var bermudaTriangle = new google.maps.Polygon({
                           paths: edges,
-                          strokeColor: '#FF0000',
+                          strokeColor: '#f2a10c',
                           strokeOpacity: 0.8,
                           strokeWeight: 2,
-                          fillColor: '#FF0000',
+                          fillColor: '#f2a10c',
                           fillOpacity: 0.35,
                           clickable:false
                         });

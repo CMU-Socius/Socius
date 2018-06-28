@@ -45,7 +45,8 @@ class Camp < ActiveRecord::Base
 		return ids
 	end
 
-	def can_see(organization_id)
+	def can_see(organization_id,admin=false)
+		return true if admin
 		self.all_org_ids.include?(organization_id)
 	end
 

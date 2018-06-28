@@ -288,8 +288,8 @@ class Post < ActiveRecord::Base
 	end
 
 
-	def self.get_camps(posts,organization_id)
-		
+	def self.get_camps(posts,organization_id,admin)
+
 		camps = []
 		# puts("first put posts")
 		# puts(posts)
@@ -298,7 +298,7 @@ class Post < ActiveRecord::Base
 			   camps.push(post.camp_id)
 		    end
 		end
-		return camps.map{|c| Camp.find(c)}.select{|camp| camp.can_see(organization_id) and !camp.lat.nil?}
+		return camps.map{|c| Camp.find(c)}.select{|camp| camp.can_see(organization_id,admin) and !camp.lat.nil?}
 	end
 
 	#Methods for analytics
