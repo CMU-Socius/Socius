@@ -14,8 +14,8 @@ class Ability
         u.id == user.id
       end
 
-      can :manage, Camps do |c|
-        a.all_org_ids.include?(user.organization_id)
+      can :manage, Camp do |c|
+        c.all_org_ids.include?(user.organization_id)
       end
       
       can :read, Organization do |o|
