@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
 
 
 # Callbacks
-  # before_destroy :is_never_destroyable
+  before_destroy :is_never_destroyable
   before_save :reformat_phone
 
   before_save :downcase_email_and_username
