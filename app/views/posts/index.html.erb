@@ -1,4 +1,4 @@
-<%= content_tag :div, class: "map_info", data: {post_details: @post_details} do %>
+<%= content_tag :div, class: "map_info", data: {post_details: @post_details,camp_details:@camp_details} do %>
 <% end %>
 
 <div id="map-container">
@@ -46,13 +46,20 @@
 		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"],["not cancelled","not cancelled"]],@default_o),{:class => "filter"}) %>
 		</div>
 
+		<div class = "hide">
+		    <%= select_tag(:view_all, options_for_select( [[true,true],[false,false]],@view_all),{:class => "filter"}) %>
+		</div>
+
 		<div class = "filter_submit">
 			<%= submit_tag "Filter"%>
 		</div>
 	<% end %>
 	</div>
 </div>
+
+
 <div class = "status_inform">
+	    <div class = "status">
 	    <%if @user.nil?%>
 		<!-- manage request page -->
 		   <%if current_user.role?(:admin)%>
@@ -70,7 +77,18 @@
 			<%end%>
 
 		<%end%>
+	    </div>
+		<%if @view_all !=true %>
+		<%= link_to 'Click to view all posts in one page', posts_path(view_all: true)%>
+		<%else%>
+		<%= link_to 'Click to paginate the posts', posts_path(view_all: false)%>
+		<%end%>
 </div>
+
+<div class = "view_all_button">
+		
+</div>
+
 
 <div class="post-index-table index-table">
 	<%= render :partial => "partials/post_table", locals: {posts: @posts} %>

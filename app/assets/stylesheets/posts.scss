@@ -439,6 +439,10 @@
 				}
 			}
 
+			.hide{
+				display: none; 
+			}
+
 
 			input[type="submit"], button{
 				color: $orange;
@@ -461,11 +465,23 @@
 		width: 80%;
 		margin: auto auto;
 		.status{
-			margin: 0em 1em;
+			margin-right: 1em;
 			display: inline-block;
-			font-szie: 1em;
+			
+
 		}
+		a {
+			display: inline-block;
+			color: $orange;
+			font-size:1em;
+			border-bottom: 1px solid $orange !important;
+			&:hover{
+				opacity:0.5;
+			}
+	    }
 }
+
+
 
 
 

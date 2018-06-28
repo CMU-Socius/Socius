@@ -160,9 +160,11 @@
 				<% end %>
 			</tbody>
 		</table>
-		<div class ='apple_pagination'>
-				<%=will_paginate posts%>
-		</div>
+		<%unless @view_all == true%>
+			<div class ='apple_pagination'>
+					<%=will_paginate posts%>
+			</div>
+		<%end%>
 	<% else %>
 		<p><i>There are no posts to display now.</i></p>
 	<% end %>
