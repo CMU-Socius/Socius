@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 	belongs_to :organization
   has_many :posts, foreign_key: :poster_id
   has_many :comments
+  has_many :post_claims, foreign_key: :claimer_id
+
 
 	#Scopes
 	scope :alphabetical,  -> { order(:last_name).order(:first_name) }
@@ -72,10 +74,26 @@ class User < ActiveRecord::Base
 
 
 # Callbacks
-  before_destroy :is_never_destroyable
+
+  before_destroy do 
+      check_if_has_posts
+      puts(errors)
+      if errors.present?
+        throw(:abort)
+      end
+  end
+
+  # before_destroy :is_never_destroyable
   before_save :reformat_phone
 
   before_save :downcase_email_and_username
+
+  def check_if_has_posts
+    if !self.posts.size.zero? or !self.post_claims.size.zero?
+      # puts("here is the errors")
+      errors.add(:base, "This user cannot be deleted because he/she has posts/claims.")
+    end
+  end
   
   private
   def reformat_phone
@@ -96,5 +114,11 @@ class User < ActiveRecord::Base
     end
     true
   end
+
+  # def check_if_has_posts
+  #   if !self.posts.nil? or !self.post_claims.nil?
+  #     errors.add(:base, "This user cannot be deleted because he/she has posts/claims.")
+  #   end
+  # end
 
 end
