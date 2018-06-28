@@ -368,6 +368,12 @@
 				line-height: 150%;
 				display: block;
 				font-szie: 1em;
+				margin-right: 0;
+			}
+			a{
+				display: block;
+				font-size: 0.9em;
+				font-weight: bold;
 			}
 		}
 
@@ -379,6 +385,8 @@
 	#error_explanation {
 		width: 80%;
 	}
+
+
 
 	
 

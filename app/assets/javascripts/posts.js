@@ -25,12 +25,23 @@ $(document).on('ready', function(){
 
 });
 
+
+
 $(document).on('ready', function(){
   $(".hide_link").click(function(){
         $(this).siblings('.comments').toggle();
     });
 
 });
+
+
+// $(document).on('ready', function(){
+//   $("#viewall").click(function(){
+//         $(this).hide();
+//         $(this).siblings('.comment_form').toggle();
+//     });
+
+// });
 
 
 $(document).on('ready', function(){
