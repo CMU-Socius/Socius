@@ -100,10 +100,10 @@ function initIndexMap() {
                         }
                         var bermudaTriangle = new google.maps.Polygon({
                           paths: edges,
-                          strokeColor: '#FF0000',
+                          strokeColor: '#f2a10c',
                           strokeOpacity: 0.8,
                           strokeWeight: 2,
-                          fillColor: '#FF0000',
+                          fillColor: '#f2a10c',
                           fillOpacity: 0.35,
                           clickable:false
                         });
@@ -204,10 +204,10 @@ function initPostMap() {
             }
             var bermudaTriangle = new google.maps.Polygon({
               paths: edges,
-              strokeColor: '#FF0000',
+              strokeColor: '#f2a10c',
               strokeOpacity: 0.8,
               strokeWeight: 2,
-              fillColor: '#FF0000',
+              fillColor: '#f2a10c',
               fillOpacity: 0.35,
               clickable:false
             });
@@ -375,7 +375,7 @@ function initPostFormMap() {
                         });
 
                         campmarker.setMap(map);
-                        campmarker.setIcon("<%= asset_path('blue-dot.png') %>")
+                        campmarker.setIcon("<%= asset_path('flag.png') %>")
 
                         campmarker.addListener('click', function() {
                             campInfo.setPosition(campmarker.getPosition());
@@ -401,10 +401,10 @@ function initPostFormMap() {
                         }
                         var bermudaTriangle = new google.maps.Polygon({
                           paths: edges,
-                          strokeColor: '#FF0000',
+                          strokeColor: '#f2a10c',
                           strokeOpacity: 0.8,
                           strokeWeight: 2,
-                          fillColor: '#FF0000',
+                          fillColor: '#f2a10c',
                           fillOpacity: 0.35,
                           clickable:false
                         });
@@ -722,10 +722,10 @@ function setNewCampLocation(latLng) {
                 }
                 bermudaTriangle = new google.maps.Polygon({
                   paths: coords,
-                  strokeColor: '#FF0000',
+                  strokeColor: '#f2a10c',
                   strokeOpacity: 0.8,
                   strokeWeight: 2,
-                  fillColor: '#FF0000',
+                  fillColor: '#f2a10c',
                   fillOpacity: 0.35,
                   clickable:false
                 });
@@ -824,7 +824,7 @@ function showCampMap() {
             label: "",
             info: infoContent
         });
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+        marker.setIcon("<%= asset_path('flag.png') %>");
         marker.setMap(map);
         infowindow.setContent(marker.info);
         infowindow.open(map, marker);
@@ -850,10 +850,10 @@ function showCampMap() {
                 }
                 var bermudaTriangle = new google.maps.Polygon({
                   paths: edges,
-                  strokeColor: '#FF0000',
+                  strokeColor: '#f2a10c',
                   strokeOpacity: 0.8,
                   strokeWeight: 2,
-                  fillColor: '#FF0000',
+                  fillColor: '#f2a10c',
                   fillOpacity: 0.35,
                   clickable:false
                 });
