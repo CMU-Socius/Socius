@@ -246,7 +246,7 @@ class Post < ActiveRecord::Base
 		end
 
 
-		result+="Time Period: "+num+" "+date
+		result+="Time Period: "+num.to_s+" "+date
 		return result
 
 
