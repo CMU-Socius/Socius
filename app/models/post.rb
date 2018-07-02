@@ -40,6 +40,7 @@ class Post < ActiveRecord::Base
 	scope :unclaimed, -> { joins("left join post_claims on posts.id=post_claims.post_id").where("post_claims.claimer_id is null") }
     scope :checkin, -> {joins("left join post_needs on posts.id = post_needs.post_id").where("post_needs.need_id is null")}
     scope :not_checkin, ->{joins("left join post_needs on posts.id = post_needs.post_id").where.not("post_needs.need_id is null")}
+    scope :before_date, ->(date){where("date_posted > ? ", date)}
 
 
 	# Validations
@@ -216,8 +217,18 @@ class Post < ActiveRecord::Base
 	end
 
 
-	def self.filter(posted_by, claim_status,complete_status,post_type)
-		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status).filter_check(post_type)
+	def self.filter(posted_by, claim_status,complete_status,post_type,num,date)
+		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status).filter_check(post_type).filter_date(num,date)
+	end
+	def self.filter_date(num,date)
+		num = num.to_i
+		if date == "day"
+			Post.before_date(num.day.ago)
+		elsif date == "month"
+			Post.before_date(num.month.ago)
+		else
+			Post.before_date(num.year.ago)
+		end
 	end
 
 	def self.filter_posted(p)
