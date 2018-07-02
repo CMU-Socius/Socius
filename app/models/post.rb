@@ -216,6 +216,42 @@ class Post < ActiveRecord::Base
 		return Camp.find(self.camp_id).name
 	end
 
+	def self.filter_states(p, c,co,pt,num,date)
+		result = ""
+		if p.to_i !=0
+			result+="Posted By: Myself	"
+		elsif !p.nil? and p[0..2] == "org"
+			result+="Posted By: My Organization	"
+		end
+
+		if c.to_i !=0
+			result+="Claime Status: Myself	"
+		elsif c == "unclaimed"
+			result+="Claime Status: Unclaimed	"
+		end
+
+		if co == "incomplete"
+			result+="Complete Status: Incomplete	"
+		elsif co == "completed"
+			result+="Complete Status: Completed	"
+		elsif co == "not cancelled"
+			result+="Complete Status: Not Cancelled	"
+		end
+
+
+		if pt == "check in"
+			result+="Post Type: Check-in;	"
+		elsif pt == "requests"
+			result+="Post Type: Requests;	"
+		end
+
+
+		result+="Time Period: "+num+" "+date
+		return result
+
+
+	end
+
 
 	def self.filter(posted_by, claim_status,complete_status,post_type,num,date)
 		Post.filter_posted(posted_by).filter_claim(claim_status).filter_complete(complete_status).filter_check(post_type).filter_date(num,date)

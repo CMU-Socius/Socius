@@ -5,7 +5,6 @@ class PostsController < ApplicationController
 
 
 def index 
-
 	if params[:number].nil? or params[:date].nil?
 		#default to 1 month limit
 		params[:number] = 1
@@ -39,6 +38,8 @@ def index
 	@default_t = params[:post_type].nil? ? "all" : params[:post_type]
 	@default_num = params[:number]
 	@default_date = params[:date]
+
+	@filter_states = Post.filter_states(@default_p,@default_c,@default_o,@default_t,@default_num,@default_date)
 
 
 		

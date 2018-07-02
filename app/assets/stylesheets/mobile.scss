@@ -324,9 +324,18 @@
 					}
 				}
 
+				.time{
+					label{
+						display: block;
+						width: 100%;
+					}
+				}
+
 
 				.filter_submit{
 					display: block;
+					margin-left: 0px;
+					width: 100%;
 					input[type="submit"], button{
 						color: $orange;
 						font-size: 1em;
@@ -373,37 +382,17 @@
 			width: 98%;
 			border: 2px solid $lighter-orange;
 			border-radius:5px;
-			padding:2%;
+			padding:4%;
 			
 			.linka{
 				display: block;
-				margin-bottom: 0.6em;
+				margin-bottom:0.6em;
+				text-align:center;
+			}
+			.filter_status{
+				display: block;
 			}
 
-		    form {
-		    	display: block;
-		    	width: 100%;
-		    	// margin: auto auto;
-		    	.filter_element{
-					.filter{
-						background: $light-orange;
-						color: black;
-						width:30%;
-						display: inline-block !important;
-					}
-					.number{
-						width:15%;
-						background: $light-orange;
-						color: black;
-						display: inline-block !important;
-					}
-					.submit{
-						display: inline-block;
-						width: auto;
-						margin: auto auto !important;
-					}
-			    }
-		    }
 		}
 
 	.topdetails{
