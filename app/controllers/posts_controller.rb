@@ -40,6 +40,7 @@ def index
 	@default_num = params[:number]
 	@default_date = params[:date]
 
+
 		
 end
 

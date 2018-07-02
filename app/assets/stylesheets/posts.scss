@@ -465,8 +465,6 @@
 				}
 			}
 
-		
-			
 
 
 			.hide{
@@ -537,7 +535,17 @@
 				margin: auto 10px auto auto !important;
 				font-weight: bold;
 			}
+
 		}
+		a {
+			display: inline-block;
+			color: $orange;
+			font-size:1em;
+			border-bottom: 1px solid $orange !important;
+			&:hover{
+				opacity:0.5;
+			}
+	    }
 }
 
 
