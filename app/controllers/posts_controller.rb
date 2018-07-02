@@ -5,21 +5,25 @@ class PostsController < ApplicationController
 
 
 def index 
-	# puts("hahahahahah")
-	# puts(params[:view_all] == "true")
+
+	if params[:number].nil? or params[:date].nil?
+		#default to 1 month limit
+		params[:number] = 1
+		params[:date] = "month"
+	end
 	if params[:view_all] == "true" or params[:view_all] == true
 		@view_all = true
 		if current_user.role? :admin
-			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type],params[:number],params[:date]).chronological
 		elsif current_user.role? :worker
-			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type],params[:number],params[:date]).for_sharings(current_user.organization).chronological
 		end
 	else
 		@view_all = false
 		if current_user.role? :admin
-			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).chronological.paginate(:page => params[:page])
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type],params[:number],params[:date]).chronological.paginate(:page => params[:page])
 		elsif current_user.role? :worker
-			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
+			@posts = Post.filter(params[:posted_by],params[:claim_status],params[:complete_status],params[:post_type],params[:number],params[:date]).for_sharings(current_user.organization).chronological.paginate(:page => params[:page])
 		end
 	end
 		# @posts.current_page
@@ -33,6 +37,8 @@ def index
 	@default_c = params[:claim_status].nil? ? "all" : params[:claim_status]
 	@default_o = params[:complete_status].nil? ? "all" : params[:complete_status]
 	@default_t = params[:post_type].nil? ? "all" : params[:post_type]
+	@default_num = params[:number]
+	@default_date = params[:date]
 
 		
 end

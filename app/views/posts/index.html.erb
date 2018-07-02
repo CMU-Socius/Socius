@@ -2,8 +2,26 @@
 <% end %>
 
 <div id="map-container">
-	<h1>Manage Posts</h1>
-	<small>Click or tap the map to select a location.</small>
+	<h1 id = "manage">Manage Posts</h1>
+	 <div class = "statusinfo">
+	    <%if @user.nil?%>
+		<!-- manage request page -->
+		   <%if current_user.role?(:admin)%>
+			<p>* You have access to all the posts. </p>
+			<%else %>
+			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
+			<%end%>
+
+		<%else%>
+		<!-- user show page -->
+			<%if current_user.role?(:admin) and current_user.id == @user.id %>
+			<p>You have access to all the posts. </p>
+			<%elsif current_user.id == @user.id%>
+			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
+			<%end%>
+
+		<%end%>
+	  </div>
 	<div id="legend">
 		<div class="key">
 			<%= image_tag "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" %> = Check-in Post
@@ -25,7 +43,7 @@
 </div>
 
 
-<a class = "filterlink"><i class=" material-icons md-12">keyboard_arrow_down</i>Filter Bar</a>
+<a class = "filterlink"><i class=" material-icons md-12">keyboard_arrow_down</i>More Filters</a>
 <div class = "filtertable">
 	<div class = "filter_form">
 	<%= form_tag(submit_filter_path, method: 'get') do %>
@@ -46,9 +64,14 @@
 		    <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"],["not cancelled","not cancelled"]],@default_o),{:class => "filter"}) %>
 		</div>
 
+
 		<div class = "hide">
 		    <%= select_tag(:view_all, options_for_select( [[true,true],[false,false]],@view_all),{:class => "filter"}) %>
+		    <%= number_field_tag 'number', @default_num,  min: 1, class: 'number'%>
+				
+			<%= select_tag(:date, options_for_select( [["day","day"],["week","week"],["month","month"]], @default_date),{:class => "filter"}) %>
 		</div>
+
 
 		<div class = "filter_submit">
 			<%= submit_tag "Filter"%>
@@ -58,39 +81,43 @@
 </div>
 
 
-<div class = "status_inform">
-	    <div class = "status">
-	    <%if @user.nil?%>
-		<!-- manage request page -->
-		   <%if current_user.role?(:admin)%>
-			<p>* You have access to all the posts. </p>
-			<%else %>
-			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
-			<%end%>
 
-		<%else%>
-		<!-- user show page -->
-			<%if current_user.role?(:admin) and current_user.id == @user.id %>
-			<p>You have access to all the posts. </p>
-			<%elsif current_user.id == @user.id%>
-			<p><%="* You have access to all the requests shared with #{current_user.organization.name}"%></p>
-			<%end%>
 
-		<%end%>
-	    </div>
-		<%if @view_all !=true %>
-		<%= link_to 'Click to view all posts in one page', posts_path(view_all: true)%>
-		<%else%>
-		<%= link_to 'Click to paginate the posts', posts_path(view_all: false)%>
-		<%end%>
-</div>
-
-<div class = "view_all_button">
-		
-</div>
 
 
 <div class="post-index-table index-table">
+
+
+
+<div class = "status_inform">
+    <div class = "linka">
+	<%if @view_all !=true %>
+		<%= link_to 'Click to view all posts in one page', posts_path(view_all: true, number: @default_num, date:@default_date, post_type:@default_t,posted_by: @default_p,claim_status:@default_c,complete_status: @default_o)%>
+		<%else%>
+		<%= link_to 'Click to paginate the posts', posts_path(view_all: false,number: @default_num,date:@default_date, post_type:@default_t,posted_by: @default_p,claim_status:@default_c,complete_status: @default_o)%>
+	<%end%>
+    </div>
+	<%= form_tag(submit_filter_path, method: 'get') do %>
+		    <div class = "filter_element">
+		    	Time : 
+                <%= number_field_tag 'number', @default_num,  min: 1, class: 'number'%>
+				
+			    <%= select_tag(:date, options_for_select( [["day","day"],["week","week"],["month","month"]], @default_date),{:class => "filter"}) %>
+			     <div class = "hide">
+			    <%= select_tag(:post_type, options_for_select( [["all","all"],["check in","check in"],["requests","requests"]],@default_t),{:class => "filter"}) %>
+			     <%= select_tag(:posted_by, options_for_select( [["anyone","anyone"],["myself",current_user.id],["posted by my organization","org#{current_user.organization.id}"]], @default_p),{:class => "filter"}) %>
+			     <%= select_tag(:claim_status, options_for_select( [["all","all"],["unclaimed","unclaimed"],["claimed by me",current_user.id]], @default_c),{:class => "filter"}) %>
+			     <%= select_tag(:complete_status, options_for_select( [["all","all"],["incomplete","incomplete"],["complete","completed"],["not cancelled","not cancelled"]],@default_o),{:class => "filter"}) %>
+			     </div>
+
+
+			    <%= submit_tag "Apply",class: 'submit'%>
+			</div>
+	<% end %>
+
+
+
+</div>
 	<%= render :partial => "partials/post_table", locals: {posts: @posts} %>
 </div>
 

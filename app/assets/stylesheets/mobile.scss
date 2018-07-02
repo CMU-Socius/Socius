@@ -48,6 +48,12 @@
 				display: block;
 			}
 		}
+		.statusinfo{
+			margin: auto auto;
+			text-align:center;
+			font-size: 0.9em;
+			ling-height:100%;
+		}
 	}
 
 
@@ -285,7 +291,7 @@
 		width: 50%;
 		display: block;
 		text-align: center;
-		margin: auto auto;
+		margin: auto auto 0.5em auto;
 		margin-top: 3vw;
 		color: $orange;
 		font-weight: bold;
@@ -299,7 +305,7 @@
 	.filtertable{
 		display: none;
 		background: $lighter-orange;
-		padding-bottom: 20px;
+		padding-bottom: 0px;
 		.filter_form{
 			width: 100%;
 			margin:auto;
@@ -319,13 +325,16 @@
 				}
 
 
-				input[type="submit"], button{
-					color: $orange;
-					font-size: 0.8em;
+				.filter_submit{
 					display: block;
-					width: 40%;
-					border: 2px solid $orange;
-					margin: auto auto auto auto !important;
+					input[type="submit"], button{
+						color: $orange;
+						font-size: 1em;
+						item-align:right;
+						border: 2px solid $orange;
+						border-bottom: 2px solid $orange !important;
+						font-weight: bold;
+					}
 				}
 			}
 			
@@ -358,23 +367,43 @@
 		
 	}
 
+	
+
 	.status_inform{
-		    border: 2px solid $light-orange;
-			width: 90%;
-			margin: auto auto;
-			text-align: center;
-			padding: 0.5em;
-			.status{
-				line-height: 150%;
+			width: 98%;
+			border: 2px solid $lighter-orange;
+			border-radius:5px;
+			padding:2%;
+			
+			.linka{
 				display: block;
-				font-szie: 1em;
-				margin-right: 0;
+				margin-bottom: 0.6em;
 			}
-			a{
-				display: block;
-				font-size: 0.9em;
-				font-weight: bold;
-			}
+
+		    form {
+		    	display: block;
+		    	width: 100%;
+		    	// margin: auto auto;
+		    	.filter_element{
+					.filter{
+						background: $light-orange;
+						color: black;
+						width:30%;
+						display: inline-block !important;
+					}
+					.number{
+						width:15%;
+						background: $light-orange;
+						color: black;
+						display: inline-block !important;
+					}
+					.submit{
+						display: inline-block;
+						width: auto;
+						margin: auto auto !important;
+					}
+			    }
+		    }
 		}
 
 	.topdetails{
