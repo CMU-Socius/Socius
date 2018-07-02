@@ -443,8 +443,8 @@
 	        padding-bottom:1em;
 			.filter_element{
 				font-size: 0.8em;
-				width: 20%;
-				padding: 2%;
+				width: 18%;
+				padding: 2% 2% 0px 2%;
 				// background: black;
 				display: inline-block !important;
 				.filter{
@@ -452,14 +452,42 @@
 					color: black;
 				}
 			}
-			.filter_submit{
-				display: inline-block;
-				// width: 12%;
-				input[type="submit"], button{
+
+			.time{
+				font-size: 0.8em;
+				display:inline-block;
+				.filter{
+					background: $light-orange;
+					color: black;
+					width:50%;
+					display: inline-block !important;
+				}
+				.number{
+					width:37%;
+					background: $light-orange;
+					color: black;
+					display: inline-block !important;
+				}
+			}
+			input[type="submit"], button{
 					color: $orange;
 					font-size: 1em;
 					item-align:right;
 					border: 2px solid $orange;
+					margin-top: 0px;
+					border-bottom: 2px solid $orange !important;
+					font-weight: bold;
+				}
+			.filter_submit{
+				display: block;
+				margin-left: 80%;
+				input[type="submit"], button{
+					color: $orange;
+					font-size: 1em;
+					width: 80%;
+					item-align:right;
+					border: 2px solid $orange;
+
 					border-bottom: 2px solid $orange !important;
 					font-weight: bold;
 				}
@@ -487,6 +515,7 @@
 		.linka{
 			display: inline-block;
 			a {
+			text-align:center;
 			color: $orange;
 			font-size:1em;
 			border-bottom: 1px solid $orange !important;
@@ -496,56 +525,13 @@
 	       }
 		}
 
-	    form {
-	    	display: inline-block;
-	    	// width: %;
-			.filter_element{
-				font-size: 0.8em;
-				padding: 2%;
-				display:inline-block;
-				.filter{
-					background: $light-orange;
-					color: black;
-					width:40%;
-					display: inline-block !important;
-				}
-				.number{
-					width:20%;
-					background: $light-orange;
-					color: black;
-					display: inline-block !important;
-				}
-				.submit{
-					width: 20%;
-					display: inline-block;
-				}
-			}
-
-			.hide{
-				display: none; 
-			}
-
-
-			input[type="submit"], button{
-				color: $orange;
-				font-size: 1em;
-				display: block;
-				width: 10%;
-				text-decoration: underline;
-				margin: auto 10px auto auto !important;
-				font-weight: bold;
-			}
-
+		.filter_status{
+			display: none;
+			color: $mid-grey;
+			margin-bottom:1em;
 		}
-		a {
-			display: inline-block;
-			color: $orange;
-			font-size:1em;
-			border-bottom: 1px solid $orange !important;
-			&:hover{
-				opacity:0.5;
-			}
-	    }
+
+
 }
 
 
