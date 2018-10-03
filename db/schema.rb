@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(version: 20180627142919) do
     t.string   "state"
     t.datetime "date_posted"
     t.datetime "date_completed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.date     "date_cancelled"
-    t.string   "camp_status"
+    t.string   "camp_status",    default: "requests"
     t.integer  "camp_id"
   end
 

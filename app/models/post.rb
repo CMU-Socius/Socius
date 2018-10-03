@@ -52,7 +52,7 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
     validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
     validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
-    validate :address_is_valid, on:  :create
+    # validate :address_is_valid, on:  :create
     # validate :requests_selected
 
 	#Callbacks
@@ -408,6 +408,24 @@ class Post < ActiveRecord::Base
     def address_is_valid
 		return true if Geocoder.coordinates(self.full_street_address)
 		self.errors.add(:city, "Address was not found.")
+	end
+
+	def notify_emails
+		orgs = [Organization.find(self.poster.organization_id)]
+		self.sharings.each do |s|
+			if s.alliance.organizations.size!=0
+				s.alliance.organizations.each do |o|
+					orgs.push(o)
+				end
+			end
+		end
+		emails = []
+		orgs.each do |og|
+			if og.users.size!=0 and og.users.can_notify.size!=0
+			emails.push(og.users.can_notify.collect(&:email))
+		    end
+		end
+		return emails.uniq.join(',')
 	end
 
 	# def requests_selected

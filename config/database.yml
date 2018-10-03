@@ -32,7 +32,7 @@ default: &default
 
 development:
   <<: *default
-  database: SociusWebHomeless_development
+  database: socius
 
 
 

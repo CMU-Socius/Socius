@@ -5,10 +5,9 @@ class UserNotifier < ApplicationMailer
   # send a notification that a post has been created
   def send_post_notification(post)
     @post = post
-    @poster = post.poster
-    @post_needs = @post.post_needs.alphabetical
-    org = Organization.find(@poster.organization_id)
-    recipients = org.users.can_notify.collect(&:email).join(',')
+    recipients = @post.notify_emails
+    puts("Here is the recipients")
+    puts(recipients)
     if recipients != ""
     mail(:to => recipients, :subject => 'New Request at ' + post.street_1)
     end
