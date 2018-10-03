@@ -9,9 +9,9 @@
 Organization.create(name: "Carnegie Mellon University", active: true)
 User.create(username: "minkyung", first_name: "Minkyung", last_name: "Lee", email: "test@test.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Researcher")
 User.create(username: "xinrany", first_name: "Xinran", last_name: "Yuan", email: "yuanxinran@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "admin", organization_id: 1, active: true, job_title: "Student")
-User.create(username: "test1", first_name: "Test1", last_name: "Yuan", email: "yuanxinran@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 2, active: true, job_title: "Student")
-User.create(username: "test2", first_name: "Test2", last_name: "Yuan", email: "yuanxinran11@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 2, active: true, job_title: "Student")
-User.create(username: "test3", first_name: "Test3", last_name: "Yuan", email: "yuanxinran22@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 3, active: true, job_title: "Student")
+# User.create(username: "test1", first_name: "Test1", last_name: "Yuan", email: "yuanxinran@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 2, active: true, job_title: "Student")
+# User.create(username: "test2", first_name: "Test2", last_name: "Yuan", email: "yuanxinran11@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 2, active: true, job_title: "Student")
+# User.create(username: "test3", first_name: "Test3", last_name: "Yuan", email: "yuanxinran22@live.com", phone: "1111111111", password: "secret", password_confirmation: "secret", role: "worker", organization_id: 3, active: true, job_title: "Student")
 
 needs_list = [
 	["food", "coffee"],

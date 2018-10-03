@@ -52,7 +52,7 @@ class Post < ActiveRecord::Base
 	validates_inclusion_of :state, in: STATES_LIST.to_h.values, message: "is not an option"
     validates_datetime :date_posted, on_or_before: lambda { DateTime.current }, allow_blank: true
     validates_datetime :date_completed, on_or_after: :date_posted, allow_blank: true
-    # validate :address_is_valid, on:  :create
+    validate :address_is_valid, on:  :create
     # validate :requests_selected
 
 	#Callbacks
