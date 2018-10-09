@@ -64,7 +64,7 @@ def new
 	@post_need = @post.post_needs.build
 	@sharings = @post.sharings.build
 	@comments = @post.comments.build
-	@camp_details = Camp.get_camp_details(Camp.active.has_area)
+	@camp_details = Camp.get_camp_details(Camp.active.has_area.all_belong_to(current_user.organization_id))
 	@status = [['Requests posted below', 'requests'],['Camp is abandoned', 'abandoned'],['Occupied but no one is home', 'noone'],['Individuals met but no requests', 'met'], ['Other (Please specify in the comment box)', 'other']]
 end
 

@@ -17,6 +17,7 @@
 					<td>Name</td>
 					<td>Address</td>
 					<td>Action</td>
+					<td>Delete</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,6 +37,9 @@
 							</td>
 							<td>
 								<%= link_to "View Details", camp_path(c)%>
+							</td>
+							<td>
+								 <%= link_to 'delete', camp_path(c), method: 'delete', data: {confirm: "Are you sure you want to delete this camp?"}, class:"del"%>
 							</td>
 						</tr>
 				<% end %>

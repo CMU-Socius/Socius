@@ -45,6 +45,16 @@ class Camp < ActiveRecord::Base
 		return ids
 	end
 
+	def self.all_belong_to(org_id)
+		result = []
+		Camp.all.each do |c|
+			if c.all_org_ids.include?(org_id)
+				result.push(c)
+			end
+		end
+		return result
+	end
+
 	def can_see(organization_id,admin=false)
 		return true if admin
 		self.all_org_ids.include?(organization_id)

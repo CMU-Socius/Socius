@@ -1,5 +1,5 @@
 class CampsController < ApplicationController
-	before_action :set_camp, only: [:draw_area,:update,:show]
+	before_action :set_camp, only: [:draw_area,:update,:show,:destroy]
 	before_action :check_login
 	authorize_resource
 
@@ -49,6 +49,11 @@ class CampsController < ApplicationController
 		@camp_checkin = @camp.posts.checkin.chronological.paginate(:page => params[:page])
 		@organizations = @camp.organizations
 		@org_choices = @camp.org_choices
+	end
+
+	def destroy
+		@camp.destroy
+		redirect_to camps_path, notice: "This camp is deleted."
 	end
 
 

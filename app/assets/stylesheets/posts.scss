@@ -95,11 +95,18 @@
 	form {
 		width: 95%;
 		margin: 0 auto;
+		.form-control{
+			background-color: $orange;
+		}
 		small{
 			text-align:center;
 		}
 		
 	}
+	// .form-horizontal{
+	// 	background-color: white;
+	// 	color: black.;
+	// }
 
 	.block{
 		display: block;
