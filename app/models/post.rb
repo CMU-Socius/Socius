@@ -63,7 +63,7 @@ class Post < ActiveRecord::Base
 
 
 	before_destroy do 
-	    # check_if_anyneed_is_completed
+	    check_if_anyneed_is_completed
 	    if errors.present?
 	      throw(:abort)
 	    else

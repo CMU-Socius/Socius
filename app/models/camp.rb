@@ -24,6 +24,11 @@ class Camp < ActiveRecord::Base
 	after_validation :geocode
 
 
+	before_destroy do 
+	    self.posts.each{|p| p.camp_id = nil}
+	end
+
+
     def full_street_address
 		if self.street_2.nil?
 			"#{self.street_1}, #{self.city}, #{self.state} #{self.zip}"
