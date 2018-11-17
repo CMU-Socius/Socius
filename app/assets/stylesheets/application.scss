@@ -124,7 +124,7 @@ input:not([type="checkbox"]):not([type="submit"]), textarea, select {
   height: 30px;
   line-height: 30px !important;
   width: 100%;
-  background: transparent;
+  // background-color: white !important;
   border: none;
   border-radius: 0;
   border-bottom: 2px solid white;
@@ -145,6 +145,9 @@ input:not([type="checkbox"]):not([type="submit"]), textarea, select {
 
 select {
 	padding: 0 1em;
+	&:focus{
+		color:black;
+	}
 }
 
 
