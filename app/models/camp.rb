@@ -25,7 +25,10 @@ class Camp < ActiveRecord::Base
 
 
 	before_destroy do 
-	    self.posts.each{|p| p.camp_id = nil}
+	    self.posts.each do |p|
+	    	p.camp_id = nil
+	    	p.save!
+	    end
 	end
 
 
